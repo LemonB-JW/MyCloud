@@ -19,8 +19,17 @@
 #include <unordered_set>
 #include <map> 
 #include <arpa/inet.h>
+
+// This macros will check the verbose status. It makes sure only outputting log
+// when it is turned on
+#define debug(a...) do { if (verbose) fprintf(stderr, a); } while (0)
+
 using namespace std;
 
+bool verbose = false;
+
+// A wrapper for bind socket operation. It will start listen to addr:port after
+// calling this function
 int socket_bind(string addr, unsigned short port)
 {
   int sock = socket(PF_INET, SOCK_DGRAM, 0);
@@ -37,9 +46,11 @@ int socket_bind(string addr, unsigned short port)
   return sock;
 }
 
+// A wrapper for UDP sendto operation.
+// inet_pton() will convert the addr info from host byte order to network byte order
+// htons() will convert the port info from host byte order to network byte order
 void UDP_send(int sock, string addr, unsigned short port, string message)
 {
-  printf("Sended a UDP package to %s %d\n", addr.c_str(), port);
   struct sockaddr_in dest;
   bzero(&dest, sizeof(dest));
   dest.sin_family = AF_INET;
@@ -48,6 +59,10 @@ void UDP_send(int sock, string addr, unsigned short port, string message)
   sendto(sock, message.c_str(), message.size(), 0, (struct sockaddr*)&dest, sizeof(dest));
 }
 
+// A wrapper for UDP recvfrom operation
+// inet_ntoa() will convert the addr info from network byte order to host byte order
+// ntohs() will convert the port info from network byte order to host byte order
+// It should be notice that there is a maximum message length limit here
 string UDP_recv(int sock, string& addr, unsigned short& port)
 {
     struct sockaddr_in src;
@@ -57,7 +72,5 @@ string UDP_recv(int sock, string& addr, unsigned short& port)
     buf[rlen] = 0;
     addr = inet_ntoa(src.sin_addr);
     port = ntohs(src.sin_port);
-    printf("Received a UDP package to %s %d [%s]\n", addr.c_str(), port, buf);
     return string(buf);
 }
-

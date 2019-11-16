@@ -66,10 +66,13 @@ int main(int argc, char *argv[])
     // if there is something in stdin
     if (FD_ISSET(0, &read_fds)) {
       string message;
-      cin >> message;
+      getline(cin, message);
       UDP_send(sock, server_addr, server_port, message);
+      if (message == "/quit") {
+        break;
+      }
     }
   }
-
+  close(sock);
   return 0;
 }  
