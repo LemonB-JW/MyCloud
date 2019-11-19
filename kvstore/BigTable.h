@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <unordered_map> 
-#include "TableCell.h"
+#include "../lib/TableCell.h"
 
 using namespace std;
 

@@ -3,16 +3,16 @@
 
 # all: $(TARGETS)
 
-CPPFLAGS = -g -Wall -I/home/cis505/git/T08/lib
+CPPFLAGS = -lpthread -I/home/cis505/git/T08/lib -c
 #  $(CC) $(LDFLAGS) -o $(PROG) $(OBJS)
-# TableCell.o: TableCell.h TableCell.cc
-# 		g++ $(CPPFLAGS) -Wall -lpthread -c TableCell.cc
+TableCell.o:
+		g++ $(CPPFLAGS) TableCell.cc
 
-BigTable.o: BigTable.h BigTable.cc 
-		g++ $(CPPFLAGS) -Wall -lpthread -c BigTable.cc
-
-FileMetaData.o: FileMetaData.h FileMetaData.cc
-		g++ $(CPPFLAGS) -Wall -c FileMetaData.cc
+BigTable.o: 
+		g++ $(CPPFLAGS) BigTable.cc
+#  FileMetaData.h FileMetaData.cc
+FileMetaData.o:
+		g++ $(CPPFLAGS) FileMetaData.cc
 
 clean:
 	rm -fv $(TARGETS) *~ *.o 
