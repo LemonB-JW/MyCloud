@@ -44,15 +44,7 @@ bool BigTable::cput(string row, string col, string* old_data, string* new_data){
 	if (table.count(row) == 0 || table[row].count(col) == 0){
 		if (*old_data == "NULL") {
 			TableCell* new_cell = new TableCell(new_data);
-			// serverState->getMapLock();
-			// long primarySeq = putToLog(newData, row, col);
 			table[row][col] = new_cell;
-
-			// serverState->releaseMapLock();
-
-			// if (serverState->isPrimary()){
-			// 	backStore->push(row, col, newData, primarySeq); //????
-			// }
 			return true;
 
 
@@ -65,10 +57,6 @@ bool BigTable::cput(string row, string col, string* old_data, string* new_data){
 		if (*(table[row][col]->contents) == *old_data) {
 			delete cell->contents;
 			cell->contents = new_data;
-			// serverState->releaseMapLock();
-			// if (serverState->isPrimary()){
-			// 	backStore->push(row, col, newData, primarySeq);
-			// }
 			return true;
 		} else {
 			return false;
