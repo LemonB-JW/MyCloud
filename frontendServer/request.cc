@@ -16,7 +16,7 @@
 #include <unordered_set>
 
 #include "request.h"
-#include "constants.h"
+#include "utils/constants.h"
 //#include "utils.h"
 
 Request::Request(int fd) {
@@ -26,8 +26,7 @@ Request::Request(int fd) {
     std::cout << buf << std::endl;
 
     std::string request = std::string(buf);
-
-    method = "GET";
+    
 
     if (buf != NULL) {
         free(buf);

@@ -2,10 +2,10 @@ TARGETS = httpServer loadbalancer smtp pop3
 
 all: $(TARGETS)
 
-%.o: %.cc
+%.o: %.cc utils/%.cc
 	g++ $^ -c -o $@
 
-httpServer: httpServer.o request.o response.o
+httpServer: httpServer.o request.o response.o utils/utils.o
 	g++ $^ -o $@ -lpthread
 
 loadbalancer: loadbalancer.o

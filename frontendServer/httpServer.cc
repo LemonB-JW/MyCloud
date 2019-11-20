@@ -13,10 +13,10 @@
 #include <fstream>
 #include <unordered_set>
 
-#include "utils.h"
 #include "request.h"
 #include "response.h"
-#include "constants.h"
+#include "utils/utils.h"
+#include "utils/constants.h"
 //#include <experimental/filesystem>
 
 using namespace std;
@@ -24,7 +24,10 @@ using namespace std;
 
 #define debug(a...) do { if (verbose) fprintf(stderr, a); } while (0)
 
+/* enter debug mode if verbose = true */
 bool verbose = false;
+/* port number if port is specified by -p */
+int port;
 
 
 
@@ -35,9 +38,16 @@ void *worker(void *arg)
     // parse incoming http request into structured request object
     Request req(comm_fd);
     Response res(req);
-    std::cout << req.method << std::endl;
+
+    // parse Response object into c-style byte array
+    string res_str = parse_response_to_string(res);
+    char *response = (char *)res_str.c_str();
+
+    // write to fd
+    do_write(comm_fd, response, strlen(response));
 
     // debug mode
+    debug("[%d] S: %s", comm_fd, response);
     debug("[%d] S: %s", comm_fd, "Connection closed\n");
 
     close(comm_fd);
@@ -47,7 +57,7 @@ void *worker(void *arg)
 int main(int argc, char *argv[])
 {
 
-    if (argc <= 1)
+    if (argc < 1)
     {
         fprintf(stderr, "Something went wrong!\n");
         exit(1);

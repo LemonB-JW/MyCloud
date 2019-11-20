@@ -7,13 +7,17 @@
 
 const static unsigned short MAX_REQUEST_LENGTH = 8192;
 
-const static char *HTTP_VERSION = "HTTP/1.1"
+const static char *HTTP_VERSION = "HTTP/1.1";
 const static char *CONTENT_TYPE = "Content-Type: ";
 const static char *CONTENT_LEN = "Content-Length: ";
 const static char *COOKIE = "Cookie: ";
 const static char *SET_COOKIE = "Set-Cookie: ";
 const static char *CONNECTION = "Connection: ";
-const static char *OK = "200 OK";
+const static char *STATUS_OK = "200 OK";
+
+const static char *TYPE_HTML = "text/html";
+
+const static char *CRLF = "\r\n";
 
 const static char *HOME = "/";
 const static char *SIGNUP = "/register";

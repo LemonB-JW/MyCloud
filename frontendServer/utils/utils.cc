@@ -2,8 +2,6 @@
 // Created by Xuan Wang on 11/18/19.
 //
 
-
-
 #include <string.h>
 #include <string>
 #include <unistd.h>
@@ -18,6 +16,8 @@
 #include <unordered_set>
 
 #include "constants.h"
+//#include "../response.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -54,6 +54,37 @@ enum command_state
 
 
 string dir;
+
+/* parse http response object into plain string */
+string parse_response_to_string(const Response &res) {
+    string status_line = res.http_version + " " + res.status_code + CRLF;
+    string headers;
+
+    // iterate over map headers and keep appending
+    auto it = res.headers.begin();
+    while (it != res.headers.end())
+    {
+        std::string key = it->first;
+        std::string val = it->second;
+
+        headers += (key + val) + CRLF;
+        // Increment the Iterator to point to next entry
+        it++;
+    }
+
+    // create http response string
+    string res_str = status_line + headers + CRLF + res.body + CRLF;
+
+    return res_str;
+}
+
+
+/* read file content and transfer it to string */
+string read_file_to_string(const char *filename) {
+    ifstream file(filename);
+    string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+    return content;
+}
 
 /* iterate over the given directory and save user names in a hashset */
 void save_users(string path) {
