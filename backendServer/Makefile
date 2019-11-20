@@ -1,11 +1,14 @@
 
-# TARGETS = serverInfo.o
+TARGETS = serverInfo
 
-# all: $(TARGETS)
+all: $(TARGETS)
 
-CPPFLAGS = -lpthread -I../lib -c
+%.o: %.cc
+	g++ $^ -c -o $@
+	
+CPPFLAGS = -lpthread -I../../lib -c
 
-masterInfo.o:
+serverInfo.o:
 		g++ $(CPPFLAGS) serverInfo.cc
 
 clean:
