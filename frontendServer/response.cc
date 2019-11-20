@@ -21,19 +21,17 @@
 
 Response::Response(Request req) {
     std::string url = req.req_uri;
-    if (url == "/compose") {
-        std::string filename = "html" + url + ".html";
-        std::cout << filename << std::endl;
-        std::string content = read_file_to_string(filename);
-        this->headers[CONTENT_LEN] = std::to_string(content.length());
-        this->headers[CONTENT_TYPE] = TYPE_HTML;
-        this->body = content;
-    }
+    std::string filename = "html" + url + ".html";
+    std::cout << filename << std::endl;
+    std::string content = read_file_to_string(filename);
+    this->headers[CONTENT_LEN] = std::to_string(content.length());
+    this->headers[CONTENT_TYPE] = TYPE_HTML;
+    this->body = content;
     this->http_version = HTTP_VERSION;
     this->status_code = STATUS_OK;
 
 }
-//
-//bool Response::check_html(string url) {
-//
+
+//bool Response::need_html(string url) {
+//    if (url == SEND_EMAIL_URL || url == LOGIN || url == INBOX || )
 //}
