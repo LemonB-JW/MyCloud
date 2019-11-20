@@ -13,10 +13,10 @@
 #include <fstream>
 #include <unordered_set>
 
-#include "utils.h"
 #include "request.h"
 #include "response.h"
-#include "constants.h"
+#include "utils/utils.h"
+#include "utils/constants.h"
 //#include <experimental/filesystem>
 
 using namespace std;
@@ -25,6 +25,7 @@ using namespace std;
 #define debug(a...) do { if (verbose) fprintf(stderr, a); } while (0)
 
 bool verbose = false;
+int port;
 
 
 
@@ -47,7 +48,7 @@ void *worker(void *arg)
 int main(int argc, char *argv[])
 {
 
-    if (argc <= 1)
+    if (argc < 1)
     {
         fprintf(stderr, "Something went wrong!\n");
         exit(1);

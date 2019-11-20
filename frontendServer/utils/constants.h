@@ -7,7 +7,7 @@
 
 const static unsigned short MAX_REQUEST_LENGTH = 8192;
 
-const static char *HTTP_VERSION = "HTTP/1.1"
+const static char *HTTP_VERSION = "HTTP/1.1";
 const static char *CONTENT_TYPE = "Content-Type: ";
 const static char *CONTENT_LEN = "Content-Length: ";
 const static char *COOKIE = "Cookie: ";
