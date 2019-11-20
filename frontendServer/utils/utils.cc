@@ -16,6 +16,7 @@
 #include <unordered_set>
 
 #include "constants.h"
+//#include "../response.h"
 #include "utils.h"
 
 using namespace std;
@@ -53,6 +54,40 @@ enum command_state
 
 
 string dir;
+
+/* parse http response object into plain string */
+string parse_response_to_string(const Response &res) {
+    string status_line = res.http_version + " " + res.status_code + CRLF;
+    string headers;
+
+    // Create a map iterator and point to beginning of map
+    auto it = res.headers.begin();
+
+    // Iterate over the map using Iterator till end.
+    while (it != res.headers.end())
+    {
+        std::string key = it->first;
+        std::string val = it->second;
+
+        headers += (key + val) + CRLF;
+        // Increment the Iterator to point to next entry
+        it++;
+    }
+
+    string body = res.body;
+
+    string res_str = status_line + headers + CRLF + body + CRLF;
+    cout << res_str << endl;
+    return res_str;
+}
+
+
+/* get file content as string from file name */
+string get_file_content_as_string(const char *filename) {
+    ifstream t(filename);
+    string str((istreambuf_iterator<char>(t)), istreambuf_iterator<char>());
+    return str;
+}
 
 /* iterate over the given directory and save user names in a hashset */
 void save_users(string path) {

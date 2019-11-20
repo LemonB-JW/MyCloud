@@ -17,10 +17,15 @@
 
 #include "response.h"
 #include "utils/constants.h"
+#include "utils/utils.h"
 
 Response::Response(Request req) {
     std::cout << "response " << req.method;
-
+    char *filename = "html/login.html";
+    std::string content = get_file_content_as_string(filename);
     this->http_version = HTTP_VERSION;
-    this->status_code = "200 OK";
+    this->status_code = STATUS_OK;
+    this->headers[CONTENT_LEN] = std::to_string(content.length());
+    this->headers[CONTENT_TYPE] = TYPE_HTML;
+    this->body = content;
 }

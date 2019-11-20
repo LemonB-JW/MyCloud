@@ -40,9 +40,11 @@ void *worker(void *arg)
     Response res(req);
     std::cout << req.method << std::endl;
 
-    char hello[100] = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nHello world!";
+    string res_str = parse_response_to_string(res);
 
-    do_write(comm_fd, hello, strlen(hello));
+    char *response = (char *)res_str.c_str();
+
+    do_write(comm_fd, response, strlen(response));
 
     // debug mode
     debug("[%d] S: %s", comm_fd, "Connection closed\n");
