@@ -38,9 +38,13 @@ public:
      * */
 //    std::unordered_map<std::string, std::string> entity_headers;
     std::string body;
-public:
 
+
+public:
     Response(Request req);
+
+public:
+    void parse_req_string(Request &req, std::string req_str);
 };
 
 

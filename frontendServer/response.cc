@@ -20,12 +20,20 @@
 #include "utils/utils.h"
 
 Response::Response(Request req) {
-    std::cout << "response " << req.method;
-    char *filename = "html/compose.html";
-    std::string content = read_file_to_string(filename);
+    std::string url = req.req_uri;
+    if (url == "/compose") {
+        std::string filename = "html" + url + ".html";
+        std::cout << filename << std::endl;
+        std::string content = read_file_to_string(filename);
+        this->headers[CONTENT_LEN] = std::to_string(content.length());
+        this->headers[CONTENT_TYPE] = TYPE_HTML;
+        this->body = content;
+    }
     this->http_version = HTTP_VERSION;
     this->status_code = STATUS_OK;
-    this->headers[CONTENT_LEN] = std::to_string(content.length());
-    this->headers[CONTENT_TYPE] = TYPE_HTML;
-    this->body = content;
+
 }
+//
+//bool Response::check_html(string url) {
+//
+//}
