@@ -21,7 +21,7 @@
 
 Response::Response(Request req) {
     std::cout << "response " << req.method;
-    char *filename = "html/login.html";
+    char *filename = "html/compose.html";
     std::string content = read_file_to_string(filename);
     this->http_version = HTTP_VERSION;
     this->status_code = STATUS_OK;
