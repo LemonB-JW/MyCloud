@@ -5,6 +5,9 @@ all: $(TARGETS)
 %.o: %.cc
 	g++ $^ -c -o $@
 
+httpServer: httpServer.o request.o response.o
+	g++ $^ -o $@ -lpthread
+
 chatserver: chatserver.o
 	g++ $^ -o $@ -lpthread
 
