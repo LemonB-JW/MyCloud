@@ -22,7 +22,7 @@
 Response::Response(Request req) {
     std::cout << "response " << req.method;
     char *filename = "html/login.html";
-    std::string content = get_file_content_as_string(filename);
+    std::string content = read_file_to_string(filename);
     this->http_version = HTTP_VERSION;
     this->status_code = STATUS_OK;
     this->headers[CONTENT_LEN] = std::to_string(content.length());

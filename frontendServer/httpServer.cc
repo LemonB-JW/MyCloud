@@ -38,15 +38,16 @@ void *worker(void *arg)
     // parse incoming http request into structured request object
     Request req(comm_fd);
     Response res(req);
-    std::cout << req.method << std::endl;
 
+    // parse Response object into c-style byte array
     string res_str = parse_response_to_string(res);
-
     char *response = (char *)res_str.c_str();
 
+    // write to fd
     do_write(comm_fd, response, strlen(response));
 
     // debug mode
+    debug("[%d] S: %s", comm_fd, response);
     debug("[%d] S: %s", comm_fd, "Connection closed\n");
 
     close(comm_fd);

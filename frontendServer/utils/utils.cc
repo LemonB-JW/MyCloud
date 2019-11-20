@@ -60,10 +60,8 @@ string parse_response_to_string(const Response &res) {
     string status_line = res.http_version + " " + res.status_code + CRLF;
     string headers;
 
-    // Create a map iterator and point to beginning of map
+    // iterate over map headers and keep appending
     auto it = res.headers.begin();
-
-    // Iterate over the map using Iterator till end.
     while (it != res.headers.end())
     {
         std::string key = it->first;
@@ -74,19 +72,18 @@ string parse_response_to_string(const Response &res) {
         it++;
     }
 
-    string body = res.body;
+    // create http response string
+    string res_str = status_line + headers + CRLF + res.body + CRLF;
 
-    string res_str = status_line + headers + CRLF + body + CRLF;
-    cout << res_str << endl;
     return res_str;
 }
 
 
-/* get file content as string from file name */
-string get_file_content_as_string(const char *filename) {
-    ifstream t(filename);
-    string str((istreambuf_iterator<char>(t)), istreambuf_iterator<char>());
-    return str;
+/* read file content and transfer it to string */
+string read_file_to_string(const char *filename) {
+    ifstream file(filename);
+    string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+    return content;
 }
 
 /* iterate over the given directory and save user names in a hashset */

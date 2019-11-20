@@ -26,8 +26,7 @@ Request::Request(int fd) {
     std::cout << buf << std::endl;
 
     std::string request = std::string(buf);
-
-    method = "GET";
+    
 
     if (buf != NULL) {
         free(buf);
