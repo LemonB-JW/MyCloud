@@ -80,7 +80,7 @@ string parse_response_to_string(const Response &res) {
 
 
 /* read file content and transfer it to string */
-string read_file_to_string(const char *filename) {
+string read_file_to_string(string filename) {
     ifstream file(filename);
     string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
     return content;

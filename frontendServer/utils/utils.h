@@ -8,7 +8,8 @@
 std::string parse_response_to_string(const Response &res);
 
 /* read file content and transfer it to string */
-std::string read_file_to_string(const char *filename);
+std::string read_file_to_string(std::string filename);
+
 
 bool do_write(int fd, char *buf, int len);
 void termination_handler(int signum);
