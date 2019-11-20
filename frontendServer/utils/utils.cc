@@ -2,8 +2,6 @@
 // Created by Xuan Wang on 11/18/19.
 //
 
-
-
 #include <string.h>
 #include <string>
 #include <unistd.h>
@@ -18,6 +16,7 @@
 #include <unordered_set>
 
 #include "constants.h"
+#include "utils.h"
 
 using namespace std;
 

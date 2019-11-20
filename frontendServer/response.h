@@ -18,7 +18,6 @@ public:
     std::string status_code;
     std::unordered_map<std::string, std::string> headers;
     std::string body;
-
 public:
     Response(Request req);
 };

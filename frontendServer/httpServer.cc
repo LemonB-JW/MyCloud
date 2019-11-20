@@ -24,7 +24,9 @@ using namespace std;
 
 #define debug(a...) do { if (verbose) fprintf(stderr, a); } while (0)
 
+/* enter debug mode if verbose = true */
 bool verbose = false;
+/* port number if port is specified by -p */
 int port;
 
 
@@ -37,6 +39,10 @@ void *worker(void *arg)
     Request req(comm_fd);
     Response res(req);
     std::cout << req.method << std::endl;
+
+    char hello[100] = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 12\n\nHello world!";
+
+    do_write(comm_fd, hello, strlen(hello));
 
     // debug mode
     debug("[%d] S: %s", comm_fd, "Connection closed\n");
