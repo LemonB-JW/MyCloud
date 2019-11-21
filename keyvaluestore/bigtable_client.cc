@@ -48,17 +48,18 @@ class TableClient {
   // Assembles the client's payload, sends it and presents the response back
   // from the server.
   // bool put(string created_time, int size, string file_name, string file_type, string file_from, string row, string col, string data) {
-  bool put(){ 
+  bool put(std::string& created_time, int size, std::string& file_name, std::string& file_type, std::string& file_from, std::string& user, 
+    std::string& file_id, std::string& file_content){ 
     // Data we are sending to the server.
     PutRequest request;
-    request.set_created_time("2019/11/21");
-    request.set_size(10);
-    request.set_file_name("foo.txt");
-    request.set_file_type("file");
-    request.set_file_from("janice");
-    request.set_row("alice");
-    request.set_col("id2");
-    request.set_data("Welcome");
+    request.set_created_time(created_time);
+    request.set_size(size);
+    request.set_file_name(file_name);
+    request.set_file_type(file_type);
+    request.set_file_from(file_from);
+    request.set_row(user);
+    request.set_col(file_id);
+    request.set_data(file_content);
 
 
     // Container for the data we expect from the server.
@@ -81,10 +82,10 @@ class TableClient {
     }
   }
 
-  std::string get(){
+  std::string get(std::string& user, std::string& file_name){
     GetRequest req;
-    req.set_row("alice");
-    req.set_col("foo.txt");
+    req.set_row(user);
+    req.set_col(file_name);
 
     GetReply reply;
 
@@ -104,9 +105,9 @@ class TableClient {
 
   }
 
-  std::vector<FileMetaData> list_files(){
+  std::vector<FileMetaData> list_files(std::string& user){
     GetFileListRequest req;
-    req.set_row("alice");
+    req.set_row(user);
 
     GetFileListReply reply;
 
