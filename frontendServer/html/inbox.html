@@ -1,99 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 
 </head>
 <body>
-	<table class="table table-condensed table-hover">
-		<thead>
-			<tr>
-				<th class="span1">
-					<input type="checkbox"></th>
-					<th class="span2"></th>
-					<th class="span2"></th>
-					<th class="span9"></th>
-					<th class="span2"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<input type="checkbox">
-						<a href="#"> <i class="icon-star-empty"></i>
-						</a>
-					</td>
-					<td> <strong>John Doe</strong>
-					</td>
-					<td>
-						<span class="label pull-right">Notifications</span>
-					</td>
-					<td> <strong>Message body goes here</strong>
-					</td>
-					<td>
-						<strong>11:23 PM</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox">
-						<a href="#"> <i class="icon-star-empty"></i>
-						</a>
-					</td>
-					<td>John Doe</td>
-					<td>
-						<span class="label pull-right">Notifications</span>
-					</td>
-					<td>
-						<strong>Message body goes here</strong>
-					</td>
-					<td>
-						<strong>Sept3</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox">
-						<a href="#">
-							<i class="icon-star"></i>
-						</a>
-					</td>
-					<td>
-						<strong>John Doe</strong>
-					</td>
-					<td>
-						<span class="label pull-right">Notifications</span>
-					</td>
-					<td>
-						<strong>Message body goes here</strong>
-					</td>
-					<td>
-						<strong>Sept3</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox">
-						<a href="#">
-							<i class="icon-star"></i>
-						</a>
-					</td>
-					<td>
-						<strong>John Doe</strong>
-					</td>
-					<td>
-						<span class="label pull-right">Notifications</span>
-					</td>
-					<td>
-						<strong>Message body goes here</strong>
-					</td>
-					<td>
-						<strong>Sept3</strong>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</body>
-	</html>
+<table class="table table-condensed table-hover">
+    <thead>
+    <tr>
+        <th class="span1"><input type="checkbox"></th>
+        <th class="span2"></th>
+        <th class="span2"></th>
+        <th class="span9"></th>
+        <th class="span2"></th>
+    </tr>
+    </thead>
+    <tbody id="item-list">
+    <tr class="item">
+        <td class="checkbox">
+            <input type="checkbox">
+            <a href="#"> <i class="icon-star-empty"></i>
+            </a>
+        </td>
+        <td class="item-from"><strong>John Doe</strong>
+        </td>
+        <td class="item-title">
+            <span class="label pull-right">Notifications</span>
+        </td>
+        <td class="item-date">
+            <strong>11:23 PM</strong>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+	window.onload = (event) => {
+		var url = "/inbox_items";
+		var req = JSON.stringify({});
+		// display loading message
+		showLoadingMessage('Loading recommended items...');
+		// make AJAX call
+		ajax(
+				'GET',
+				url,
+				req,
+				// successful callback
+				function(res) {
+					var items = JSON.parse(res);
+					if (!items || items.length === 0) {
+						showWarningMessage('No recommended item. Make sure you have favorites.');
+					} else {
+						listItems(items);
+					}
+				},
+				// failed callback
+				function() {
+					showErrorMessage('Cannot load recommended items.');
+				});
+	};
+
+	function listItems(items) {
+		// Clear the current results
+		var itemList = $('item-list');
+		itemList.innerHTML = '';
+
+		for (var i = 0; i < items.length; i++) {
+			addItem(itemList, items[i]);
+		}
+	}
+
+	function addItem(itemList, item) {
+		var item_id = item.item_id;
+
+		// create the <tr> tag and specify the id and class attributes
+		var tr = $('tr', {
+			id : 'item-' + item_id,
+			className : 'item'
+		});
+
+		// set the data attribute
+		tr.dataset.item_id = item_id;
+
+		// "MAIL FROM"
+		var from = $('td', {
+			className : 'item-from'
+		});
+		from.innerHTML = item.from;
+
+		// "MAIL TITLE"
+		var title = $('td', {
+			className : 'item-title'
+		});
+		title.innerHTML = item.title;
+
+		// "MAIL DATE"
+		var date = $('td', {
+			className : 'item-date'
+		});
+		date.innerHTML = item.date;
+
+		tr.appendChild(from);
+		tr.appendChild(title);
+		tr.appendChild(date);
+
+		itemList.appendChild(tr);
+	}
+
+</script>
+
+</body>
+</html>
