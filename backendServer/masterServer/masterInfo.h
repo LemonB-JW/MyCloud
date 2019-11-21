@@ -3,31 +3,34 @@
 #define MASTERINFO_H_
 
 #include <stdio.h>
+//#include <unistd.h>
 #include <netinet/in.h>
 #include <vector>
-#include <map>
-#include <set>
+#include <unordered_map>
+#include <unordered_set>
 
 class masterInfo{
 	private:
-		struct sockaddr_in master_addr;
-		std::map<int, std::vector<int>> replicaInfo;
-		//std::vector<std::map<>> ;
+		
+		std::unordered_map<int, std::vector<int>> replicaInfo;//find replica based on primary index, also server as a primary set( keys are primaries )
+		std::unordered_map<int, int> myprimary; //find primary based on server index
 		std::vector<struct sockaddr_in> serverlist;
-		std::vector<int> primarylist;
-		std::vector<std::set<int>> grouplist;
-		bool isprimary;
-		void setPrimary();
+		std::unordered_set<int> deadlist;
+		void setPrimary();//decide group and primary, called in readConfig
+		
 	public:
-		int socketfd;
-		struct in_addr ip;
+		struct sockaddr_in master_addr;
 		int port;
 		masterInfo();
 		~masterInfo();
-		/*readConfig will set master_addr, serverlist*/
+		/*readConfig will set master_addr, serverlist and assign group and primary*/
 		int readConfig(const char*);
-		bool isPrimary(){
-			return isprimary;
-		}		
+
+		bool isPrimary(int);	
+		int getPrime(int);
+		std::vector<int> getSub(int);
+		bool isAlive(int);	
+		int promoteNewPrimary(int);
+		//std::string getSub();
 };
-#endif /*SERVERINFO_H_*/
+#endif /*MASTERINFO_H_*/

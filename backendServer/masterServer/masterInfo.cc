@@ -5,10 +5,11 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <vector>
 #include <string.h>
-
-#include "masterInfo.h"
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include "../../lib/masterInfo.h"
 
 #ifndef panic
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
@@ -29,10 +30,11 @@ int masterInfo::readConfig(const char* filename){
 	  
 	  char *sip = strtok(sproxyaddr, ":");
 	  char *sport = strtok(NULL, ":\r\n");	
-	  
+	  bzero((void*)&master_addr, sizeof(master_addr));
 	  master_addr.sin_family = AF_INET;
 	  inet_aton(sip, &(master_addr.sin_addr));
-	  master_addr.sin_port = htons(atoi(sport));
+	  port = atoi(sport);
+	  master_addr.sin_port = htons(port);
 	}
 	
 	while	(fgets(linebuf, 100, infile)!= NULL){
@@ -43,20 +45,83 @@ int masterInfo::readConfig(const char* filename){
   
 	  //store all forwarding address in server list
 	  struct sockaddr_in temp;
+	  bzero((void*)&temp, sizeof(temp));
 	  temp.sin_family = AF_INET;
 	  inet_aton(sip, &temp.sin_addr);
 	  temp.sin_port = htons(atoi(sport));
 	  serverlist.push_back(temp);
 	}
-	
+	fclose(infile);
 	setPrimary();
 }
 
 void masterInfo::setPrimary(){
 	int remainS = serverlist.size();
-	
+	int groupID = 0;
+	int primaryIdx = 0;
+	std::vector<int> replica;
+	//at least 3 servers in a group
 	while (remainS >= 6){
-		remainS--;
-		
+		primaryIdx = groupID*3;
+		replicaInfo[primaryIdx] = replica;
+		for (int i = 0; i < 3; i++){
+			replicaInfo[primaryIdx].push_back(primaryIdx+i);
+			myprimary[primaryIdx+i] = primaryIdx;
+		}
+		groupID++;
+		remainS -= 3;
+	}
+	
+	if (remainS > 0){
+		primaryIdx = groupID*3;
+		replicaInfo[primaryIdx] = replica;
+		for (int i = 0; i < remainS; i++){
+			replicaInfo[primaryIdx].push_back(primaryIdx+i);
+			myprimary[primaryIdx+i] = primaryIdx;
+		}
+		groupID++;
+		remainS = 0;
+	}
+}
+
+bool masterInfo::isPrimary(int index){
+	if (replicaInfo.find(index) == replicaInfo.end())
+		return false;
+	return true;
+}
+
+int masterInfo::getPrime(int index){
+	if (myprimary.find(index) == myprimary.end())
+		return -1;
+	return myprimary[index];
+}
+
+
+std::vector<int> masterInfo::getSub(int primeIdx){
+	std::vector<int> sublist;
+	if (replicaInfo.find(primeIdx) == replicaInfo.end())
+		return sublist;
+	sublist = replicaInfo[primeIdx];
+	for (int i = 0; i < replicaInfo[primeIdx].size(); i++){
+		if (replicaInfo[primeIdx][i] != primeIdx){
+			sublist.push_back(replicaInfo[primeIdx][i]);
+		}
+	}
+	return sublist;
+}
+
+bool masterInfo::isAlive(int serverIdx){
+	if (deadlist.find(serverIdx) == deadlist.end())
+		return false;
+	return true;
+}
+
+int masterInfo::promoteNewPrimary(int oldPrimaryIdx){
+	std::vector<int> replicas = replicaInfo[oldPrimaryIdx];
+	for(int i = 0; i < replicas.size(); i++){
+		if (replicas[i] != oldPrimaryIdx && isAlive(replicas[i])){
+			replicaInfo[replicas[i]] = replicas;
+			replicaInfo.erase(oldPrimaryIdx);
+		}
 	}
 }

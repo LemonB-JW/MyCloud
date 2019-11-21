@@ -1,12 +1,19 @@
 
-# TARGETS = masterInfo.o
+TARGETS = masterInfo.o
+CXX = g++
+CXXFLAGS += -std=c++11
+IDIR =../../lib
+CPPFLAGS = -lpthread -I$(IDIR)
+all: $(TARGETS)
 
-# all: $(TARGETS)
+#%.o: %.cc
+#	$(CXX) $^ $(CPPFLAGS) -o $@ 
 
-CPPFLAGS = -lpthread -I../lib -c
-
-masterInfo.o:
-		g++ $(CPPFLAGS) masterInfo.cc
+masterInfo.o: masterInfo.cc
+	$(CXX) $^ $(CPPFLAGS) -c masterInfo.cc
+	
+#masterInfo: masterInfo.o
+#	$(CXX) $^ $(CPPFLAGS) -o $@ 
 
 clean:
 	rm -fv $(TARGETS) *~ *.o 
