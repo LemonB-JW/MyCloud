@@ -15,6 +15,16 @@
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
 #endif
 
+std::string addrTOstr(in_addr_t ip, int port)
+{
+  struct in_addr addr;
+  addr.s_addr = ip;
+  char buf[150];
+  sprintf(buf, "%s:%d", inet_ntoa(addr), port);
+  std::string saddr(buf);
+  return saddr;
+}
+
 int masterInfo::readConfig(const char* filename){
 	// read file and find my ip and port
 	FILE *infile = fopen(filename, "r");
@@ -27,7 +37,7 @@ int masterInfo::readConfig(const char* filename){
 	if (fgets(linebuf, 100, infile)!= NULL){
 		char *sproxyaddr = strtok(linebuf, ",\r\n");
 	  char *srealaddr = sproxyaddr ? strtok(NULL, ",\r\n") : NULL;
-	  
+	  master_saddr = sproxyaddr;
 	  char *sip = strtok(sproxyaddr, ":");
 	  char *sport = strtok(NULL, ":\r\n");	
 	  bzero((void*)&master_addr, sizeof(master_addr));
@@ -83,7 +93,8 @@ void masterInfo::setPrimary(){
 			myprimary[primaryIdx+i] = primaryIdx;
 		}
 		groupID++;
-		remainS = 0;
+		groupNum = groupID + 1;
+		remainS = 0;		
 	}
 	fprintf(stderr, "leaving setPrimary\n");
 }
@@ -123,8 +134,28 @@ int masterInfo::promoteNewPrimary(int oldPrimaryIdx){
 	std::vector<int> replicas = replicaInfo[oldPrimaryIdx];
 	for(int i = 0; i < replicas.size(); i++){
 		if (replicas[i] != oldPrimaryIdx && isAlive(replicas[i])){
+			/*need to add mutax here when make changes to replicaInfo list*/
 			replicaInfo[replicas[i]] = replicas;
 			replicaInfo.erase(oldPrimaryIdx);
 		}
 	}
 }
+
+std::string masterInfo::getServers(int groupId){
+	std::vector<int> replicas;
+	std::map<int, std::vector<int>>::iterator itr = replicaInfo.begin();
+	for (int i = 0; i<groupId; i++){
+		itr++;
+	}
+	//itr = itr+ groupId;
+	replicas = itr->second;
+	std::string servers;
+	for (int i = 0; i < replicas.size(); i++){
+		if (i != 0)
+			servers.append(",");
+		servers.append(addrTOstr(serverlist[replicas[i]].sin_addr.s_addr, ntohs(serverlist[replicas[i]].sin_port)));
+	}
+	servers.append("\r\n");
+	return servers;
+}
+
