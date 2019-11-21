@@ -52,7 +52,9 @@ int masterInfo::readConfig(const char* filename){
 	  serverlist.push_back(temp);
 	}
 	fclose(infile);
+	fprintf(stderr, "finish readConfig file\n");
 	setPrimary();
+	
 }
 
 void masterInfo::setPrimary(){
@@ -61,6 +63,7 @@ void masterInfo::setPrimary(){
 	int primaryIdx = 0;
 	std::vector<int> replica;
 	//at least 3 servers in a group
+	fprintf(stderr, "inside setPrimary\n");
 	while (remainS >= 6){
 		primaryIdx = groupID*3;
 		replicaInfo[primaryIdx] = replica;
@@ -82,6 +85,7 @@ void masterInfo::setPrimary(){
 		groupID++;
 		remainS = 0;
 	}
+	fprintf(stderr, "leaving setPrimary\n");
 }
 
 bool masterInfo::isPrimary(int index){
@@ -101,7 +105,6 @@ std::vector<int> masterInfo::getSub(int primeIdx){
 	std::vector<int> sublist;
 	if (replicaInfo.find(primeIdx) == replicaInfo.end())
 		return sublist;
-	sublist = replicaInfo[primeIdx];
 	for (int i = 0; i < replicaInfo[primeIdx].size(); i++){
 		if (replicaInfo[primeIdx][i] != primeIdx){
 			sublist.push_back(replicaInfo[primeIdx][i]);
