@@ -19,7 +19,7 @@
 #include "utils/constants.h"
 //#include <experimental/filesystem>
 
-using namespace std;
+//using namespace std;
 //namespace fs = std::experimental::filesystem;
 
 #define debug(a...) do { if (verbose) fprintf(stderr, a); } while (0)
@@ -40,7 +40,7 @@ void *worker(void *arg)
     Response res(req);
 
     // parse Response object into c-style byte array
-    string res_str = parse_response_to_string(res);
+    std::string res_str = parse_response_to_string(res);
     char *response = (char *)res_str.c_str();
 
     // write to fd
