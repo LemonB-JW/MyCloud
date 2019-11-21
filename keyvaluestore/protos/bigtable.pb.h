@@ -41,7 +41,7 @@ struct TableStruct_bigtable_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[12]
+  static const ::google::protobuf::internal::ParseTable schema[13]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -85,6 +85,9 @@ extern PutReplyDefaultTypeInternal _PutReply_default_instance_;
 class PutRequest;
 class PutRequestDefaultTypeInternal;
 extern PutRequestDefaultTypeInternal _PutRequest_default_instance_;
+class fileMetaData;
+class fileMetaDataDefaultTypeInternal;
+extern fileMetaDataDefaultTypeInternal _fileMetaData_default_instance_;
 }  // namespace bigtable
 namespace google {
 namespace protobuf {
@@ -100,6 +103,7 @@ template<> ::bigtable::GetReply* Arena::CreateMaybeMessage<::bigtable::GetReply>
 template<> ::bigtable::GetRequest* Arena::CreateMaybeMessage<::bigtable::GetRequest>(Arena*);
 template<> ::bigtable::PutReply* Arena::CreateMaybeMessage<::bigtable::PutReply>(Arena*);
 template<> ::bigtable::PutRequest* Arena::CreateMaybeMessage<::bigtable::PutRequest>(Arena*);
+template<> ::bigtable::fileMetaData* Arena::CreateMaybeMessage<::bigtable::fileMetaData>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace bigtable {
@@ -243,9 +247,23 @@ class PutRequest final :
   ::std::string* release_file_type();
   void set_allocated_file_type(::std::string* file_type);
 
-  // string row = 5;
+  // string file_from = 5;
+  void clear_file_from();
+  static const int kFileFromFieldNumber = 5;
+  const ::std::string& file_from() const;
+  void set_file_from(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_from(::std::string&& value);
+  #endif
+  void set_file_from(const char* value);
+  void set_file_from(const char* value, size_t size);
+  ::std::string* mutable_file_from();
+  ::std::string* release_file_from();
+  void set_allocated_file_from(::std::string* file_from);
+
+  // string row = 6;
   void clear_row();
-  static const int kRowFieldNumber = 5;
+  static const int kRowFieldNumber = 6;
   const ::std::string& row() const;
   void set_row(const ::std::string& value);
   #if LANG_CXX11
@@ -257,9 +275,9 @@ class PutRequest final :
   ::std::string* release_row();
   void set_allocated_row(::std::string* row);
 
-  // string col = 6;
+  // string col = 7;
   void clear_col();
-  static const int kColFieldNumber = 6;
+  static const int kColFieldNumber = 7;
   const ::std::string& col() const;
   void set_col(const ::std::string& value);
   #if LANG_CXX11
@@ -271,9 +289,9 @@ class PutRequest final :
   ::std::string* release_col();
   void set_allocated_col(::std::string* col);
 
-  // string data = 7;
+  // string data = 8;
   void clear_data();
-  static const int kDataFieldNumber = 7;
+  static const int kDataFieldNumber = 8;
   const ::std::string& data() const;
   void set_data(const ::std::string& value);
   #if LANG_CXX11
@@ -299,6 +317,7 @@ class PutRequest final :
   ::google::protobuf::internal::ArenaStringPtr created_time_;
   ::google::protobuf::internal::ArenaStringPtr file_name_;
   ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr file_from_;
   ::google::protobuf::internal::ArenaStringPtr row_;
   ::google::protobuf::internal::ArenaStringPtr col_;
   ::google::protobuf::internal::ArenaStringPtr data_;
@@ -812,9 +831,23 @@ class CPutRequest final :
   ::std::string* release_file_type();
   void set_allocated_file_type(::std::string* file_type);
 
-  // string row = 5;
+  // string file_from = 5;
+  void clear_file_from();
+  static const int kFileFromFieldNumber = 5;
+  const ::std::string& file_from() const;
+  void set_file_from(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_from(::std::string&& value);
+  #endif
+  void set_file_from(const char* value);
+  void set_file_from(const char* value, size_t size);
+  ::std::string* mutable_file_from();
+  ::std::string* release_file_from();
+  void set_allocated_file_from(::std::string* file_from);
+
+  // string row = 6;
   void clear_row();
-  static const int kRowFieldNumber = 5;
+  static const int kRowFieldNumber = 6;
   const ::std::string& row() const;
   void set_row(const ::std::string& value);
   #if LANG_CXX11
@@ -826,9 +859,9 @@ class CPutRequest final :
   ::std::string* release_row();
   void set_allocated_row(::std::string* row);
 
-  // string col = 6;
+  // string col = 7;
   void clear_col();
-  static const int kColFieldNumber = 6;
+  static const int kColFieldNumber = 7;
   const ::std::string& col() const;
   void set_col(const ::std::string& value);
   #if LANG_CXX11
@@ -840,9 +873,9 @@ class CPutRequest final :
   ::std::string* release_col();
   void set_allocated_col(::std::string* col);
 
-  // string old_data = 7;
+  // string old_data = 8;
   void clear_old_data();
-  static const int kOldDataFieldNumber = 7;
+  static const int kOldDataFieldNumber = 8;
   const ::std::string& old_data() const;
   void set_old_data(const ::std::string& value);
   #if LANG_CXX11
@@ -854,9 +887,9 @@ class CPutRequest final :
   ::std::string* release_old_data();
   void set_allocated_old_data(::std::string* old_data);
 
-  // string new_data = 8;
+  // string new_data = 9;
   void clear_new_data();
-  static const int kNewDataFieldNumber = 8;
+  static const int kNewDataFieldNumber = 9;
   const ::std::string& new_data() const;
   void set_new_data(const ::std::string& value);
   #if LANG_CXX11
@@ -882,6 +915,7 @@ class CPutRequest final :
   ::google::protobuf::internal::ArenaStringPtr created_time_;
   ::google::protobuf::internal::ArenaStringPtr file_name_;
   ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr file_from_;
   ::google::protobuf::internal::ArenaStringPtr row_;
   ::google::protobuf::internal::ArenaStringPtr col_;
   ::google::protobuf::internal::ArenaStringPtr old_data_;
@@ -1251,6 +1285,193 @@ class DelReply final :
 };
 // -------------------------------------------------------------------
 
+class fileMetaData final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.fileMetaData) */ {
+ public:
+  fileMetaData();
+  virtual ~fileMetaData();
+
+  fileMetaData(const fileMetaData& from);
+
+  inline fileMetaData& operator=(const fileMetaData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  fileMetaData(fileMetaData&& from) noexcept
+    : fileMetaData() {
+    *this = ::std::move(from);
+  }
+
+  inline fileMetaData& operator=(fileMetaData&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const fileMetaData& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const fileMetaData* internal_default_instance() {
+    return reinterpret_cast<const fileMetaData*>(
+               &_fileMetaData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  void Swap(fileMetaData* other);
+  friend void swap(fileMetaData& a, fileMetaData& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline fileMetaData* New() const final {
+    return CreateMaybeMessage<fileMetaData>(nullptr);
+  }
+
+  fileMetaData* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<fileMetaData>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const fileMetaData& from);
+  void MergeFrom(const fileMetaData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(fileMetaData* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string created_time = 1;
+  void clear_created_time();
+  static const int kCreatedTimeFieldNumber = 1;
+  const ::std::string& created_time() const;
+  void set_created_time(const ::std::string& value);
+  #if LANG_CXX11
+  void set_created_time(::std::string&& value);
+  #endif
+  void set_created_time(const char* value);
+  void set_created_time(const char* value, size_t size);
+  ::std::string* mutable_created_time();
+  ::std::string* release_created_time();
+  void set_allocated_created_time(::std::string* created_time);
+
+  // string file_name = 3;
+  void clear_file_name();
+  static const int kFileNameFieldNumber = 3;
+  const ::std::string& file_name() const;
+  void set_file_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_name(::std::string&& value);
+  #endif
+  void set_file_name(const char* value);
+  void set_file_name(const char* value, size_t size);
+  ::std::string* mutable_file_name();
+  ::std::string* release_file_name();
+  void set_allocated_file_name(::std::string* file_name);
+
+  // string file_type = 4;
+  void clear_file_type();
+  static const int kFileTypeFieldNumber = 4;
+  const ::std::string& file_type() const;
+  void set_file_type(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_type(::std::string&& value);
+  #endif
+  void set_file_type(const char* value);
+  void set_file_type(const char* value, size_t size);
+  ::std::string* mutable_file_type();
+  ::std::string* release_file_type();
+  void set_allocated_file_type(::std::string* file_type);
+
+  // string file_from = 5;
+  void clear_file_from();
+  static const int kFileFromFieldNumber = 5;
+  const ::std::string& file_from() const;
+  void set_file_from(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_from(::std::string&& value);
+  #endif
+  void set_file_from(const char* value);
+  void set_file_from(const char* value, size_t size);
+  ::std::string* mutable_file_from();
+  ::std::string* release_file_from();
+  void set_allocated_file_from(::std::string* file_from);
+
+  // string file_id = 6;
+  void clear_file_id();
+  static const int kFileIdFieldNumber = 6;
+  const ::std::string& file_id() const;
+  void set_file_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_id(::std::string&& value);
+  #endif
+  void set_file_id(const char* value);
+  void set_file_id(const char* value, size_t size);
+  ::std::string* mutable_file_id();
+  ::std::string* release_file_id();
+  void set_allocated_file_id(::std::string* file_id);
+
+  // int32 size = 2;
+  void clear_size();
+  static const int kSizeFieldNumber = 2;
+  ::google::protobuf::int32 size() const;
+  void set_size(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:bigtable.fileMetaData)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr created_time_;
+  ::google::protobuf::internal::ArenaStringPtr file_name_;
+  ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr file_from_;
+  ::google::protobuf::internal::ArenaStringPtr file_id_;
+  ::google::protobuf::int32 size_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
 class GetEmailListRequest final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.GetEmailListRequest) */ {
  public:
@@ -1289,7 +1510,7 @@ class GetEmailListRequest final :
                &_GetEmailListRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   void Swap(GetEmailListRequest* other);
   friend void swap(GetEmailListRequest& a, GetEmailListRequest& b) {
@@ -1409,7 +1630,7 @@ class GetEmailListReply final :
                &_GetEmailListReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   void Swap(GetEmailListReply* other);
   friend void swap(GetEmailListReply& a, GetEmailListReply& b) {
@@ -1466,34 +1687,24 @@ class GetEmailListReply final :
 
   // accessors -------------------------------------------------------
 
-  // repeated string fileList = 1;
-  int filelist_size() const;
-  void clear_filelist();
-  static const int kFileListFieldNumber = 1;
-  const ::std::string& filelist(int index) const;
-  ::std::string* mutable_filelist(int index);
-  void set_filelist(int index, const ::std::string& value);
-  #if LANG_CXX11
-  void set_filelist(int index, ::std::string&& value);
-  #endif
-  void set_filelist(int index, const char* value);
-  void set_filelist(int index, const char* value, size_t size);
-  ::std::string* add_filelist();
-  void add_filelist(const ::std::string& value);
-  #if LANG_CXX11
-  void add_filelist(::std::string&& value);
-  #endif
-  void add_filelist(const char* value);
-  void add_filelist(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField<::std::string>& filelist() const;
-  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_filelist();
+  // repeated .bigtable.fileMetaData metadata = 1;
+  int metadata_size() const;
+  void clear_metadata();
+  static const int kMetadataFieldNumber = 1;
+  ::bigtable::fileMetaData* mutable_metadata(int index);
+  ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >*
+      mutable_metadata();
+  const ::bigtable::fileMetaData& metadata(int index) const;
+  ::bigtable::fileMetaData* add_metadata();
+  const ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >&
+      metadata() const;
 
   // @@protoc_insertion_point(class_scope:bigtable.GetEmailListReply)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField<::std::string> filelist_;
+  ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData > metadata_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bigtable_2eproto;
 };
@@ -1537,7 +1748,7 @@ class GetFileListRequest final :
                &_GetFileListRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   void Swap(GetFileListRequest* other);
   friend void swap(GetFileListRequest& a, GetFileListRequest& b) {
@@ -1657,7 +1868,7 @@ class GetFileListReply final :
                &_GetFileListReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   void Swap(GetFileListReply* other);
   friend void swap(GetFileListReply& a, GetFileListReply& b) {
@@ -1714,34 +1925,24 @@ class GetFileListReply final :
 
   // accessors -------------------------------------------------------
 
-  // repeated string fileList = 1;
-  int filelist_size() const;
-  void clear_filelist();
-  static const int kFileListFieldNumber = 1;
-  const ::std::string& filelist(int index) const;
-  ::std::string* mutable_filelist(int index);
-  void set_filelist(int index, const ::std::string& value);
-  #if LANG_CXX11
-  void set_filelist(int index, ::std::string&& value);
-  #endif
-  void set_filelist(int index, const char* value);
-  void set_filelist(int index, const char* value, size_t size);
-  ::std::string* add_filelist();
-  void add_filelist(const ::std::string& value);
-  #if LANG_CXX11
-  void add_filelist(::std::string&& value);
-  #endif
-  void add_filelist(const char* value);
-  void add_filelist(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField<::std::string>& filelist() const;
-  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_filelist();
+  // repeated .bigtable.fileMetaData metadata = 1;
+  int metadata_size() const;
+  void clear_metadata();
+  static const int kMetadataFieldNumber = 1;
+  ::bigtable::fileMetaData* mutable_metadata(int index);
+  ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >*
+      mutable_metadata();
+  const ::bigtable::fileMetaData& metadata(int index) const;
+  ::bigtable::fileMetaData* add_metadata();
+  const ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >&
+      metadata() const;
 
   // @@protoc_insertion_point(class_scope:bigtable.GetFileListReply)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField<::std::string> filelist_;
+  ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData > metadata_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bigtable_2eproto;
 };
@@ -1929,7 +2130,60 @@ inline void PutRequest::set_allocated_file_type(::std::string* file_type) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.PutRequest.file_type)
 }
 
-// string row = 5;
+// string file_from = 5;
+inline void PutRequest::clear_file_from() {
+  file_from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PutRequest::file_from() const {
+  // @@protoc_insertion_point(field_get:bigtable.PutRequest.file_from)
+  return file_from_.GetNoArena();
+}
+inline void PutRequest::set_file_from(const ::std::string& value) {
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.PutRequest.file_from)
+}
+#if LANG_CXX11
+inline void PutRequest::set_file_from(::std::string&& value) {
+  
+  file_from_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.PutRequest.file_from)
+}
+#endif
+inline void PutRequest::set_file_from(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.PutRequest.file_from)
+}
+inline void PutRequest::set_file_from(const char* value, size_t size) {
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.PutRequest.file_from)
+}
+inline ::std::string* PutRequest::mutable_file_from() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.PutRequest.file_from)
+  return file_from_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PutRequest::release_file_from() {
+  // @@protoc_insertion_point(field_release:bigtable.PutRequest.file_from)
+  
+  return file_from_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PutRequest::set_allocated_file_from(::std::string* file_from) {
+  if (file_from != nullptr) {
+    
+  } else {
+    
+  }
+  file_from_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_from);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.PutRequest.file_from)
+}
+
+// string row = 6;
 inline void PutRequest::clear_row() {
   row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1982,7 +2236,7 @@ inline void PutRequest::set_allocated_row(::std::string* row) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.PutRequest.row)
 }
 
-// string col = 6;
+// string col = 7;
 inline void PutRequest::clear_col() {
   col_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2035,7 +2289,7 @@ inline void PutRequest::set_allocated_col(::std::string* col) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.PutRequest.col)
 }
 
-// string data = 7;
+// string data = 8;
 inline void PutRequest::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2450,7 +2704,60 @@ inline void CPutRequest::set_allocated_file_type(::std::string* file_type) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.CPutRequest.file_type)
 }
 
-// string row = 5;
+// string file_from = 5;
+inline void CPutRequest::clear_file_from() {
+  file_from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CPutRequest::file_from() const {
+  // @@protoc_insertion_point(field_get:bigtable.CPutRequest.file_from)
+  return file_from_.GetNoArena();
+}
+inline void CPutRequest::set_file_from(const ::std::string& value) {
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.CPutRequest.file_from)
+}
+#if LANG_CXX11
+inline void CPutRequest::set_file_from(::std::string&& value) {
+  
+  file_from_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.CPutRequest.file_from)
+}
+#endif
+inline void CPutRequest::set_file_from(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.CPutRequest.file_from)
+}
+inline void CPutRequest::set_file_from(const char* value, size_t size) {
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.CPutRequest.file_from)
+}
+inline ::std::string* CPutRequest::mutable_file_from() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.CPutRequest.file_from)
+  return file_from_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CPutRequest::release_file_from() {
+  // @@protoc_insertion_point(field_release:bigtable.CPutRequest.file_from)
+  
+  return file_from_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CPutRequest::set_allocated_file_from(::std::string* file_from) {
+  if (file_from != nullptr) {
+    
+  } else {
+    
+  }
+  file_from_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_from);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.CPutRequest.file_from)
+}
+
+// string row = 6;
 inline void CPutRequest::clear_row() {
   row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2503,7 +2810,7 @@ inline void CPutRequest::set_allocated_row(::std::string* row) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.CPutRequest.row)
 }
 
-// string col = 6;
+// string col = 7;
 inline void CPutRequest::clear_col() {
   col_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2556,7 +2863,7 @@ inline void CPutRequest::set_allocated_col(::std::string* col) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.CPutRequest.col)
 }
 
-// string old_data = 7;
+// string old_data = 8;
 inline void CPutRequest::clear_old_data() {
   old_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2609,7 +2916,7 @@ inline void CPutRequest::set_allocated_old_data(::std::string* old_data) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.CPutRequest.old_data)
 }
 
-// string new_data = 8;
+// string new_data = 9;
 inline void CPutRequest::clear_new_data() {
   new_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2810,6 +3117,289 @@ inline void DelReply::set_ret(bool value) {
 
 // -------------------------------------------------------------------
 
+// fileMetaData
+
+// string created_time = 1;
+inline void fileMetaData::clear_created_time() {
+  created_time_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& fileMetaData::created_time() const {
+  // @@protoc_insertion_point(field_get:bigtable.fileMetaData.created_time)
+  return created_time_.GetNoArena();
+}
+inline void fileMetaData::set_created_time(const ::std::string& value) {
+  
+  created_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.fileMetaData.created_time)
+}
+#if LANG_CXX11
+inline void fileMetaData::set_created_time(::std::string&& value) {
+  
+  created_time_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.fileMetaData.created_time)
+}
+#endif
+inline void fileMetaData::set_created_time(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  created_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.fileMetaData.created_time)
+}
+inline void fileMetaData::set_created_time(const char* value, size_t size) {
+  
+  created_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.fileMetaData.created_time)
+}
+inline ::std::string* fileMetaData::mutable_created_time() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.fileMetaData.created_time)
+  return created_time_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* fileMetaData::release_created_time() {
+  // @@protoc_insertion_point(field_release:bigtable.fileMetaData.created_time)
+  
+  return created_time_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void fileMetaData::set_allocated_created_time(::std::string* created_time) {
+  if (created_time != nullptr) {
+    
+  } else {
+    
+  }
+  created_time_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), created_time);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.fileMetaData.created_time)
+}
+
+// int32 size = 2;
+inline void fileMetaData::clear_size() {
+  size_ = 0;
+}
+inline ::google::protobuf::int32 fileMetaData::size() const {
+  // @@protoc_insertion_point(field_get:bigtable.fileMetaData.size)
+  return size_;
+}
+inline void fileMetaData::set_size(::google::protobuf::int32 value) {
+  
+  size_ = value;
+  // @@protoc_insertion_point(field_set:bigtable.fileMetaData.size)
+}
+
+// string file_name = 3;
+inline void fileMetaData::clear_file_name() {
+  file_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& fileMetaData::file_name() const {
+  // @@protoc_insertion_point(field_get:bigtable.fileMetaData.file_name)
+  return file_name_.GetNoArena();
+}
+inline void fileMetaData::set_file_name(const ::std::string& value) {
+  
+  file_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.fileMetaData.file_name)
+}
+#if LANG_CXX11
+inline void fileMetaData::set_file_name(::std::string&& value) {
+  
+  file_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.fileMetaData.file_name)
+}
+#endif
+inline void fileMetaData::set_file_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.fileMetaData.file_name)
+}
+inline void fileMetaData::set_file_name(const char* value, size_t size) {
+  
+  file_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.fileMetaData.file_name)
+}
+inline ::std::string* fileMetaData::mutable_file_name() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.fileMetaData.file_name)
+  return file_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* fileMetaData::release_file_name() {
+  // @@protoc_insertion_point(field_release:bigtable.fileMetaData.file_name)
+  
+  return file_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void fileMetaData::set_allocated_file_name(::std::string* file_name) {
+  if (file_name != nullptr) {
+    
+  } else {
+    
+  }
+  file_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_name);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.fileMetaData.file_name)
+}
+
+// string file_type = 4;
+inline void fileMetaData::clear_file_type() {
+  file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& fileMetaData::file_type() const {
+  // @@protoc_insertion_point(field_get:bigtable.fileMetaData.file_type)
+  return file_type_.GetNoArena();
+}
+inline void fileMetaData::set_file_type(const ::std::string& value) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.fileMetaData.file_type)
+}
+#if LANG_CXX11
+inline void fileMetaData::set_file_type(::std::string&& value) {
+  
+  file_type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.fileMetaData.file_type)
+}
+#endif
+inline void fileMetaData::set_file_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.fileMetaData.file_type)
+}
+inline void fileMetaData::set_file_type(const char* value, size_t size) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.fileMetaData.file_type)
+}
+inline ::std::string* fileMetaData::mutable_file_type() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.fileMetaData.file_type)
+  return file_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* fileMetaData::release_file_type() {
+  // @@protoc_insertion_point(field_release:bigtable.fileMetaData.file_type)
+  
+  return file_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void fileMetaData::set_allocated_file_type(::std::string* file_type) {
+  if (file_type != nullptr) {
+    
+  } else {
+    
+  }
+  file_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_type);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.fileMetaData.file_type)
+}
+
+// string file_from = 5;
+inline void fileMetaData::clear_file_from() {
+  file_from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& fileMetaData::file_from() const {
+  // @@protoc_insertion_point(field_get:bigtable.fileMetaData.file_from)
+  return file_from_.GetNoArena();
+}
+inline void fileMetaData::set_file_from(const ::std::string& value) {
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.fileMetaData.file_from)
+}
+#if LANG_CXX11
+inline void fileMetaData::set_file_from(::std::string&& value) {
+  
+  file_from_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.fileMetaData.file_from)
+}
+#endif
+inline void fileMetaData::set_file_from(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.fileMetaData.file_from)
+}
+inline void fileMetaData::set_file_from(const char* value, size_t size) {
+  
+  file_from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.fileMetaData.file_from)
+}
+inline ::std::string* fileMetaData::mutable_file_from() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.fileMetaData.file_from)
+  return file_from_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* fileMetaData::release_file_from() {
+  // @@protoc_insertion_point(field_release:bigtable.fileMetaData.file_from)
+  
+  return file_from_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void fileMetaData::set_allocated_file_from(::std::string* file_from) {
+  if (file_from != nullptr) {
+    
+  } else {
+    
+  }
+  file_from_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_from);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.fileMetaData.file_from)
+}
+
+// string file_id = 6;
+inline void fileMetaData::clear_file_id() {
+  file_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& fileMetaData::file_id() const {
+  // @@protoc_insertion_point(field_get:bigtable.fileMetaData.file_id)
+  return file_id_.GetNoArena();
+}
+inline void fileMetaData::set_file_id(const ::std::string& value) {
+  
+  file_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.fileMetaData.file_id)
+}
+#if LANG_CXX11
+inline void fileMetaData::set_file_id(::std::string&& value) {
+  
+  file_id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.fileMetaData.file_id)
+}
+#endif
+inline void fileMetaData::set_file_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.fileMetaData.file_id)
+}
+inline void fileMetaData::set_file_id(const char* value, size_t size) {
+  
+  file_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.fileMetaData.file_id)
+}
+inline ::std::string* fileMetaData::mutable_file_id() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.fileMetaData.file_id)
+  return file_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* fileMetaData::release_file_id() {
+  // @@protoc_insertion_point(field_release:bigtable.fileMetaData.file_id)
+  
+  return file_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void fileMetaData::set_allocated_file_id(::std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_id);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.fileMetaData.file_id)
+}
+
+// -------------------------------------------------------------------
+
 // GetEmailListRequest
 
 // string row = 1;
@@ -2869,73 +3459,34 @@ inline void GetEmailListRequest::set_allocated_row(::std::string* row) {
 
 // GetEmailListReply
 
-// repeated string fileList = 1;
-inline int GetEmailListReply::filelist_size() const {
-  return filelist_.size();
+// repeated .bigtable.fileMetaData metadata = 1;
+inline int GetEmailListReply::metadata_size() const {
+  return metadata_.size();
 }
-inline void GetEmailListReply::clear_filelist() {
-  filelist_.Clear();
+inline void GetEmailListReply::clear_metadata() {
+  metadata_.Clear();
 }
-inline const ::std::string& GetEmailListReply::filelist(int index) const {
-  // @@protoc_insertion_point(field_get:bigtable.GetEmailListReply.fileList)
-  return filelist_.Get(index);
+inline ::bigtable::fileMetaData* GetEmailListReply::mutable_metadata(int index) {
+  // @@protoc_insertion_point(field_mutable:bigtable.GetEmailListReply.metadata)
+  return metadata_.Mutable(index);
 }
-inline ::std::string* GetEmailListReply::mutable_filelist(int index) {
-  // @@protoc_insertion_point(field_mutable:bigtable.GetEmailListReply.fileList)
-  return filelist_.Mutable(index);
+inline ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >*
+GetEmailListReply::mutable_metadata() {
+  // @@protoc_insertion_point(field_mutable_list:bigtable.GetEmailListReply.metadata)
+  return &metadata_;
 }
-inline void GetEmailListReply::set_filelist(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:bigtable.GetEmailListReply.fileList)
-  filelist_.Mutable(index)->assign(value);
+inline const ::bigtable::fileMetaData& GetEmailListReply::metadata(int index) const {
+  // @@protoc_insertion_point(field_get:bigtable.GetEmailListReply.metadata)
+  return metadata_.Get(index);
 }
-#if LANG_CXX11
-inline void GetEmailListReply::set_filelist(int index, ::std::string&& value) {
-  // @@protoc_insertion_point(field_set:bigtable.GetEmailListReply.fileList)
-  filelist_.Mutable(index)->assign(std::move(value));
+inline ::bigtable::fileMetaData* GetEmailListReply::add_metadata() {
+  // @@protoc_insertion_point(field_add:bigtable.GetEmailListReply.metadata)
+  return metadata_.Add();
 }
-#endif
-inline void GetEmailListReply::set_filelist(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  filelist_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:bigtable.GetEmailListReply.fileList)
-}
-inline void GetEmailListReply::set_filelist(int index, const char* value, size_t size) {
-  filelist_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:bigtable.GetEmailListReply.fileList)
-}
-inline ::std::string* GetEmailListReply::add_filelist() {
-  // @@protoc_insertion_point(field_add_mutable:bigtable.GetEmailListReply.fileList)
-  return filelist_.Add();
-}
-inline void GetEmailListReply::add_filelist(const ::std::string& value) {
-  filelist_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:bigtable.GetEmailListReply.fileList)
-}
-#if LANG_CXX11
-inline void GetEmailListReply::add_filelist(::std::string&& value) {
-  filelist_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:bigtable.GetEmailListReply.fileList)
-}
-#endif
-inline void GetEmailListReply::add_filelist(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  filelist_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:bigtable.GetEmailListReply.fileList)
-}
-inline void GetEmailListReply::add_filelist(const char* value, size_t size) {
-  filelist_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:bigtable.GetEmailListReply.fileList)
-}
-inline const ::google::protobuf::RepeatedPtrField<::std::string>&
-GetEmailListReply::filelist() const {
-  // @@protoc_insertion_point(field_list:bigtable.GetEmailListReply.fileList)
-  return filelist_;
-}
-inline ::google::protobuf::RepeatedPtrField<::std::string>*
-GetEmailListReply::mutable_filelist() {
-  // @@protoc_insertion_point(field_mutable_list:bigtable.GetEmailListReply.fileList)
-  return &filelist_;
+inline const ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >&
+GetEmailListReply::metadata() const {
+  // @@protoc_insertion_point(field_list:bigtable.GetEmailListReply.metadata)
+  return metadata_;
 }
 
 // -------------------------------------------------------------------
@@ -2999,78 +3550,41 @@ inline void GetFileListRequest::set_allocated_row(::std::string* row) {
 
 // GetFileListReply
 
-// repeated string fileList = 1;
-inline int GetFileListReply::filelist_size() const {
-  return filelist_.size();
+// repeated .bigtable.fileMetaData metadata = 1;
+inline int GetFileListReply::metadata_size() const {
+  return metadata_.size();
 }
-inline void GetFileListReply::clear_filelist() {
-  filelist_.Clear();
+inline void GetFileListReply::clear_metadata() {
+  metadata_.Clear();
 }
-inline const ::std::string& GetFileListReply::filelist(int index) const {
-  // @@protoc_insertion_point(field_get:bigtable.GetFileListReply.fileList)
-  return filelist_.Get(index);
+inline ::bigtable::fileMetaData* GetFileListReply::mutable_metadata(int index) {
+  // @@protoc_insertion_point(field_mutable:bigtable.GetFileListReply.metadata)
+  return metadata_.Mutable(index);
 }
-inline ::std::string* GetFileListReply::mutable_filelist(int index) {
-  // @@protoc_insertion_point(field_mutable:bigtable.GetFileListReply.fileList)
-  return filelist_.Mutable(index);
+inline ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >*
+GetFileListReply::mutable_metadata() {
+  // @@protoc_insertion_point(field_mutable_list:bigtable.GetFileListReply.metadata)
+  return &metadata_;
 }
-inline void GetFileListReply::set_filelist(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:bigtable.GetFileListReply.fileList)
-  filelist_.Mutable(index)->assign(value);
+inline const ::bigtable::fileMetaData& GetFileListReply::metadata(int index) const {
+  // @@protoc_insertion_point(field_get:bigtable.GetFileListReply.metadata)
+  return metadata_.Get(index);
 }
-#if LANG_CXX11
-inline void GetFileListReply::set_filelist(int index, ::std::string&& value) {
-  // @@protoc_insertion_point(field_set:bigtable.GetFileListReply.fileList)
-  filelist_.Mutable(index)->assign(std::move(value));
+inline ::bigtable::fileMetaData* GetFileListReply::add_metadata() {
+  // @@protoc_insertion_point(field_add:bigtable.GetFileListReply.metadata)
+  return metadata_.Add();
 }
-#endif
-inline void GetFileListReply::set_filelist(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  filelist_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:bigtable.GetFileListReply.fileList)
-}
-inline void GetFileListReply::set_filelist(int index, const char* value, size_t size) {
-  filelist_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:bigtable.GetFileListReply.fileList)
-}
-inline ::std::string* GetFileListReply::add_filelist() {
-  // @@protoc_insertion_point(field_add_mutable:bigtable.GetFileListReply.fileList)
-  return filelist_.Add();
-}
-inline void GetFileListReply::add_filelist(const ::std::string& value) {
-  filelist_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:bigtable.GetFileListReply.fileList)
-}
-#if LANG_CXX11
-inline void GetFileListReply::add_filelist(::std::string&& value) {
-  filelist_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:bigtable.GetFileListReply.fileList)
-}
-#endif
-inline void GetFileListReply::add_filelist(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  filelist_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:bigtable.GetFileListReply.fileList)
-}
-inline void GetFileListReply::add_filelist(const char* value, size_t size) {
-  filelist_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:bigtable.GetFileListReply.fileList)
-}
-inline const ::google::protobuf::RepeatedPtrField<::std::string>&
-GetFileListReply::filelist() const {
-  // @@protoc_insertion_point(field_list:bigtable.GetFileListReply.fileList)
-  return filelist_;
-}
-inline ::google::protobuf::RepeatedPtrField<::std::string>*
-GetFileListReply::mutable_filelist() {
-  // @@protoc_insertion_point(field_mutable_list:bigtable.GetFileListReply.fileList)
-  return &filelist_;
+inline const ::google::protobuf::RepeatedPtrField< ::bigtable::fileMetaData >&
+GetFileListReply::metadata() const {
+  // @@protoc_insertion_point(field_list:bigtable.GetFileListReply.metadata)
+  return metadata_;
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

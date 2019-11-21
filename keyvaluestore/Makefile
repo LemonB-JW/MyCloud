@@ -20,7 +20,7 @@ GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 PROTOS_PATH = protos
 
 vpath %.proto $(PROTOS_PATH)
-TARGETS = bigtable_client bigtable_server
+TARGETS = bigtable_client bigtable_server tester storageserver
 all: $(TARGETS)
 
 bigtable_client: bigtable.pb.o bigtable.grpc.pb.o bigtable_client.o
@@ -29,11 +29,11 @@ bigtable_client: bigtable.pb.o bigtable.grpc.pb.o bigtable_client.o
 bigtable_server: bigtable.pb.o bigtable.grpc.pb.o bigtable_server.o TableCell.cc BigTable.cc FileMetaData.cc 
 	$(CXX) $^ $(LDFLAGS) $(IFLAG) -o $@
 
-# tester: table_tester.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
-# 		g++ $^ $(IFLAG) $@
+tester: table_tester.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
+	$(CXX) $^ $(IFLAG) -o $@
 
-# storageserver: StorageServer.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
-# 		g++ $^ $(IFLAG) $@
+storageserver: StorageServer.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
+	$(CXX) $^ $(IFLAG) -o $@
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto

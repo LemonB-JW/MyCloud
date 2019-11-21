@@ -17,10 +17,11 @@ string FileMetaData::metaDataToString(const FileMetaData* file_data){
 	string created_time = file_data->created_time;
 	int size = file_data->size; // num of bytes of that file
 	string file_name = file_data->file_name;
+	string file_from = file_data->file_from;
 	string file_id = file_data->file_id; // created_time + file_name
 
 	string result = "";
-	result = file_type + "," + created_time + "," + file_name + "," + file_id + "," + to_string(size);
+	result = file_type + "," + created_time + "," + file_name + "," + file_id + "," + to_string(size) + file_from;
 	return result;
 
 }

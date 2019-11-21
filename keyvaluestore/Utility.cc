@@ -8,10 +8,10 @@
 #include <vector>
 #include <time.h>
 #include <sys/time.h>
-#include "Utility.h"
+#include "../lib/Utility.h"
 using namespace std;
 
-string generateFileID(int worker_index, int sequence_num) {
+string Utility::generateFileID(int worker_index, int sequence_num) {
 	struct timeval tv;
 	time_t nowtime;
 	struct tm *nowtm;
@@ -24,7 +24,8 @@ string generateFileID(int worker_index, int sequence_num) {
 	strftime(tmbuf, sizeof tmbuf, "%Y-%m-%d %H:%M:%S", nowtm);
 	snprintf(final_formatted_tm, sizeof(final_formatted_tm), "%s.%06ld", tmbuf, tv.tv_usec);
 	string timestamp(tmbuf);
-	return to_string(worker_index) + to_string(sequence_num) + timestamp;
+	string res = to_string(worker_index) + to_string(sequence_num) + timestamp;
+	return res;
 } 
 
 

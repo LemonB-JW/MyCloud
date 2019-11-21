@@ -3,7 +3,9 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 #include <grpcpp/grpcpp.h>
+// #include "../lib/FileMetaData.h"
 #include "../lib/BigTable.h"
 
 
@@ -21,18 +23,30 @@ using bigtable::PutRequest;
 using bigtable::PutReply;
 using bigtable::GetRequest;
 using bigtable::GetReply;
+using bigtable::GetFileListRequest;
+using bigtable::GetFileListReply;
 using bigtable::Bigtable;
 
 
 BigTable table;
 
+// This function fills in a Person message based on user input.
+void ConstructMetaDataResponse(bigtable::fileMetaData* fileMetaData, FileMetaData srcData) {
+  fileMetaData->set_file_name(srcData.file_name);
+  fileMetaData->set_size(srcData.size);
+  fileMetaData->set_file_type(srcData.file_type);
+  fileMetaData->set_file_id(srcData.file_id);
+  fileMetaData->set_created_time(srcData.created_time);
+  fileMetaData->set_file_from(srcData.file_from);
+
+}
 
 // Logic and data behind the server's behavior.
 class TableServiceImpl final : public Bigtable::Service {
   Status put(ServerContext* context, const PutRequest* request,
                   PutReply* reply) override {
     // std::string prefix("Hello ");
-    bool ret = table.put(request->created_time(), request->size(), request->file_name(), request->file_type(), request->row(), request->col(), request->data());
+    bool ret = table.put(request->created_time(), request->size(), request->file_name(), request->file_type(), request->file_from(), request->row(), request->col(), request->data());
     reply->set_ret(ret);
     return Status::OK;
   }
@@ -42,6 +56,16 @@ class TableServiceImpl final : public Bigtable::Service {
     // std::string prefix("Hello ");
     std::string res = table.get(request->row(), request->col());
     reply->set_content(res);
+    return Status::OK;
+  }
+
+  Status list_all_files_for_currUser(ServerContext* context, const GetFileListRequest* request,
+                  GetFileListReply* reply) override {
+    // std::string prefix("Hello ");
+    vector<FileMetaData> res = table.list_all_files_for_currUser(request->row());
+    for(int i = 0; i < res.size(); i++){
+      ConstructMetaDataResponse(reply->add_metadata(), res.at(i));
+    }
     return Status::OK;
   }
 };

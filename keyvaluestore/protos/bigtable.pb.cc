@@ -16,6 +16,7 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 
+extern PROTOBUF_INTERNAL_EXPORT_bigtable_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_fileMetaData_bigtable_2eproto;
 namespace bigtable {
 class PutRequestDefaultTypeInternal {
  public:
@@ -49,6 +50,10 @@ class DelReplyDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<DelReply> _instance;
 } _DelReply_default_instance_;
+class fileMetaDataDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<fileMetaData> _instance;
+} _fileMetaData_default_instance_;
 class GetEmailListRequestDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<GetEmailListRequest> _instance;
@@ -178,6 +183,20 @@ static void InitDefaultsDelReply_bigtable_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_DelReply_bigtable_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsDelReply_bigtable_2eproto}, {}};
 
+static void InitDefaultsfileMetaData_bigtable_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::bigtable::_fileMetaData_default_instance_;
+    new (ptr) ::bigtable::fileMetaData();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::bigtable::fileMetaData::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_fileMetaData_bigtable_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsfileMetaData_bigtable_2eproto}, {}};
+
 static void InitDefaultsGetEmailListRequest_bigtable_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -203,8 +222,9 @@ static void InitDefaultsGetEmailListReply_bigtable_2eproto() {
   ::bigtable::GetEmailListReply::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_GetEmailListReply_bigtable_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGetEmailListReply_bigtable_2eproto}, {}};
+::google::protobuf::internal::SCCInfo<1> scc_info_GetEmailListReply_bigtable_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsGetEmailListReply_bigtable_2eproto}, {
+      &scc_info_fileMetaData_bigtable_2eproto.base,}};
 
 static void InitDefaultsGetFileListRequest_bigtable_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -231,8 +251,9 @@ static void InitDefaultsGetFileListReply_bigtable_2eproto() {
   ::bigtable::GetFileListReply::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_GetFileListReply_bigtable_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGetFileListReply_bigtable_2eproto}, {}};
+::google::protobuf::internal::SCCInfo<1> scc_info_GetFileListReply_bigtable_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsGetFileListReply_bigtable_2eproto}, {
+      &scc_info_fileMetaData_bigtable_2eproto.base,}};
 
 void InitDefaults_bigtable_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_PutRequest_bigtable_2eproto.base);
@@ -243,13 +264,14 @@ void InitDefaults_bigtable_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_CPutReply_bigtable_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_DelRequest_bigtable_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_DelReply_bigtable_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_fileMetaData_bigtable_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GetEmailListRequest_bigtable_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GetEmailListReply_bigtable_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GetFileListRequest_bigtable_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GetFileListReply_bigtable_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_bigtable_2eproto[12];
+::google::protobuf::Metadata file_level_metadata_bigtable_2eproto[13];
 constexpr ::google::protobuf::EnumDescriptor const** file_level_enum_descriptors_bigtable_2eproto = nullptr;
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_bigtable_2eproto = nullptr;
 
@@ -263,6 +285,7 @@ const ::google::protobuf::uint32 TableStruct_bigtable_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, size_),
   PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, file_name_),
   PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, file_type_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, file_from_),
   PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, row_),
   PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, col_),
   PROTOBUF_FIELD_OFFSET(::bigtable::PutRequest, data_),
@@ -294,6 +317,7 @@ const ::google::protobuf::uint32 TableStruct_bigtable_2eproto::offsets[] PROTOBU
   PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, size_),
   PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, file_name_),
   PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, file_type_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, file_from_),
   PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, row_),
   PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, col_),
   PROTOBUF_FIELD_OFFSET(::bigtable::CPutRequest, old_data_),
@@ -318,6 +342,17 @@ const ::google::protobuf::uint32 TableStruct_bigtable_2eproto::offsets[] PROTOBU
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::bigtable::DelReply, ret_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, created_time_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, size_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, file_name_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, file_type_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, file_from_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::fileMetaData, file_id_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::bigtable::GetEmailListRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -328,7 +363,7 @@ const ::google::protobuf::uint32 TableStruct_bigtable_2eproto::offsets[] PROTOBU
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::bigtable::GetEmailListReply, filelist_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::GetEmailListReply, metadata_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::bigtable::GetFileListRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -340,21 +375,22 @@ const ::google::protobuf::uint32 TableStruct_bigtable_2eproto::offsets[] PROTOBU
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::bigtable::GetFileListReply, filelist_),
+  PROTOBUF_FIELD_OFFSET(::bigtable::GetFileListReply, metadata_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::bigtable::PutRequest)},
-  { 12, -1, sizeof(::bigtable::PutReply)},
-  { 18, -1, sizeof(::bigtable::GetRequest)},
-  { 25, -1, sizeof(::bigtable::GetReply)},
-  { 31, -1, sizeof(::bigtable::CPutRequest)},
-  { 44, -1, sizeof(::bigtable::CPutReply)},
-  { 50, -1, sizeof(::bigtable::DelRequest)},
-  { 57, -1, sizeof(::bigtable::DelReply)},
-  { 63, -1, sizeof(::bigtable::GetEmailListRequest)},
-  { 69, -1, sizeof(::bigtable::GetEmailListReply)},
-  { 75, -1, sizeof(::bigtable::GetFileListRequest)},
-  { 81, -1, sizeof(::bigtable::GetFileListReply)},
+  { 13, -1, sizeof(::bigtable::PutReply)},
+  { 19, -1, sizeof(::bigtable::GetRequest)},
+  { 26, -1, sizeof(::bigtable::GetReply)},
+  { 32, -1, sizeof(::bigtable::CPutRequest)},
+  { 46, -1, sizeof(::bigtable::CPutReply)},
+  { 52, -1, sizeof(::bigtable::DelRequest)},
+  { 59, -1, sizeof(::bigtable::DelReply)},
+  { 65, -1, sizeof(::bigtable::fileMetaData)},
+  { 76, -1, sizeof(::bigtable::GetEmailListRequest)},
+  { 82, -1, sizeof(::bigtable::GetEmailListReply)},
+  { 88, -1, sizeof(::bigtable::GetFileListRequest)},
+  { 94, -1, sizeof(::bigtable::GetFileListReply)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -366,6 +402,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_CPutReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_DelRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_DelReply_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_fileMetaData_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_GetEmailListRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_GetEmailListReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::bigtable::_GetFileListRequest_default_instance_),
@@ -375,43 +412,48 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_bigtable_2eproto = {
   {}, AddDescriptors_bigtable_2eproto, "bigtable.proto", schemas,
   file_default_instances, TableStruct_bigtable_2eproto::offsets,
-  file_level_metadata_bigtable_2eproto, 12, file_level_enum_descriptors_bigtable_2eproto, file_level_service_descriptors_bigtable_2eproto,
+  file_level_metadata_bigtable_2eproto, 13, file_level_enum_descriptors_bigtable_2eproto, file_level_service_descriptors_bigtable_2eproto,
 };
 
 const char descriptor_table_protodef_bigtable_2eproto[] =
-  "\n\016bigtable.proto\022\010bigtable\"~\n\nPutRequest"
-  "\022\024\n\014created_time\030\001 \001(\t\022\014\n\004size\030\002 \001(\005\022\021\n\t"
-  "file_name\030\003 \001(\t\022\021\n\tfile_type\030\004 \001(\t\022\013\n\003ro"
-  "w\030\005 \001(\t\022\013\n\003col\030\006 \001(\t\022\014\n\004data\030\007 \001(\t\"\027\n\010Pu"
-  "tReply\022\013\n\003ret\030\001 \001(\010\"&\n\nGetRequest\022\013\n\003row"
-  "\030\001 \001(\t\022\013\n\003col\030\002 \001(\t\"\033\n\010GetReply\022\017\n\007conte"
-  "nt\030\001 \001(\t\"\225\001\n\013CPutRequest\022\024\n\014created_time"
-  "\030\001 \001(\t\022\014\n\004size\030\002 \001(\005\022\021\n\tfile_name\030\003 \001(\t\022"
-  "\021\n\tfile_type\030\004 \001(\t\022\013\n\003row\030\005 \001(\t\022\013\n\003col\030\006"
-  " \001(\t\022\020\n\010old_data\030\007 \001(\t\022\020\n\010new_data\030\010 \001(\t"
-  "\"\030\n\tCPutReply\022\013\n\003ret\030\001 \001(\010\"&\n\nDelRequest"
-  "\022\013\n\003row\030\001 \001(\t\022\013\n\003col\030\002 \001(\t\"\027\n\010DelReply\022\013"
-  "\n\003ret\030\001 \001(\010\"\"\n\023GetEmailListRequest\022\013\n\003ro"
-  "w\030\001 \001(\t\"%\n\021GetEmailListReply\022\020\n\010fileList"
-  "\030\001 \003(\t\"!\n\022GetFileListRequest\022\013\n\003row\030\001 \001("
-  "\t\"$\n\020GetFileListReply\022\020\n\010fileList\030\001 \003(\t2"
-  "\233\003\n\010Bigtable\0221\n\003put\022\024.bigtable.PutReques"
-  "t\032\022.bigtable.PutReply\"\000\0221\n\003get\022\024.bigtabl"
-  "e.GetRequest\032\022.bigtable.GetReply\"\000\0224\n\004cp"
-  "ut\022\025.bigtable.CPutRequest\032\023.bigtable.CPu"
-  "tReply\"\000\022:\n\014table_delete\022\024.bigtable.DelR"
-  "equest\032\022.bigtable.DelReply\"\000\022\\\n\034list_all"
-  "_emails_for_currUser\022\035.bigtable.GetEmail"
-  "ListRequest\032\033.bigtable.GetEmailListReply"
-  "\"\000\022Y\n\033list_all_files_for_currUser\022\034.bigt"
-  "able.GetFileListRequest\032\032.bigtable.GetFi"
-  "leListReply\"\000B(\n\020io.grpc.bigtableB\rBigta"
-  "bleProtoP\001\242\002\002BTb\006proto3"
+  "\n\016bigtable.proto\022\010bigtable\"\221\001\n\nPutReques"
+  "t\022\024\n\014created_time\030\001 \001(\t\022\014\n\004size\030\002 \001(\005\022\021\n"
+  "\tfile_name\030\003 \001(\t\022\021\n\tfile_type\030\004 \001(\t\022\021\n\tf"
+  "ile_from\030\005 \001(\t\022\013\n\003row\030\006 \001(\t\022\013\n\003col\030\007 \001(\t"
+  "\022\014\n\004data\030\010 \001(\t\"\027\n\010PutReply\022\013\n\003ret\030\001 \001(\010\""
+  "&\n\nGetRequest\022\013\n\003row\030\001 \001(\t\022\013\n\003col\030\002 \001(\t\""
+  "\033\n\010GetReply\022\017\n\007content\030\001 \001(\t\"\250\001\n\013CPutReq"
+  "uest\022\024\n\014created_time\030\001 \001(\t\022\014\n\004size\030\002 \001(\005"
+  "\022\021\n\tfile_name\030\003 \001(\t\022\021\n\tfile_type\030\004 \001(\t\022\021"
+  "\n\tfile_from\030\005 \001(\t\022\013\n\003row\030\006 \001(\t\022\013\n\003col\030\007 "
+  "\001(\t\022\020\n\010old_data\030\010 \001(\t\022\020\n\010new_data\030\t \001(\t\""
+  "\030\n\tCPutReply\022\013\n\003ret\030\001 \001(\010\"&\n\nDelRequest\022"
+  "\013\n\003row\030\001 \001(\t\022\013\n\003col\030\002 \001(\t\"\027\n\010DelReply\022\013\n"
+  "\003ret\030\001 \001(\010\"|\n\014fileMetaData\022\024\n\014created_ti"
+  "me\030\001 \001(\t\022\014\n\004size\030\002 \001(\005\022\021\n\tfile_name\030\003 \001("
+  "\t\022\021\n\tfile_type\030\004 \001(\t\022\021\n\tfile_from\030\005 \001(\t\022"
+  "\017\n\007file_id\030\006 \001(\t\"\"\n\023GetEmailListRequest\022"
+  "\013\n\003row\030\001 \001(\t\"=\n\021GetEmailListReply\022(\n\010met"
+  "adata\030\001 \003(\0132\026.bigtable.fileMetaData\"!\n\022G"
+  "etFileListRequest\022\013\n\003row\030\001 \001(\t\"<\n\020GetFil"
+  "eListReply\022(\n\010metadata\030\001 \003(\0132\026.bigtable."
+  "fileMetaData2\233\003\n\010Bigtable\0221\n\003put\022\024.bigta"
+  "ble.PutRequest\032\022.bigtable.PutReply\"\000\0221\n\003"
+  "get\022\024.bigtable.GetRequest\032\022.bigtable.Get"
+  "Reply\"\000\0224\n\004cput\022\025.bigtable.CPutRequest\032\023"
+  ".bigtable.CPutReply\"\000\022:\n\014table_delete\022\024."
+  "bigtable.DelRequest\032\022.bigtable.DelReply\""
+  "\000\022\\\n\034list_all_emails_for_currUser\022\035.bigt"
+  "able.GetEmailListRequest\032\033.bigtable.GetE"
+  "mailListReply\"\000\022Y\n\033list_all_files_for_cu"
+  "rrUser\022\034.bigtable.GetFileListRequest\032\032.b"
+  "igtable.GetFileListReply\"\000B(\n\020io.grpc.bi"
+  "gtableB\rBigtableProtoP\001\242\002\002BTb\006proto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_bigtable_2eproto = {
   false, InitDefaults_bigtable_2eproto, 
   descriptor_table_protodef_bigtable_2eproto,
-  "bigtable.proto", &assign_descriptors_table_bigtable_2eproto, 1103,
+  "bigtable.proto", &assign_descriptors_table_bigtable_2eproto, 1316,
 };
 
 void AddDescriptors_bigtable_2eproto() {
@@ -438,6 +480,7 @@ const int PutRequest::kCreatedTimeFieldNumber;
 const int PutRequest::kSizeFieldNumber;
 const int PutRequest::kFileNameFieldNumber;
 const int PutRequest::kFileTypeFieldNumber;
+const int PutRequest::kFileFromFieldNumber;
 const int PutRequest::kRowFieldNumber;
 const int PutRequest::kColFieldNumber;
 const int PutRequest::kDataFieldNumber;
@@ -464,6 +507,10 @@ PutRequest::PutRequest(const PutRequest& from)
   if (from.file_type().size() > 0) {
     file_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_type_);
   }
+  file_from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.file_from().size() > 0) {
+    file_from_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_from_);
+  }
   row_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.row().size() > 0) {
     row_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.row_);
@@ -486,6 +533,7 @@ void PutRequest::SharedCtor() {
   created_time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   row_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   col_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -501,6 +549,7 @@ void PutRequest::SharedDtor() {
   created_time_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   row_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   col_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -524,6 +573,7 @@ void PutRequest::Clear() {
   created_time_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   col_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -599,9 +649,25 @@ const char* PutRequest::_InternalParse(const char* begin, const char* end, void*
         ptr += size;
         break;
       }
-      // string row = 5;
+      // string file_from = 5;
       case 5: {
         if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.PutRequest.file_from");
+        object = msg->mutable_file_from();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string row = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.PutRequest.row");
@@ -615,9 +681,9 @@ const char* PutRequest::_InternalParse(const char* begin, const char* end, void*
         ptr += size;
         break;
       }
-      // string col = 6;
-      case 6: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
+      // string col = 7;
+      case 7: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 58) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.PutRequest.col");
@@ -631,9 +697,9 @@ const char* PutRequest::_InternalParse(const char* begin, const char* end, void*
         ptr += size;
         break;
       }
-      // string data = 7;
-      case 7: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 58) goto handle_unusual;
+      // string data = 8;
+      case 8: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 66) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.PutRequest.data");
@@ -739,9 +805,24 @@ bool PutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string row = 5;
+      // string file_from = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_from()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->file_from().data(), static_cast<int>(this->file_from().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.PutRequest.file_from"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string row = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_row()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -754,9 +835,9 @@ bool PutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string col = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
+      // string col = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (58 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_col()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -769,9 +850,9 @@ bool PutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string data = 7;
-      case 7: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (58 & 0xFF)) {
+      // string data = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (66 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_data()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -846,34 +927,44 @@ void PutRequest::SerializeWithCachedSizes(
       4, this->file_type(), output);
   }
 
-  // string row = 5;
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_from().data(), static_cast<int>(this->file_from().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.PutRequest.file_from");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->file_from(), output);
+  }
+
+  // string row = 6;
   if (this->row().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->row().data(), static_cast<int>(this->row().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.PutRequest.row");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->row(), output);
+      6, this->row(), output);
   }
 
-  // string col = 6;
+  // string col = 7;
   if (this->col().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->col().data(), static_cast<int>(this->col().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.PutRequest.col");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->col(), output);
+      7, this->col(), output);
   }
 
-  // string data = 7;
+  // string data = 8;
   if (this->data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->data().data(), static_cast<int>(this->data().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.PutRequest.data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      7, this->data(), output);
+      8, this->data(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -927,7 +1018,18 @@ void PutRequest::SerializeWithCachedSizes(
         4, this->file_type(), target);
   }
 
-  // string row = 5;
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_from().data(), static_cast<int>(this->file_from().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.PutRequest.file_from");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->file_from(), target);
+  }
+
+  // string row = 6;
   if (this->row().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->row().data(), static_cast<int>(this->row().length()),
@@ -935,10 +1037,10 @@ void PutRequest::SerializeWithCachedSizes(
       "bigtable.PutRequest.row");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->row(), target);
+        6, this->row(), target);
   }
 
-  // string col = 6;
+  // string col = 7;
   if (this->col().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->col().data(), static_cast<int>(this->col().length()),
@@ -946,10 +1048,10 @@ void PutRequest::SerializeWithCachedSizes(
       "bigtable.PutRequest.col");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->col(), target);
+        7, this->col(), target);
   }
 
-  // string data = 7;
+  // string data = 8;
   if (this->data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->data().data(), static_cast<int>(this->data().length()),
@@ -957,7 +1059,7 @@ void PutRequest::SerializeWithCachedSizes(
       "bigtable.PutRequest.data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        7, this->data(), target);
+        8, this->data(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1002,21 +1104,28 @@ size_t PutRequest::ByteSizeLong() const {
         this->file_type());
   }
 
-  // string row = 5;
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->file_from());
+  }
+
+  // string row = 6;
   if (this->row().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->row());
   }
 
-  // string col = 6;
+  // string col = 7;
   if (this->col().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->col());
   }
 
-  // string data = 7;
+  // string data = 8;
   if (this->data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -1069,6 +1178,10 @@ void PutRequest::MergeFrom(const PutRequest& from) {
 
     file_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_type_);
   }
+  if (from.file_from().size() > 0) {
+
+    file_from_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_from_);
+  }
   if (from.row().size() > 0) {
 
     row_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.row_);
@@ -1116,6 +1229,8 @@ void PutRequest::InternalSwap(PutRequest* other) {
   file_name_.Swap(&other->file_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   file_type_.Swap(&other->file_type_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  file_from_.Swap(&other->file_from_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   row_.Swap(&other->row_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
@@ -2070,6 +2185,7 @@ const int CPutRequest::kCreatedTimeFieldNumber;
 const int CPutRequest::kSizeFieldNumber;
 const int CPutRequest::kFileNameFieldNumber;
 const int CPutRequest::kFileTypeFieldNumber;
+const int CPutRequest::kFileFromFieldNumber;
 const int CPutRequest::kRowFieldNumber;
 const int CPutRequest::kColFieldNumber;
 const int CPutRequest::kOldDataFieldNumber;
@@ -2097,6 +2213,10 @@ CPutRequest::CPutRequest(const CPutRequest& from)
   if (from.file_type().size() > 0) {
     file_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_type_);
   }
+  file_from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.file_from().size() > 0) {
+    file_from_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_from_);
+  }
   row_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.row().size() > 0) {
     row_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.row_);
@@ -2123,6 +2243,7 @@ void CPutRequest::SharedCtor() {
   created_time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   row_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   col_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   old_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2139,6 +2260,7 @@ void CPutRequest::SharedDtor() {
   created_time_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   row_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   col_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   old_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2163,6 +2285,7 @@ void CPutRequest::Clear() {
   created_time_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   col_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   old_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2239,9 +2362,25 @@ const char* CPutRequest::_InternalParse(const char* begin, const char* end, void
         ptr += size;
         break;
       }
-      // string row = 5;
+      // string file_from = 5;
       case 5: {
         if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.CPutRequest.file_from");
+        object = msg->mutable_file_from();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string row = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.CPutRequest.row");
@@ -2255,9 +2394,9 @@ const char* CPutRequest::_InternalParse(const char* begin, const char* end, void
         ptr += size;
         break;
       }
-      // string col = 6;
-      case 6: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
+      // string col = 7;
+      case 7: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 58) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.CPutRequest.col");
@@ -2271,9 +2410,9 @@ const char* CPutRequest::_InternalParse(const char* begin, const char* end, void
         ptr += size;
         break;
       }
-      // string old_data = 7;
-      case 7: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 58) goto handle_unusual;
+      // string old_data = 8;
+      case 8: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 66) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.CPutRequest.old_data");
@@ -2287,9 +2426,9 @@ const char* CPutRequest::_InternalParse(const char* begin, const char* end, void
         ptr += size;
         break;
       }
-      // string new_data = 8;
-      case 8: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 66) goto handle_unusual;
+      // string new_data = 9;
+      case 9: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 74) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("bigtable.CPutRequest.new_data");
@@ -2395,9 +2534,24 @@ bool CPutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string row = 5;
+      // string file_from = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_from()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->file_from().data(), static_cast<int>(this->file_from().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.CPutRequest.file_from"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string row = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_row()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2410,9 +2564,9 @@ bool CPutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string col = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
+      // string col = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (58 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_col()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2425,9 +2579,9 @@ bool CPutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string old_data = 7;
-      case 7: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (58 & 0xFF)) {
+      // string old_data = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (66 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_old_data()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2440,9 +2594,9 @@ bool CPutRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // string new_data = 8;
-      case 8: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (66 & 0xFF)) {
+      // string new_data = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (74 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_new_data()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2517,44 +2671,54 @@ void CPutRequest::SerializeWithCachedSizes(
       4, this->file_type(), output);
   }
 
-  // string row = 5;
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_from().data(), static_cast<int>(this->file_from().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.CPutRequest.file_from");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->file_from(), output);
+  }
+
+  // string row = 6;
   if (this->row().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->row().data(), static_cast<int>(this->row().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.CPutRequest.row");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->row(), output);
+      6, this->row(), output);
   }
 
-  // string col = 6;
+  // string col = 7;
   if (this->col().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->col().data(), static_cast<int>(this->col().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.CPutRequest.col");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->col(), output);
+      7, this->col(), output);
   }
 
-  // string old_data = 7;
+  // string old_data = 8;
   if (this->old_data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->old_data().data(), static_cast<int>(this->old_data().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.CPutRequest.old_data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      7, this->old_data(), output);
+      8, this->old_data(), output);
   }
 
-  // string new_data = 8;
+  // string new_data = 9;
   if (this->new_data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->new_data().data(), static_cast<int>(this->new_data().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bigtable.CPutRequest.new_data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      8, this->new_data(), output);
+      9, this->new_data(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2608,7 +2772,18 @@ void CPutRequest::SerializeWithCachedSizes(
         4, this->file_type(), target);
   }
 
-  // string row = 5;
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_from().data(), static_cast<int>(this->file_from().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.CPutRequest.file_from");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->file_from(), target);
+  }
+
+  // string row = 6;
   if (this->row().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->row().data(), static_cast<int>(this->row().length()),
@@ -2616,10 +2791,10 @@ void CPutRequest::SerializeWithCachedSizes(
       "bigtable.CPutRequest.row");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->row(), target);
+        6, this->row(), target);
   }
 
-  // string col = 6;
+  // string col = 7;
   if (this->col().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->col().data(), static_cast<int>(this->col().length()),
@@ -2627,10 +2802,10 @@ void CPutRequest::SerializeWithCachedSizes(
       "bigtable.CPutRequest.col");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->col(), target);
+        7, this->col(), target);
   }
 
-  // string old_data = 7;
+  // string old_data = 8;
   if (this->old_data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->old_data().data(), static_cast<int>(this->old_data().length()),
@@ -2638,10 +2813,10 @@ void CPutRequest::SerializeWithCachedSizes(
       "bigtable.CPutRequest.old_data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        7, this->old_data(), target);
+        8, this->old_data(), target);
   }
 
-  // string new_data = 8;
+  // string new_data = 9;
   if (this->new_data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->new_data().data(), static_cast<int>(this->new_data().length()),
@@ -2649,7 +2824,7 @@ void CPutRequest::SerializeWithCachedSizes(
       "bigtable.CPutRequest.new_data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        8, this->new_data(), target);
+        9, this->new_data(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2694,28 +2869,35 @@ size_t CPutRequest::ByteSizeLong() const {
         this->file_type());
   }
 
-  // string row = 5;
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->file_from());
+  }
+
+  // string row = 6;
   if (this->row().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->row());
   }
 
-  // string col = 6;
+  // string col = 7;
   if (this->col().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->col());
   }
 
-  // string old_data = 7;
+  // string old_data = 8;
   if (this->old_data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->old_data());
   }
 
-  // string new_data = 8;
+  // string new_data = 9;
   if (this->new_data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2768,6 +2950,10 @@ void CPutRequest::MergeFrom(const CPutRequest& from) {
 
     file_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_type_);
   }
+  if (from.file_from().size() > 0) {
+
+    file_from_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_from_);
+  }
   if (from.row().size() > 0) {
 
     row_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.row_);
@@ -2819,6 +3005,8 @@ void CPutRequest::InternalSwap(CPutRequest* other) {
   file_name_.Swap(&other->file_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   file_type_.Swap(&other->file_type_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  file_from_.Swap(&other->file_from_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   row_.Swap(&other->row_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
@@ -3725,6 +3913,640 @@ void DelReply::InternalSwap(DelReply* other) {
 
 // ===================================================================
 
+void fileMetaData::InitAsDefaultInstance() {
+}
+class fileMetaData::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int fileMetaData::kCreatedTimeFieldNumber;
+const int fileMetaData::kSizeFieldNumber;
+const int fileMetaData::kFileNameFieldNumber;
+const int fileMetaData::kFileTypeFieldNumber;
+const int fileMetaData::kFileFromFieldNumber;
+const int fileMetaData::kFileIdFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+fileMetaData::fileMetaData()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bigtable.fileMetaData)
+}
+fileMetaData::fileMetaData(const fileMetaData& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  created_time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.created_time().size() > 0) {
+    created_time_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.created_time_);
+  }
+  file_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.file_name().size() > 0) {
+    file_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_name_);
+  }
+  file_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.file_type().size() > 0) {
+    file_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_type_);
+  }
+  file_from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.file_from().size() > 0) {
+    file_from_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_from_);
+  }
+  file_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.file_id().size() > 0) {
+    file_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_id_);
+  }
+  size_ = from.size_;
+  // @@protoc_insertion_point(copy_constructor:bigtable.fileMetaData)
+}
+
+void fileMetaData::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_fileMetaData_bigtable_2eproto.base);
+  created_time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  size_ = 0;
+}
+
+fileMetaData::~fileMetaData() {
+  // @@protoc_insertion_point(destructor:bigtable.fileMetaData)
+  SharedDtor();
+}
+
+void fileMetaData::SharedDtor() {
+  created_time_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void fileMetaData::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const fileMetaData& fileMetaData::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_fileMetaData_bigtable_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void fileMetaData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bigtable.fileMetaData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  created_time_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  file_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  size_ = 0;
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* fileMetaData::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<fileMetaData*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // string created_time = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.fileMetaData.created_time");
+        object = msg->mutable_created_time();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // int32 size = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        msg->set_size(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // string file_name = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.fileMetaData.file_name");
+        object = msg->mutable_file_name();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string file_type = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.fileMetaData.file_type");
+        object = msg->mutable_file_type();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string file_from = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.fileMetaData.file_from");
+        object = msg->mutable_file_from();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string file_id = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("bigtable.fileMetaData.file_id");
+        object = msg->mutable_file_id();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+string_till_end:
+  static_cast<::std::string*>(object)->clear();
+  static_cast<::std::string*>(object)->reserve(size);
+  goto len_delim_till_end;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool fileMetaData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bigtable.fileMetaData)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string created_time = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_created_time()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->created_time().data(), static_cast<int>(this->created_time().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.fileMetaData.created_time"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 size = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &size_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string file_name = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->file_name().data(), static_cast<int>(this->file_name().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.fileMetaData.file_name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string file_type = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_type()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->file_type().data(), static_cast<int>(this->file_type().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.fileMetaData.file_type"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string file_from = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_from()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->file_from().data(), static_cast<int>(this->file_from().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.fileMetaData.file_from"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string file_id = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_id()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->file_id().data(), static_cast<int>(this->file_id().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bigtable.fileMetaData.file_id"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bigtable.fileMetaData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bigtable.fileMetaData)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void fileMetaData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bigtable.fileMetaData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string created_time = 1;
+  if (this->created_time().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->created_time().data(), static_cast<int>(this->created_time().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.created_time");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->created_time(), output);
+  }
+
+  // int32 size = 2;
+  if (this->size() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->size(), output);
+  }
+
+  // string file_name = 3;
+  if (this->file_name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_name().data(), static_cast<int>(this->file_name().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->file_name(), output);
+  }
+
+  // string file_type = 4;
+  if (this->file_type().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_type().data(), static_cast<int>(this->file_type().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->file_type(), output);
+  }
+
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_from().data(), static_cast<int>(this->file_from().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_from");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->file_from(), output);
+  }
+
+  // string file_id = 6;
+  if (this->file_id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_id().data(), static_cast<int>(this->file_id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->file_id(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:bigtable.fileMetaData)
+}
+
+::google::protobuf::uint8* fileMetaData::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bigtable.fileMetaData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string created_time = 1;
+  if (this->created_time().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->created_time().data(), static_cast<int>(this->created_time().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.created_time");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->created_time(), target);
+  }
+
+  // int32 size = 2;
+  if (this->size() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->size(), target);
+  }
+
+  // string file_name = 3;
+  if (this->file_name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_name().data(), static_cast<int>(this->file_name().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->file_name(), target);
+  }
+
+  // string file_type = 4;
+  if (this->file_type().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_type().data(), static_cast<int>(this->file_type().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->file_type(), target);
+  }
+
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_from().data(), static_cast<int>(this->file_from().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_from");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->file_from(), target);
+  }
+
+  // string file_id = 6;
+  if (this->file_id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->file_id().data(), static_cast<int>(this->file_id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bigtable.fileMetaData.file_id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->file_id(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bigtable.fileMetaData)
+  return target;
+}
+
+size_t fileMetaData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bigtable.fileMetaData)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string created_time = 1;
+  if (this->created_time().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->created_time());
+  }
+
+  // string file_name = 3;
+  if (this->file_name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->file_name());
+  }
+
+  // string file_type = 4;
+  if (this->file_type().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->file_type());
+  }
+
+  // string file_from = 5;
+  if (this->file_from().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->file_from());
+  }
+
+  // string file_id = 6;
+  if (this->file_id().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->file_id());
+  }
+
+  // int32 size = 2;
+  if (this->size() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->size());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void fileMetaData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bigtable.fileMetaData)
+  GOOGLE_DCHECK_NE(&from, this);
+  const fileMetaData* source =
+      ::google::protobuf::DynamicCastToGenerated<fileMetaData>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bigtable.fileMetaData)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bigtable.fileMetaData)
+    MergeFrom(*source);
+  }
+}
+
+void fileMetaData::MergeFrom(const fileMetaData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bigtable.fileMetaData)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.created_time().size() > 0) {
+
+    created_time_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.created_time_);
+  }
+  if (from.file_name().size() > 0) {
+
+    file_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_name_);
+  }
+  if (from.file_type().size() > 0) {
+
+    file_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_type_);
+  }
+  if (from.file_from().size() > 0) {
+
+    file_from_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_from_);
+  }
+  if (from.file_id().size() > 0) {
+
+    file_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.file_id_);
+  }
+  if (from.size() != 0) {
+    set_size(from.size());
+  }
+}
+
+void fileMetaData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bigtable.fileMetaData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void fileMetaData::CopyFrom(const fileMetaData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bigtable.fileMetaData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool fileMetaData::IsInitialized() const {
+  return true;
+}
+
+void fileMetaData::Swap(fileMetaData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void fileMetaData::InternalSwap(fileMetaData* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  created_time_.Swap(&other->created_time_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  file_name_.Swap(&other->file_name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  file_type_.Swap(&other->file_type_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  file_from_.Swap(&other->file_from_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  file_id_.Swap(&other->file_id_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(size_, other->size_);
+}
+
+::google::protobuf::Metadata fileMetaData::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_bigtable_2eproto);
+  return ::file_level_metadata_bigtable_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
 void GetEmailListRequest::InitAsDefaultInstance() {
 }
 class GetEmailListRequest::HasBitSetters {
@@ -4029,7 +4851,7 @@ class GetEmailListReply::HasBitSetters {
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int GetEmailListReply::kFileListFieldNumber;
+const int GetEmailListReply::kMetadataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 GetEmailListReply::GetEmailListReply()
@@ -4040,7 +4862,7 @@ GetEmailListReply::GetEmailListReply()
 GetEmailListReply::GetEmailListReply(const GetEmailListReply& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(nullptr),
-      filelist_(from.filelist_) {
+      metadata_(from.metadata_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:bigtable.GetEmailListReply)
 }
@@ -4073,7 +4895,7 @@ void GetEmailListReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  filelist_.Clear();
+  metadata_.Clear();
   _internal_metadata_.Clear();
 }
 
@@ -4090,21 +4912,18 @@ const char* GetEmailListReply::_InternalParse(const char* begin, const char* end
     ptr = ::google::protobuf::io::Parse32(ptr, &tag);
     GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
     switch (tag >> 3) {
-      // repeated string fileList = 1;
+      // repeated .bigtable.fileMetaData metadata = 1;
       case 1: {
         if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
         do {
           ptr = ::google::protobuf::io::ReadSize(ptr, &size);
           GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-          ctx->extra_parse_data().SetFieldName("bigtable.GetEmailListReply.fileList");
-          object = msg->add_filelist();
-          if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-            parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
-            goto string_till_end;
-          }
-          GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
-          ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+          parser_till_end = ::bigtable::fileMetaData::_InternalParse;
+          object = msg->add_metadata();
+          if (size > end - ptr) goto len_delim_till_end;
           ptr += size;
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+              {parser_till_end, object}, ptr - size, ptr));
           if (ptr >= end) break;
         } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 10 && (ptr += 1));
         break;
@@ -4124,10 +4943,6 @@ const char* GetEmailListReply::_InternalParse(const char* begin, const char* end
     }  // switch
   }  // while
   return ptr;
-string_till_end:
-  static_cast<::std::string*>(object)->clear();
-  static_cast<::std::string*>(object)->reserve(size);
-  goto len_delim_till_end;
 len_delim_till_end:
   return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
                                {parser_till_end, object}, size);
@@ -4143,16 +4958,11 @@ bool GetEmailListReply::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated string fileList = 1;
+      // repeated .bigtable.fileMetaData metadata = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->add_filelist()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->filelist(this->filelist_size() - 1).data(),
-            static_cast<int>(this->filelist(this->filelist_size() - 1).length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bigtable.GetEmailListReply.fileList"));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_metadata()));
         } else {
           goto handle_unusual;
         }
@@ -4186,14 +4996,13 @@ void GetEmailListReply::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated string fileList = 1;
-  for (int i = 0, n = this->filelist_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->filelist(i).data(), static_cast<int>(this->filelist(i).length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bigtable.GetEmailListReply.fileList");
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      1, this->filelist(i), output);
+  // repeated .bigtable.fileMetaData metadata = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->metadata_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1,
+      this->metadata(static_cast<int>(i)),
+      output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4209,14 +5018,12 @@ void GetEmailListReply::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated string fileList = 1;
-  for (int i = 0, n = this->filelist_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->filelist(i).data(), static_cast<int>(this->filelist(i).length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bigtable.GetEmailListReply.fileList");
+  // repeated .bigtable.fileMetaData metadata = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->metadata_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteStringToArray(1, this->filelist(i), target);
+      InternalWriteMessageToArray(
+        1, this->metadata(static_cast<int>(i)), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4240,12 +5047,15 @@ size_t GetEmailListReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string fileList = 1;
-  total_size += 1 *
-      ::google::protobuf::internal::FromIntSize(this->filelist_size());
-  for (int i = 0, n = this->filelist_size(); i < n; i++) {
-    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
-      this->filelist(i));
+  // repeated .bigtable.fileMetaData metadata = 1;
+  {
+    unsigned int count = static_cast<unsigned int>(this->metadata_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->metadata(static_cast<int>(i)));
+    }
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -4275,7 +5085,7 @@ void GetEmailListReply::MergeFrom(const GetEmailListReply& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  filelist_.MergeFrom(from.filelist_);
+  metadata_.MergeFrom(from.metadata_);
 }
 
 void GetEmailListReply::CopyFrom(const ::google::protobuf::Message& from) {
@@ -4303,7 +5113,7 @@ void GetEmailListReply::Swap(GetEmailListReply* other) {
 void GetEmailListReply::InternalSwap(GetEmailListReply* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  filelist_.InternalSwap(CastToBase(&other->filelist_));
+  CastToBase(&metadata_)->InternalSwap(CastToBase(&other->metadata_));
 }
 
 ::google::protobuf::Metadata GetEmailListReply::GetMetadata() const {
@@ -4618,7 +5428,7 @@ class GetFileListReply::HasBitSetters {
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int GetFileListReply::kFileListFieldNumber;
+const int GetFileListReply::kMetadataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 GetFileListReply::GetFileListReply()
@@ -4629,7 +5439,7 @@ GetFileListReply::GetFileListReply()
 GetFileListReply::GetFileListReply(const GetFileListReply& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(nullptr),
-      filelist_(from.filelist_) {
+      metadata_(from.metadata_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:bigtable.GetFileListReply)
 }
@@ -4662,7 +5472,7 @@ void GetFileListReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  filelist_.Clear();
+  metadata_.Clear();
   _internal_metadata_.Clear();
 }
 
@@ -4679,21 +5489,18 @@ const char* GetFileListReply::_InternalParse(const char* begin, const char* end,
     ptr = ::google::protobuf::io::Parse32(ptr, &tag);
     GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
     switch (tag >> 3) {
-      // repeated string fileList = 1;
+      // repeated .bigtable.fileMetaData metadata = 1;
       case 1: {
         if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
         do {
           ptr = ::google::protobuf::io::ReadSize(ptr, &size);
           GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-          ctx->extra_parse_data().SetFieldName("bigtable.GetFileListReply.fileList");
-          object = msg->add_filelist();
-          if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-            parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
-            goto string_till_end;
-          }
-          GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
-          ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+          parser_till_end = ::bigtable::fileMetaData::_InternalParse;
+          object = msg->add_metadata();
+          if (size > end - ptr) goto len_delim_till_end;
           ptr += size;
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ctx->ParseExactRange(
+              {parser_till_end, object}, ptr - size, ptr));
           if (ptr >= end) break;
         } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 10 && (ptr += 1));
         break;
@@ -4713,10 +5520,6 @@ const char* GetFileListReply::_InternalParse(const char* begin, const char* end,
     }  // switch
   }  // while
   return ptr;
-string_till_end:
-  static_cast<::std::string*>(object)->clear();
-  static_cast<::std::string*>(object)->reserve(size);
-  goto len_delim_till_end;
 len_delim_till_end:
   return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
                                {parser_till_end, object}, size);
@@ -4732,16 +5535,11 @@ bool GetFileListReply::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated string fileList = 1;
+      // repeated .bigtable.fileMetaData metadata = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->add_filelist()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->filelist(this->filelist_size() - 1).data(),
-            static_cast<int>(this->filelist(this->filelist_size() - 1).length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bigtable.GetFileListReply.fileList"));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_metadata()));
         } else {
           goto handle_unusual;
         }
@@ -4775,14 +5573,13 @@ void GetFileListReply::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated string fileList = 1;
-  for (int i = 0, n = this->filelist_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->filelist(i).data(), static_cast<int>(this->filelist(i).length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bigtable.GetFileListReply.fileList");
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      1, this->filelist(i), output);
+  // repeated .bigtable.fileMetaData metadata = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->metadata_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1,
+      this->metadata(static_cast<int>(i)),
+      output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4798,14 +5595,12 @@ void GetFileListReply::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated string fileList = 1;
-  for (int i = 0, n = this->filelist_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->filelist(i).data(), static_cast<int>(this->filelist(i).length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bigtable.GetFileListReply.fileList");
+  // repeated .bigtable.fileMetaData metadata = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->metadata_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteStringToArray(1, this->filelist(i), target);
+      InternalWriteMessageToArray(
+        1, this->metadata(static_cast<int>(i)), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4829,12 +5624,15 @@ size_t GetFileListReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string fileList = 1;
-  total_size += 1 *
-      ::google::protobuf::internal::FromIntSize(this->filelist_size());
-  for (int i = 0, n = this->filelist_size(); i < n; i++) {
-    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
-      this->filelist(i));
+  // repeated .bigtable.fileMetaData metadata = 1;
+  {
+    unsigned int count = static_cast<unsigned int>(this->metadata_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->metadata(static_cast<int>(i)));
+    }
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -4864,7 +5662,7 @@ void GetFileListReply::MergeFrom(const GetFileListReply& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  filelist_.MergeFrom(from.filelist_);
+  metadata_.MergeFrom(from.metadata_);
 }
 
 void GetFileListReply::CopyFrom(const ::google::protobuf::Message& from) {
@@ -4892,7 +5690,7 @@ void GetFileListReply::Swap(GetFileListReply* other) {
 void GetFileListReply::InternalSwap(GetFileListReply* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  filelist_.InternalSwap(CastToBase(&other->filelist_));
+  CastToBase(&metadata_)->InternalSwap(CastToBase(&other->metadata_));
 }
 
 ::google::protobuf::Metadata GetFileListReply::GetMetadata() const {
@@ -4928,6 +5726,9 @@ template<> PROTOBUF_NOINLINE ::bigtable::DelRequest* Arena::CreateMaybeMessage< 
 }
 template<> PROTOBUF_NOINLINE ::bigtable::DelReply* Arena::CreateMaybeMessage< ::bigtable::DelReply >(Arena* arena) {
   return Arena::CreateInternal< ::bigtable::DelReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bigtable::fileMetaData* Arena::CreateMaybeMessage< ::bigtable::fileMetaData >(Arena* arena) {
+  return Arena::CreateInternal< ::bigtable::fileMetaData >(arena);
 }
 template<> PROTOBUF_NOINLINE ::bigtable::GetEmailListRequest* Arena::CreateMaybeMessage< ::bigtable::GetEmailListRequest >(Arena* arena) {
   return Arena::CreateInternal< ::bigtable::GetEmailListRequest >(arena);
