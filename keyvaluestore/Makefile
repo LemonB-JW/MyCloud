@@ -26,7 +26,7 @@ all: $(TARGETS)
 bigtable_client: bigtable.pb.o bigtable.grpc.pb.o bigtable_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-bigtable_server: bigtable.pb.o bigtable.grpc.pb.o bigtable_server.o TableCell.cc BigTable.cc FileMetaData.cc 
+bigtable_server: bigtable.pb.o bigtable.grpc.pb.o bigtable_server.o TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
 	$(CXX) $^ $(LDFLAGS) $(IFLAG) -o $@
 
 tester: table_tester.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc

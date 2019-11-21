@@ -21,9 +21,27 @@ using bigtable::GetRequest;
 using bigtable::GetReply;
 using bigtable::GetFileListRequest;
 using bigtable::GetFileListReply;
+using bigtable::GetEmailListRequest;
+using bigtable::GetEmailListReply;
 using bigtable::Bigtable;
 
 std::vector<FileMetaData> ListFileFromReply(const bigtable::GetFileListReply& file_list_reply) {
+    std::vector<FileMetaData> file_list;
+
+  for (int i = 0; i < file_list_reply.metadata_size(); i++) {
+    const bigtable::fileMetaData& mdata = file_list_reply.metadata(i);
+
+    cout << "File ID: " << mdata.file_id() << endl;
+    cout << "  Name: " << mdata.file_name() << endl;
+    FileMetaData file_info(mdata.created_time(), mdata.size(), mdata.file_name(), mdata.file_type(), mdata.file_from(), mdata.file_id());
+    file_list.push_back(file_info);
+   
+  }
+
+  return file_list;
+}
+
+std::vector<FileMetaData> ListEmailFromReply(const bigtable::GetEmailListReply& file_list_reply) {
     std::vector<FileMetaData> file_list;
 
   for (int i = 0; i < file_list_reply.metadata_size(); i++) {
@@ -106,7 +124,7 @@ class TableClient {
 
   std::vector<FileMetaData> list_files(){
     GetFileListRequest req;
-    req.set_row("alice");
+    req.set_row("Janice");
 
     GetFileListReply reply;
 
@@ -118,6 +136,28 @@ class TableClient {
     // Act upon its status.
     if (status.ok()) {
       return ListFileFromReply(reply);
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message()
+                << std::endl;
+      std::vector<FileMetaData> v;
+      return v;
+    }
+
+  }
+  std::vector<FileMetaData> list_emails(){
+    GetEmailListRequest req;
+    req.set_row("Janice");
+
+    GetEmailListReply reply;
+
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->list_all_emails_for_currUser(&context, req, &reply);
+
+    // Act upon its status.
+    if (status.ok()) {
+      return ListEmailFromReply(reply);
     } else {
       std::cout << status.error_code() << ": " << status.error_message()
                 << std::endl;
@@ -138,12 +178,12 @@ int main(int argc, char** argv) {
   // (use of InsecureChannelCredentials()).
   TableClient greeter(grpc::CreateChannel(
       "localhost:50051", grpc::InsecureChannelCredentials()));
-  // bool reply = greeter.put("2019/11/20", 0, "foo.txt", "file", "alice", "janice", "id1", "Welcome");
+  // bool reply = greeter.put("2019/11/20", 0, "foo.txt", "file", "alice", "janice", "id1", "Welcome"); //??
   bool reply = greeter.put();
   greeter.put();
   // bool reply2 = greeter.put("2019/11/20", 10, "boo.txt", "email", "alice", "ben", "id2", "Hello");
   std::string res = greeter.get();
-  std::vector<FileMetaData> file_list = greeter.list_files();
+  std::vector<FileMetaData> file_list = greeter.list_emails();
   std::cout << "Greeter received: " << reply << "  res is "<< res << " file list size is "<<file_list.size()<< std::endl;
 
   return 0;

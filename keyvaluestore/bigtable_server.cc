@@ -7,7 +7,7 @@
 #include <grpcpp/grpcpp.h>
 // #include "../lib/FileMetaData.h"
 #include "../lib/BigTable.h"
-
+#include "../lib/Utility.h"
 
 #ifdef BAZEL_BUILD
 #include "bigtable.grpc.pb.h"
@@ -25,6 +25,8 @@ using bigtable::GetRequest;
 using bigtable::GetReply;
 using bigtable::GetFileListRequest;
 using bigtable::GetFileListReply;
+using bigtable::GetEmailListRequest;
+using bigtable::GetEmailListReply;
 using bigtable::Bigtable;
 
 
@@ -63,7 +65,21 @@ class TableServiceImpl final : public Bigtable::Service {
                   GetFileListReply* reply) override {
     // std::string prefix("Hello ");
     vector<FileMetaData> res = table.list_all_files_for_currUser(request->row());
+    cout<<"request row is "<<request->row()<<" res size is "<<res.size()<<endl;
     for(int i = 0; i < res.size(); i++){
+      cout<<res.at(i).file_name<<endl;
+      ConstructMetaDataResponse(reply->add_metadata(), res.at(i));
+    }
+    return Status::OK;
+  }
+
+   Status list_all_emails_for_currUser(ServerContext* context, const GetEmailListRequest* request,
+                  GetEmailListReply* reply) override {
+    // std::string prefix("Hello ");
+    vector<FileMetaData> res = table.list_all_emails_for_currUser(request->row());
+    cout<<"request row is "<<request->row()<<" res size is "<<res.size()<<endl;
+    for(int i = 0; i < res.size(); i++){
+      cout<<res.at(i).file_name<<endl;
       ConstructMetaDataResponse(reply->add_metadata(), res.at(i));
     }
     return Status::OK;
@@ -72,6 +88,11 @@ class TableServiceImpl final : public Bigtable::Service {
 
 void RunServer() {
   std::string server_address("127.0.0.1:50051");
+  table.put("2019/11/20", 10, "foo.txt", "email", "Alice", "Janice", Utility::generateFileID(1 , 1), "Hello from Janice, welcome to penn_cloud.");
+  table.put("2019/11/20", 10, "foo.txt", "email", "Alice", "Janice", Utility::generateFileID(1 , 1), "Hello from Janice, welcome to penn_cloud.");
+  table.put("2019/11/21", 15, "boo.txt", "email", "Janice", "Ben", Utility::generateFileID(2 , 2), "Hello from Bennn, welcome to penn_cloud.");
+  table.put("2019/11/21", 20, "Welcome on board", "email", "Janice", "Alice", Utility::generateFileID(2 , 3), "Hello from Alice, welcome to penn_cloud.");
+  table.put("2019/11/21", 23, "Welcome on board", "email", "Janice", "John", Utility::generateFileID(2 , 4), "Hello from Johnnn, welcome to penn_cloud.");
   TableServiceImpl service;
 
   ServerBuilder builder;
@@ -89,7 +110,7 @@ void RunServer() {
   server->Wait();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) {  
   RunServer();
 
   return 0;
