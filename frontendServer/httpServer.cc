@@ -109,8 +109,12 @@ int main(int argc, char *argv[])
     bind(listen_fd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     listen(listen_fd, 100);
 
+    puts("here!");
+
     while (true)
     {
+        puts("here2!");
+
         struct sockaddr_in clientaddr;
         socklen_t clientaddrlen = sizeof(clientaddr);
         int *fd = (int *)malloc(sizeof(int));
@@ -119,7 +123,6 @@ int main(int argc, char *argv[])
 
         pthread_t thread;
         pthread_create(&thread, NULL, worker, fd);
-
     }
 
     return 0;

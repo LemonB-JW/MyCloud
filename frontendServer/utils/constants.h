@@ -16,6 +16,7 @@ const static char *CONNECTION = "Connection: ";
 const static char *STATUS_OK = "200 OK";
 
 const static char *TYPE_HTML = "text/html";
+const static char *TYPE_JSON = "application/json";
 
 const static char *CRLF = "\r\n";
 

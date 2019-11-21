@@ -3,8 +3,9 @@ TARGETS = httpServer loadbalancer smtp pop3
 all: $(TARGETS)
 
 %.o: %.cc utils/%.cc
-	g++ $^ -c -o $@
+	g++ $^ -c -o $@ -I/Users/xuanw/Documents/CIS505/Share/T08/external/json -I/Users/xuanw/Documents/CIS505/Share/T08/external/json/include
 
+g++ response.cc request.cc httpServer.cc -o httpServer -I/Users/xuanw/Documents/CIS505/Share/T08/external/json/include
 httpServer: httpServer.o request.o response.o utils/utils.o
 	g++ $^ -o $@ -lpthread
 
