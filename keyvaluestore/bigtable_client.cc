@@ -3,19 +3,13 @@
 #include <string>
 #include <stdbool.h>
 #include <grpcpp/grpcpp.h>
-// #include "protos/bigtable.pb.h"
 
-// #ifdef BAZEL_BUILD
-// #include "bigtable.grpc.pb.h"
-// #endif
 
 #ifdef BAZEL_BUILD
 #include "bigtable.grpc.pb.h"
 #else
 #include "bigtable.grpc.pb.h"
 #endif
-
-
 
 
 using grpc::Channel;

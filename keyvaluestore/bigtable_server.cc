@@ -5,7 +5,6 @@
 #include <string>
 #include <grpcpp/grpcpp.h>
 #include "../lib/BigTable.h"
-// #include "protos/bigtable.pb.h"
 
 
 #ifdef BAZEL_BUILD
