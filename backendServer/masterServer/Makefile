@@ -1,5 +1,5 @@
 
-TARGETS = masterInfo.o
+TARGETS = master
 CXX = g++
 CXXFLAGS += -std=c++11
 IDIR =../../lib
@@ -9,11 +9,11 @@ all: $(TARGETS)
 #%.o: %.cc
 #	$(CXX) $^ $(CPPFLAGS) -o $@ 
 
-masterInfo.o: masterInfo.cc
-	$(CXX) $^ $(CPPFLAGS) -c masterInfo.cc
+#masterInfo.o: masterInfo.cc
+#$(CXX) $^ $(CPPFLAGS) -c masterInfo.cc
 	
-#masterInfo: masterInfo.o
-#	$(CXX) $^ $(CPPFLAGS) -o $@ 
+master: master.cc masterInfo.cc
+	$(CXX) $^ $(CPPFLAGS) -g -o $@
 
 clean:
 	rm -fv $(TARGETS) *~ *.o 

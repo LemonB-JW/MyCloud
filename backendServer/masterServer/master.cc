@@ -1,8 +1,13 @@
 #include <stdio.h>
+#include <unistd.h>//getopt
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <signal.h>//signal
+#include <string.h>//strerror
+#include <pthread.h>
+
 
 #include <unordered_map>
 #include <unordered_set>
@@ -23,10 +28,10 @@ bool shutDown = false; //true if ctrl-c received
 bool debugMode = false; //print debug msg if true
 int socketfd;
 masterInfo myInfo;
-std::vector<int> threadID;
+std::vector<pthread_t> threadID;
 
 
-bool match(const char *data, char *buf)
+bool match(const char *data, char *buf);
 void writeToclient(int fd, const char *data);
 void* threadWorker(void* arg);
 void sigintHandler(int sig_num);
@@ -36,7 +41,7 @@ void sigusr1Handler(int sig_num);
 int main(int argc, char *argv[]) {
 	/* Parse arguments */
   if (argc < 2)
-    panic(stderr, "*** Final Project T08, Author: Peng Li (pl279)\n");
+    panic("*** Final Project T08, Author: Peng Li (pl279)\n");
   /* Your code here */
   /************ Signal handler *************/
   struct sigaction sigIntHandler;
@@ -61,11 +66,11 @@ int main(int argc, char *argv[]) {
 		panic("Error: config file is missing!\n");
 	}
 	/* Read the server list */
-	myInfo.readConfig(argc[optind]);
+	myInfo.readConfig(argv[optind]);
 	
 	//open server sockets
  	socketfd = socket(AF_INET, SOCK_STREAM, 0);
-  if (sockFD <= 0)
+  if (socketfd <= 0)
   	panic("Cannot open bind socket (%s)\n", strerror(errno));
   
   //------------------set socket option-------------------
@@ -75,12 +80,12 @@ int main(int argc, char *argv[]) {
 	
 	//===============bind() associates a socket with a specific port=========
   if (bind(socketfd, (struct sockaddr*)&myInfo.master_addr, sizeof(myInfo.master_addr)) < 0){ 
-  	panic("Cannot bind to %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr.s_addr), myInfo.port, strerror(errno));
+  	panic("Cannot bind to %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr), myInfo.port, strerror(errno));
   }
   
   //==============listen() puts a socket into the listening state==========
   if (listen(socketfd, MAX_CONNECTIONS) < 0)  
-  	panic("Cannot enter listening state %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr.s_addr), myInfo.port, strerror(errno));
+  	panic("Cannot enter listening state %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr), myInfo.port, strerror(errno));
   /*
   	create a thread for grpc frontend communication
   */	
@@ -89,14 +94,15 @@ int main(int argc, char *argv[]) {
   /*main loop*/
   while(!shutDown){
   	struct sockaddr_in client_addr;
-  	int len = sizeof(client_addr);
-  	int connfd = accept(socketfd, (struct sockaddr*)&client_addr, &len);
+  	int len;
+  	len = sizeof(client_addr);
+  	int connfd = accept(socketfd, (struct sockaddr*)&client_addr, (socklen_t*)&len);
   	if (shutDown) break;
   	
   	if (connfd < 0)
   		panic("Master accept failed...(%s)\n", strerror(errno));
   	threadID.push_back(0);
-  	if (pthread_create(&threadID[threadID.size()-1], NULL, threadWorker, &connfd)){
+  	if (pthread_create(&threadID[threadID.size()-1], NULL, threadWorker, (void*)&connfd)){
   		panic("Failed to create thread\n");
   	}
   	
@@ -113,11 +119,12 @@ void* threadWorker(void* arg){
   sigUsr1Handler.sa_flags = 0;
 	sigaction(SIGUSR1, &sigUsr1Handler, NULL);
 	
-	int comm_fd = arg;
+	int comm_fd = *(int*)(arg);
 	pthread_t tid = pthread_self();
 	int bytesInBuf = 0;
+	int bytesRead = 0;
 	int crlfpos = 0;
-	int buf[MAX_COMMAND_LENGTH];
+	char buf[MAX_COMMAND_LENGTH];
 	int endpos = 0;
 	
 	while(!shutDown){
@@ -138,14 +145,14 @@ void* threadWorker(void* arg){
 			
 			if (crlfpos > 0 || shutDown) break;
 			if(bytesInBuf >= MAX_COMMAND_LENGTH) panic("Read %d bytes, but no CRLF found.\r\n", bytesInBuf);
-			bytesRead = recv(fd, &buf[bytesInBuf], MAX_COMMAND_LENGTH - bytesInBuf, 0);
+			bytesRead = recv(comm_fd, &buf[bytesInBuf], MAX_COMMAND_LENGTH - bytesInBuf, 0);
 			if (bytesRead <= 0) panic("Read failed (%s)\n", strerror(errno));
 			
 		}//end of find CRLF while loop 
 		if (shutDown) break;
 		//found CRLF
-		if (crlf > 0){
-			if (match("GET_PRIME,*", buf) {
+		if (crlfpos > 0){
+			if (match("GET_PRIME,*", buf)) {
 				//reply the the prime 
 				char* scomd = strtok(buf, ",");
 				char* sid = strtok(NULL, "\r\n");
@@ -170,8 +177,10 @@ void* threadWorker(void* arg){
 					ss<<subVec[i];
 				}
 				std::string subInString = ss.str();
-				sprintf(sendbuf, "LIST_SUB,%s\r\n", subInstring.c_str());
+				sprintf(sendbuf, "LIST_SUB,%s\r\n", subInString.c_str());
 				writeToclient(comm_fd, sendbuf); 
+			}else {
+				fprintf(stderr, "Command not yet implemented\n");
 			}
 			
 			//remove handled command
@@ -183,7 +192,7 @@ void* threadWorker(void* arg){
 		
 	}//end of outter while
 	close(comm_fd);
-	fprintf("exit thread %d\r\n", tid);
+	fprintf(stderr, "exit thread %ld\r\n", tid);
 	pthread_detach(tid);
 	pthread_exit(NULL);
 }
@@ -198,7 +207,6 @@ bool match(const char *data, char *buf){
 			break;
 		if(data[argptr++] != buf[bufptr++])
 			matchCheck = false;
-		}
 	}
 	
 	if (!data[argptr] && buf[bufptr]){
