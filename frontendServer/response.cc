@@ -32,10 +32,10 @@ Response::Response(Request req) {
             isJSON = true;
 
             int num_of_items = 2;
-            json item, items;
+            json items;
             for (int i = 0; i < num_of_items; i++) {
                 std::string item_name = "item" + std::to_string(num_of_items);
-                item = {
+                json item = {
                         {"item_id", std::to_string(i)},
                         {"from", "Xuan"},
                         {"title", "THIS IS TITLE"},
@@ -43,7 +43,7 @@ Response::Response(Request req) {
                 };
                 items[item_name] = item;
             }
-            content = item.dump();
+            content = items.dump();
             this->headers[CONTENT_TYPE] = TYPE_JSON;
 
 //            std::cout << items.dump(4) << std::endl;

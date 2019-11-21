@@ -69,65 +69,53 @@
 		// 		function() {
         //             console.log('failed.');
         //         });
-        $.get(url, function(res) {
-            console.log(res);
-            var items = JSON.parse(res);
+        $.get(url, function(items) {
+            listItems(items);
         });
 	};
 
 	function listItems(items) {
 		// Clear the current results
-
-
-        console.log("NAME:!!!!!!\n");
-
 		var itemList = $('item-list');
 		itemList.innerHTML = '';
 
-		for (var i = 0; i < items.length; i++) {
-			addItem(itemList, items[i]);
-		}
+		var id = 0;
+		for (var key in items) {
+            if (items.hasOwnProperty(key)) {
+                addItem(itemList, items[key], id++);
+            }
+        }
 	}
 
-	function addItem(itemList, item) {
-
-
-        console.log("NAME:!!!!!!\n");
-        console.log(item.from);
-		var item_id = item.item_id;
-
+	function addItem(itemList, item, id) {
 		// create the <tr> tag and specify the id and class attributes
-		var tr = $('tr', {
-			id : 'item-' + item_id,
-			className : 'item'
-		});
+        var tr = document.createElement('tr');
+        tr.id = 'item-' + id;
+        tr.className = 'item';
 
-		// set the data attribute
-		tr.dataset.item_id = item_id;
+        var table = document.getElementsByClassName('table table-condensed table-hover');
+ console.log(table[0]);
 
-		// "MAIL FROM"
-		var from = $('td', {
-			className : 'item-from'
-		});
-		from.innerHTML = item.from;
+        //TODO: add checkbox
+ 		// "MAIL FROM"
+        var from = document.createElement('td');
+        from.innerHTML = item.from;
 
-		// "MAIL TITLE"
-		var title = $('td', {
-			className : 'item-title'
-		});
-		title.innerHTML = item.title;
+        var title = document.createElement('td');
+        title.innerHTML = item.title;
 
-		// "MAIL DATE"
-		var date = $('td', {
-			className : 'item-date'
-		});
-		date.innerHTML = item.date;
+        var date = document.createElement('td');
+        date.innerHTML = item.date;
 
-		tr.appendChild(from);
+        tr.appendChild(from);
 		tr.appendChild(title);
 		tr.appendChild(date);
 
-		itemList.appendChild(tr);
+        var list = document.createElement('tbody');
+        console.log(list);
+
+        list.appendChild(tr);
+        table[0].appendChild(list);
 	}
 
 
