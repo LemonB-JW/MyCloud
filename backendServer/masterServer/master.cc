@@ -8,6 +8,7 @@
 #include <unordered_set>
 #include <vector>
 #include <string>
+#include <sstream>
 
 #include "../../lib/masterInfo.h"
 
@@ -25,8 +26,12 @@ masterInfo myInfo;
 std::vector<int> threadID;
 
 
+bool match(const char *data, char *buf)
+void writeToclient(int fd, const char *data);
+void* threadWorker(void* arg);
 void sigintHandler(int sig_num);
 void sigusr1Handler(int sig_num);
+
 
 int main(int argc, char *argv[]) {
 	/* Parse arguments */
@@ -86,6 +91,7 @@ int main(int argc, char *argv[]) {
   	struct sockaddr_in client_addr;
   	int len = sizeof(client_addr);
   	int connfd = accept(socketfd, (struct sockaddr*)&client_addr, &len);
+  	if (shutDown) break;
   	
   	if (connfd < 0)
   		panic("Master accept failed...(%s)\n", strerror(errno));
@@ -96,7 +102,7 @@ int main(int argc, char *argv[]) {
   	
   }
   
-  
+  //close socketfd
   close(socketfd);
 }
 
@@ -157,8 +163,13 @@ void* threadWorker(void* arg){
 				
 				char sendbuf[MAX_COMMAND_LENGTH];
 				std::vector<int> subVec = myInfo.getSub(primeId);
-				std::string subInString;
-				///////////////////
+				std::stringstream ss;
+				for (int i = 0; i < subVec.size(); i++){
+					if (i > 0)
+						ss << ",";
+					ss<<subVec[i];
+				}
+				std::string subInString = ss.str();
 				sprintf(sendbuf, "LIST_SUB,%s\r\n", subInstring.c_str());
 				writeToclient(comm_fd, sendbuf); 
 			}
@@ -171,8 +182,9 @@ void* threadWorker(void* arg){
 		}
 		
 	}//end of outter while
-	
-	fprintf("exit\r\n");
+	close(comm_fd);
+	fprintf("exit thread %d\r\n", tid);
+	pthread_detach(tid);
 	pthread_exit(NULL);
 }
 
@@ -208,15 +220,16 @@ void writeToclient(int fd, const char *data){
     	panic("Connection closed unexpectedly\r\n");
 		}
   	wptr += w;
-	}	
-	/*if(debugMode){
-		fprintf(stderr, "[%d] S: %.*s", fd, len, data);
-	}*/
+	}
+	if (debugMode) fprintf(stderr, "Sent successfully\n");
 }
 
 /* Signal Handler for SIGINT ----- Ctrl-C*/
 void sigintHandler(int sig_num){ 
 	shutDown = true;
+	for (int i = 0; i < threadID.size(); i++){
+		pthread_kill(threadID[i], SIGUSR1);
+	}
 }
 
 /* Signal Handler for SIGUSR1-----------doing nothing just to unblock worker */
