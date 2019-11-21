@@ -57,6 +57,9 @@ string dir;
 
 /* parse http response object into plain string */
 string parse_response_to_string(const Response &res) {
+//    if (res.isJSON) {
+//        return res.body;
+//    }
     string status_line = res.http_version + " " + res.status_code + CRLF;
     string headers;
 
@@ -136,17 +139,17 @@ bool validate_string(string s, char *response, string flag) {
     return isTrue;
 }
 
-/* write message to file */
-int write_file(string filename, char *input)
-{
-    char *path = (char*)filename.c_str();
-    FILE* fp = fopen(path, "a");
-
-    if(fp) {
-        fputs(input, fp);
-        fclose(fp);
-    }
-}
+///* write message to file */
+//int write_file(string filename, char *input)
+//{
+//    char *path = (char*)filename.c_str();
+//    FILE* fp = fopen(path, "a");
+//
+//    if(fp) {
+//        fputs(input, fp);
+//        fclose(fp);
+//    }
+//}
 
 bool do_write(int fd, char *buf, int len)
 {

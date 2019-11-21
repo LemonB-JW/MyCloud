@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
     <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+
+
 
 </head>
 <body>
@@ -36,34 +40,47 @@
     </tbody>
 </table>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 <script>
 	window.onload = (event) => {
 		var url = "/inbox_items";
 		var req = JSON.stringify({});
-		// display loading message
-		showLoadingMessage('Loading recommended items...');
-		// make AJAX call
-		ajax(
-				'GET',
-				url,
-				req,
-				// successful callback
-				function(res) {
-					var items = JSON.parse(res);
-					if (!items || items.length === 0) {
-						showWarningMessage('No recommended item. Make sure you have favorites.');
-					} else {
-						listItems(items);
-					}
-				},
-				// failed callback
-				function() {
-					showErrorMessage('Cannot load recommended items.');
-				});
+
+		// // make AJAX call
+		// $.ajax(
+		// 		url,
+		// 		req,
+		// 		// successful callback
+		// 		function(res) {
+        //             console.log(res);
+        //             //
+        //             var items = JSON.parse(res);
+        //             //
+        //             // console.log("3\n");
+		// 			// if (!items || items.length === 0) {
+		// 			// 	showWarningMessage('No recommended item. Make sure you have favorites.');
+		// 			// } else {
+		// 			// 	listItems(items);
+		// 			// }
+		// 		},
+		// 		// failed callback
+		// 		function() {
+        //             console.log('failed.');
+        //         });
+        $.get(url, function(res) {
+            console.log(res);
+            var items = JSON.parse(res);
+        });
 	};
 
 	function listItems(items) {
 		// Clear the current results
+
+
+        console.log("NAME:!!!!!!\n");
+
 		var itemList = $('item-list');
 		itemList.innerHTML = '';
 
@@ -73,6 +90,10 @@
 	}
 
 	function addItem(itemList, item) {
+
+
+        console.log("NAME:!!!!!!\n");
+        console.log(item.from);
 		var item_id = item.item_id;
 
 		// create the <tr> tag and specify the id and class attributes
@@ -108,6 +129,7 @@
 
 		itemList.appendChild(tr);
 	}
+
 
 </script>
 

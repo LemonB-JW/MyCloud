@@ -29,11 +29,13 @@ Response::Response(Request req) {
 
     if (req.method == "GET") {
         if (url == "/inbox_items") {
+            isJSON = true;
+
             int num_of_items = 2;
-            json items;
+            json item, items;
             for (int i = 0; i < num_of_items; i++) {
                 std::string item_name = "item" + std::to_string(num_of_items);
-                json item = {
+                item = {
                         {"item_id", std::to_string(i)},
                         {"from", "Xuan"},
                         {"title", "THIS IS TITLE"},
@@ -41,13 +43,22 @@ Response::Response(Request req) {
                 };
                 items[item_name] = item;
             }
-            content = items.dump();
-            std::cout << items.dump(4) << std::endl;
-        } else {
+            content = item.dump();
+            this->headers[CONTENT_TYPE] = TYPE_JSON;
+
+//            std::cout << items.dump(4) << std::endl;
+
+        } else if (url == "/drive_items") {
+
+//        } else if () {
+
+        }
+        else {
             // add html file into response body
             std::string filename = "html" + url + ".html";
             std::cout << filename << std::endl;
             content = read_file_to_string(filename);
+            this->headers[CONTENT_TYPE] = TYPE_HTML;
         }
     } else if (req.method == "POST") {
 
@@ -58,7 +69,6 @@ Response::Response(Request req) {
 
     if (content != "") {
         this->headers[CONTENT_LEN] = std::to_string(content.length());
-        this->headers[CONTENT_TYPE] = TYPE_HTML;
         this->body = content;
     }
 

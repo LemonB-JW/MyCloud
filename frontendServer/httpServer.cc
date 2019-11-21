@@ -47,7 +47,7 @@ void *worker(void *arg)
     do_write(comm_fd, response, strlen(response));
 
     // debug mode
-    debug("[%d] S: %s", comm_fd, response);
+    debug("[%d] S: response:\n %s", comm_fd, response);
     debug("[%d] S: %s", comm_fd, "Connection closed\n");
 
     close(comm_fd);
@@ -109,12 +109,8 @@ int main(int argc, char *argv[])
     bind(listen_fd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     listen(listen_fd, 100);
 
-    puts("here!");
-
     while (true)
     {
-        puts("here2!");
-
         struct sockaddr_in clientaddr;
         socklen_t clientaddrlen = sizeof(clientaddr);
         int *fd = (int *)malloc(sizeof(int));

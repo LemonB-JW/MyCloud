@@ -38,7 +38,7 @@ Request::Request(int fd) {
     char *buf = (char *)malloc(sizeof(char) * MAX_REQUEST_LENGTH);
 
     read(fd, buf, MAX_REQUEST_LENGTH);
-    std::cout << buf << std::endl;
+    std::cout << "REQUEST: " <<  buf << std::endl;
 
     std::string request = std::string(buf);
     parse_req_string(*this, request);
@@ -62,14 +62,10 @@ void Request::parse_req_string(Request &req, std::string req_str) {
     pos = req_str.find(" ");
     req.method = req_str.substr(0, pos);
     prior_pos = pos;
-    std::cout << "method: " << method << std::endl;
-
 
     pos = req_str.find(" ", prior_pos + 1);
     req.req_uri = req_str.substr(prior_pos + 1, pos - prior_pos - 1);
     prior_pos = pos;
-    std::cout << "url: " << req.req_uri  << std::endl;
-
 
     pos = req_str.find(CRLF, prior_pos + 1);
     req.version = req_str.substr(prior_pos + 1, pos - prior_pos - 1);
