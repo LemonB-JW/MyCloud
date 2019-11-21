@@ -33,8 +33,9 @@ Response::Response(Request req) {
 
             int num_of_items = 2;
             json items;
+
             for (int i = 0; i < num_of_items; i++) {
-                std::string item_name = "item" + std::to_string(num_of_items);
+                std::string item_name = "item" + std::to_string(i);
                 json item = {
                         {"item_id", std::to_string(i)},
                         {"from", "Xuan"},
