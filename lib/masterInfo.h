@@ -6,13 +6,15 @@
 //#include <unistd.h>
 #include <netinet/in.h>
 #include <vector>
+#include <map>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 
 class masterInfo{
 	private:
 		
-		std::unordered_map<int, std::vector<int>> replicaInfo;//find replica based on primary index, also server as a primary set( keys are primaries )
+		std::map<int, std::vector<int>> replicaInfo;//find replica based on primary index, also served as a primary set( keys are primaries), also can found primary based on group number( iterator + groupID -> first)
 		std::unordered_map<int, int> myprimary; //find primary based on server index
 		std::vector<struct sockaddr_in> serverlist;
 		std::unordered_set<int> deadlist;
@@ -20,19 +22,20 @@ class masterInfo{
 		
 	public:
 		struct sockaddr_in master_addr;
+		std::string master_saddr;
 		int port;
+		int groupNum;
 		masterInfo(){
 		}
 		~masterInfo(){
 		}
 		/*readConfig will set master_addr, serverlist and assign group and primary*/
 		int readConfig(const char*);
-
 		bool isPrimary(int);	
 		int getPrime(int);
 		std::vector<int> getSub(int);
 		bool isAlive(int);	
 		int promoteNewPrimary(int);
-		//std::string getSub();
+		std::string getServers(int);
 };
 #endif /*MASTERINFO_H_*/
