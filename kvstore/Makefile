@@ -1,18 +1,15 @@
 
-# TARGETS = BigTable.o FileMetaData.o
+TARGETS = tester storageserver
 
-# all: $(TARGETS)
+all: $(TARGETS)
 
-CPPFLAGS = -lpthread -I../lib -c
+CPPFLAGS = -lpthread -I../lib -g -o
 
-TableCell.o:
-		g++ $(CPPFLAGS) TableCell.cc
+tester: table_tester.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
+		g++ $^ $(CPPFLAGS) $@
 
-BigTable.o: 
-		g++ $(CPPFLAGS) BigTable.cc
-
-FileMetaData.o:
-		g++ $(CPPFLAGS) FileMetaData.cc
+storageserver: StorageServer.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc
+		g++ $^ $(CPPFLAGS) $@
 
 clean:
 	rm -fv $(TARGETS) *~ *.o 

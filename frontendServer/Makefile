@@ -1,15 +1,21 @@
-TARGETS = chatserver chatclient
+TARGETS = httpServer loadbalancer smtp pop3
 
 all: $(TARGETS)
 
-%.o: %.cc
+%.o: %.cc utils/%.cc
 	g++ $^ -c -o $@
 
-chatserver: chatserver.o
+httpServer: httpServer.o request.o response.o utils/utils.o
 	g++ $^ -o $@ -lpthread
 
-chatclient: chatclient.o
+loadbalancer: loadbalancer.o
 	g++ $^ -o $@
+
+smtp: smtp.cc
+	g++ $< -lpthread -g -o $@
+
+pop3: pop3.cc
+	g++ $^ -I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib -lc
 
 pack:
 	rm -f submit-hw3.zip
@@ -18,5 +24,4 @@ pack:
 clean::
 	rm -fv $(TARGETS) *~ *.o submit-hw3.zip
 
-realclean:: clean
-	rm -fv cis505-hw3.zip
+
