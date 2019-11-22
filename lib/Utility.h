@@ -7,7 +7,8 @@ class Utility
 {
 
 public:
-	static string generateFileID(int worker_index, int sequence_num);
+	static string generateFileID(string path_name);
+	static string parseFileName(string path_name);
 };
 
 #endif

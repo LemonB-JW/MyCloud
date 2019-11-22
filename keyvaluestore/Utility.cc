@@ -11,7 +11,7 @@
 #include "../lib/Utility.h"
 using namespace std;
 
-string Utility::generateFileID(int worker_index, int sequence_num) {
+string Utility::generateFileID(string path_name) {
 	struct timeval tv;
 	time_t nowtime;
 	struct tm *nowtm;
@@ -24,9 +24,19 @@ string Utility::generateFileID(int worker_index, int sequence_num) {
 	strftime(tmbuf, sizeof tmbuf, "%Y-%m-%d %H:%M:%S", nowtm);
 	snprintf(final_formatted_tm, sizeof(final_formatted_tm), "%s.%06ld", tmbuf, tv.tv_usec);
 	string timestamp(tmbuf);
-	string res = to_string(worker_index) + to_string(sequence_num) + timestamp;
+	string res = file_name + timestamp;
 	return res;
 } 
+
+string Utility::parseFileName(string path_name){
+	int index = 0;
+	for (index = path_name.length() - 1, auto it = path_name.end(); it < path_name.begin(); --it, --index){
+		if(*it == '/'){
+			break;
+		}
+	}
+	return path_name.substr(index);
+}
 
 
 
