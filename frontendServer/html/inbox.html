@@ -1,103 +1,141 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Penn Cloud</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/pricing/">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <!-- <link href="pricing.css" rel="stylesheet"> -->
+    <style>
+        .container {
+            max-width: 960px;
+        }
+        .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
 
-
+    </style>
 </head>
+
 <body>
-<table class="table table-condensed table-hover">
-    <thead>
-    <tr>
-        <th class="span1"><input type="checkbox"></th>
-        <th class="span2"></th>
-        <th class="span2"></th>
-        <th class="span9"></th>
-        <th class="span2"></th>
-    </tr>
-    </thead>
-    <tbody id="item-list">
-    <tr class="item">
-        <td class="checkbox">
-            <input type="checkbox">
-            <a href="#"> <i class="icon-star-empty"></i>
-            </a>
-        </td>
-        <td class="item-from"><strong>John Doe</strong>
-        </td>
-        <td class="item-title">
-            <span class="label pull-right">Notifications</span>
-        </td>
-        <td class="item-date">
-            <strong>11:23 PM</strong>
-        </td>
-    </tr>
-    </tbody>
-</table>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Penn Cloud</h5>
+    <nav class="my-2 my-md-0 mr-md-1">
+        <a class="p-2 text-dark" href="#">Logout</a>
+    </nav>
+    <!-- <a class="btn btn-outline-primary" href="#">Login</a> -->
+    <!-- <a class="btn btn-outline-primary" href="#">Signup</a> -->
+</div>
+
+<div class="container">
+    <div class="card text-start">
+
+
+
+        <div class="row no-gutters">
+            <div class="card-header col-2">
+                <ul class="nav nav-tabs flex-column border-0 navbar-dark">
+                    <li class="nav-item">
+                        <a class="nav-link border-0" href="compose" style="color:gray;">Compose</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border-0 active" href="inbox" style="color:black;">Inbox (10)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border-0" href="drive" style="color:gray;">Drive</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border-0" href="admin" style="color:gray;">Admin</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body col-10 p-4">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr class="item">
+                        <th> </th>
+                        <th class="item-from" style="width: 20%"> Sender </th>
+                        <th class="item-title" style="width: 60%"> Title </th>
+                        <th class="item-date" style="width: 20%"> Time </th>
+                    </tr>
+                    </thead>
+                    <tbody id="item-list">
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!---->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 <script>
-	window.onload = (event) => {
-		var url = "/inbox_items";
-		var req = JSON.stringify({});
+    window.onload = (event) => {
+        var url = "/inbox_items";
+        var req = JSON.stringify({});
 
-		// // make AJAX call
-		// $.ajax(
-		// 		url,
-		// 		req,
-		// 		// successful callback
-		// 		function(res) {
+        // // make AJAX call
+        // $.ajax(
+        // 		url,
+        // 		req,
+        // 		// successful callback
+        // 		function(res) {
         //             console.log(res);
         //             //
         //             var items = JSON.parse(res);
         //             //
         //             // console.log("3\n");
-		// 			// if (!items || items.length === 0) {
-		// 			// 	showWarningMessage('No recommended item. Make sure you have favorites.');
-		// 			// } else {
-		// 			// 	listItems(items);
-		// 			// }
-		// 		},
-		// 		// failed callback
-		// 		function() {
+        // 			// if (!items || items.length === 0) {
+        // 			// 	showWarningMessage('No recommended item. Make sure you have favorites.');
+        // 			// } else {
+        // 			// 	listItems(items);
+        // 			// }
+        // 		},
+        // 		// failed callback
+        // 		function() {
         //             console.log('failed.');
         //         });
         $.get(url, function(items) {
             listItems(items);
         });
-	};
+    };
 
-	function listItems(items) {
-		// Clear the current results
-		var itemList = $('item-list');
-		itemList.innerHTML = '';
+    function listItems(items) {
+        // Clear the current results
+        var itemList = $('item-list');
+        itemList.innerHTML = '';
 
-		var id = 0;
-		for (var key in items) {
+        var id = 0;
+        for (var key in items) {
             if (items.hasOwnProperty(key)) {
                 addItem(itemList, items[key], id++);
             }
         }
-	}
+    }
 
-	function addItem(itemList, item, id) {
-		// create the <tr> tag and specify the id and class attributes
+    function addItem(itemList, item, id) {
+        // create the <tr> tag and specify the id and class attributes
         var tr = document.createElement('tr');
         tr.id = 'item-' + id;
         tr.className = 'item';
 
         var table = document.getElementsByClassName('table table-condensed table-hover');
- console.log(table[0]);
+        console.log(table[0]);
 
-        //TODO: add checkbox
- 		// "MAIL FROM"
+        var checkbox = document.createElement('td');
+        checkbox.innerHTML = '<input type="checkbox">';
+
         var from = document.createElement('td');
         from.innerHTML = item.from;
 
@@ -107,19 +145,21 @@
         var date = document.createElement('td');
         date.innerHTML = item.date;
 
+        tr.appendChild(checkbox);
         tr.appendChild(from);
-		tr.appendChild(title);
-		tr.appendChild(date);
+        tr.appendChild(title);
+        tr.appendChild(date);
 
         var list = document.createElement('tbody');
         console.log(list);
 
         list.appendChild(tr);
         table[0].appendChild(list);
-	}
-
-
+    }
 </script>
+
+
+
 
 </body>
 </html>
