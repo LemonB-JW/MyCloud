@@ -6,7 +6,7 @@ if (NOT PROTOC_PLUGIN)
     message(FATAL_ERROR "protoc not found! please install it")
 endif()
 find_package(Protobuf REQUIRED)
-message(STATUS "Using protobuf ${protobuf_VERSION}")
+message(STATUS "Using protobuf ${Protobuf_VERSION}")
 
 # configure grpc
 find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
@@ -14,7 +14,6 @@ if (NOT GRPC_CPP_PLUGIN)
     message(FATAL_ERROR "grpc_cpp_plugin not found! please install it")
 endif()
 find_package(PkgConfig REQUIRED)
-pkg_search_module(GRPC REQUIRED grpc)
 pkg_search_module(GRPCPP REQUIRED grpc++)
 
 # Proto file
@@ -42,11 +41,11 @@ include_directories("${Protobuf_INCLUDE_DIRS}")
 
 foreach(_target
         bigtable_client bigtable_server)
-    add_executable(${_target} "${_target}.cc"
+    add_penn_cloud_executable(${_target} "${_target}.cc"
             BigTable.cc
             Utility.cc
             ${hw_proto_srcs}
             ${hw_grpc_srcs})
     target_link_libraries(${_target} ${Protobuf_LIBRARIES})
-    target_link_libraries(${_target} ${GRPCPP_LDFLAGS} ${GRPC_LDFLAGS})
+    target_link_libraries(${_target} ${GRPCPP_LDFLAGS})
 endforeach()
