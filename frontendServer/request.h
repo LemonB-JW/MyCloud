@@ -14,13 +14,12 @@ public:
     std::string method;
     std::string req_uri;
     std::string version;   // HTTP/1.1
-    int content_length;
     std::string cookie;
     std::unordered_map<std::string, std::string> headers;
-//        map<string, string> headers;
-//        map<string, string> cookies;
     std::string body;
 //        bool valid;
+    int content_length;
+
 
 public:
     Request(int fd);

@@ -8,9 +8,11 @@
 #include <string.h>
 #include <string>
 #include <unordered_map>
+#include <json.hpp>
 
 #include "request.h"
 
+using json = nlohmann::json;
 
 class Response {
 public:
@@ -27,13 +29,20 @@ public:
      * */
     std::unordered_map<std::string, std::string> headers;
     std::string body;
-    bool isJSON;
 
 public:
     Response(Request req);
 
 public:
     void parse_req_string(Request &req, std::string req_str);
+    void get_inbox_list_handler();
+    void get_drive_list_handler();
+    void get_html_handler(std::string &url);
+
+
+    /* write JSON object to HTTP response */
+//    void write_json_to_response(Response &res, json json_obj);
+
 };
 
 

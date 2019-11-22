@@ -38,12 +38,8 @@ Request::Request(int fd) {
     char *buf = (char *)malloc(sizeof(char) * MAX_REQUEST_LENGTH);
 
     read(fd, buf, MAX_REQUEST_LENGTH);
-    std::cout << "REQUEST: " <<  buf << std::endl;
-
     std::string request = std::string(buf);
     parse_req_string(*this, request);
-
-    
 
     if (buf != NULL) {
         free(buf);
@@ -77,9 +73,13 @@ void Request::parse_req_string(Request &req, std::string req_str) {
         std::string key = req_str.substr(prior_pos + 1, pos - prior_pos);
         prior_pos = pos;
 
-        pos = req_str.find("CRLF", prior_pos + 1);
+        pos = req_str.find("\n", prior_pos + 1);
         std::string val = req_str.substr(prior_pos + 1, pos - prior_pos);
         prior_pos = pos;
+
+        std::cout << "val: " << val <<std::endl;
+
+        std::cout << "pos: " << pos << "length: " << req_str.length() << std::endl;
 
         req.headers[key] = val;
     }

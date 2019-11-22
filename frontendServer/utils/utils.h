@@ -11,6 +11,7 @@ std::string parse_response_to_string(const Response &res);
 std::string read_file_to_string(std::string filename);
 
 
+
 bool do_write(int fd, char *buf, int len);
 void termination_handler(int signum);
 
