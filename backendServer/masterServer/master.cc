@@ -126,12 +126,14 @@ void* threadWorker(void* arg){
 	int crlfpos = 0;
 	char buf[MAX_COMMAND_LENGTH];
 	int endpos = 0;
-	
+	fprintf(stderr, "in worker\n");
 	while(!shutDown){
 		
 		bytesInBuf = bytesInBuf - crlfpos - 1;
 		if (bytesInBuf<0) bytesInBuf = 0;
 		crlfpos = 0;
+		
+		//fprintf(stderr, "crlf: %d bytesInBuf: %d\n", crlfpos, bytesInBuf);
 		//keep reading until \r\n
 		while(!shutDown){
 			for (int i = 0; i < bytesInBuf; i++){
@@ -142,12 +144,14 @@ void* threadWorker(void* arg){
 					}
 				}
 			}
-			
+			//fprintf(stderr, "in loop crlf: %d\n", crlfpos);
 			if (crlfpos > 0 || shutDown) break;
 			if(bytesInBuf >= MAX_COMMAND_LENGTH) panic("Read %d bytes, but no CRLF found.\r\n", bytesInBuf);
 			bytesRead = recv(comm_fd, &buf[bytesInBuf], MAX_COMMAND_LENGTH - bytesInBuf, 0);
-			if (bytesRead <= 0) panic("Read failed (%s)\n", strerror(errno));
-			
+			if (bytesRead < 0) panic("Read failed (%s)\n", strerror(errno));
+			bytesInBuf += bytesRead;
+			//fprintf(stderr, "after read %d\n", bytesRead);
+			//fprintf(stderr, "read from server: '%s'", buf);
 		}//end of find CRLF while loop 
 		if (shutDown) break;
 		//found CRLF
@@ -159,7 +163,7 @@ void* threadWorker(void* arg){
 				int serverid = atoi(sid);
 				
 				char sendbuf[MAX_COMMAND_LENGTH];
-				sprintf(sendbuf, "GET_PRIME,%d", myInfo.getPrime(serverid));
+				sprintf(sendbuf, "GET_PRIME,%d\r\n", myInfo.getPrime(serverid));
 				writeToclient(comm_fd, sendbuf); 
 				
 			}else if (match("LIST_SUB,*", buf)) {
@@ -229,7 +233,7 @@ void writeToclient(int fd, const char *data){
 		}
   	wptr += w;
 	}
-	if (debugMode) fprintf(stderr, "Sent successfully\n");
+	if (debugMode) fprintf(stderr, "Sent successfully (%s) \n", data);
 }
 
 /* Signal Handler for SIGINT ----- Ctrl-C*/
