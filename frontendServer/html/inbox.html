@@ -84,6 +84,13 @@
     window.onload = (event) => {
         var url = "/inbox_items";
         var req = JSON.stringify({});
+        $.get(url, function(items) {
+            $('tbody').empty();
+            var id = 0;
+            for (var key in items) {
+                addItem(items[key], id++);
+            }
+        });
 
         // // make AJAX call
         // $.ajax(
@@ -106,55 +113,14 @@
         // 		function() {
         //             console.log('failed.');
         //         });
-        $.get(url, function(items) {
-            listItems(items);
-        });
     };
 
-    function listItems(items) {
-        // Clear the current results
-        var itemList = $('item-list');
-        itemList.innerHTML = '';
-
-        var id = 0;
-        for (var key in items) {
-            if (items.hasOwnProperty(key)) {
-                addItem(itemList, items[key], id++);
-            }
-        }
-    }
-
-    function addItem(itemList, item, id) {
-        // create the <tr> tag and specify the id and class attributes
-        var tr = document.createElement('tr');
-        tr.id = 'item-' + id;
-        tr.className = 'item';
-
-        var table = document.getElementsByClassName('table table-condensed table-hover');
-        console.log(table[0]);
-
-        var checkbox = document.createElement('td');
-        checkbox.innerHTML = '<input type="checkbox">';
-
-        var from = document.createElement('td');
-        from.innerHTML = item.from;
-
-        var title = document.createElement('td');
-        title.innerHTML = item.title;
-
-        var date = document.createElement('td');
-        date.innerHTML = item.date;
-
-        tr.appendChild(checkbox);
-        tr.appendChild(from);
-        tr.appendChild(title);
-        tr.appendChild(date);
-
-        var list = document.createElement('tbody');
-        console.log(list);
-
-        list.appendChild(tr);
-        table[0].appendChild(list);
+    function addItem(item, id) {
+        $('tbody').append(
+            '<tr> <td><input type="checkbox"></td> <td>' +
+            item.from + '</td> <td>' +
+            item.title + '</td> <td>' +
+            item.date + '</td> </tr>');
     }
 </script>
 
