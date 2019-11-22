@@ -23,3 +23,4 @@ function(add_penn_cloud_executable binary)
 endfunction(add_penn_cloud_executable)
 
 add_subdirectory(frontendServer)
+add_subdirectory(keyvaluestore)

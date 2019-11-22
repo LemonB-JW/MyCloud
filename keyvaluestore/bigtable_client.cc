@@ -181,12 +181,12 @@ int main(int argc, char** argv) {
   TableClient greeter(grpc::CreateChannel(
       "localhost:50051", grpc::InsecureChannelCredentials()));
   // bool reply = greeter.put("2019/11/20", 0, "foo.txt", "file", "alice", "janice", "id1", "Welcome"); //??
-  bool reply = greeter.put();
-  greeter.put();
+//  bool reply = greeter.put();
+//  greeter.put();
   // bool reply2 = greeter.put("2019/11/20", 10, "boo.txt", "email", "alice", "ben", "id2", "Hello");
-  std::string res = greeter.get();
-  std::vector<FileMetaData> file_list = greeter.list_emails();
-  std::cout << "Greeter received: " << reply << "  res is "<< res << " file list size is "<<file_list.size()<< std::endl;
+//  std::string res = greeter.get();
+//  std::vector<FileMetaData> file_list = greeter.list_emails();
+//  std::cout << "Greeter received: " << reply << "  res is "<< res << " file list size is "<<file_list.size()<< std::endl;
 
   return 0;
 }
