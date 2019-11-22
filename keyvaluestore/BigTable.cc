@@ -12,11 +12,13 @@
 using namespace std;
 
 // PUT(r,c,v): Stores a value v in column c of row r, if it's a folder, data should be "NULL"
-bool BigTable::put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data){ // col is the file_id generated in server side
+string BigTable::put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data){ // col is the file_id generated in server side
 	// write to big table
+	string res = "";
 	string col = Utility::generateFileID(path_name);
 	string file_name = Utility::parseFileName(path_name);
 	if (table.count(row) == 0 || table.count(col) == 0) {
+		res = col;
 		string* data_pointer = new string(data);
 		TableCell* new_cell = new TableCell(data_pointer);
 		table[row][col] = new_cell;
@@ -35,11 +37,11 @@ bool BigTable::put(string created_time, int size, string path_name, string file_
 			all_user_files[row]->insertNode(file_name, file_metadata);
 		}
 		
-	} else {
-		return false;
+	}else{
+		return "";
 	}
 
-	return true;
+	return res;
 }
 
 // GET(r,c): Returns the value stored in column c of row r
@@ -101,13 +103,12 @@ bool BigTable::table_delete(string row, string col, string file_type, string pat
 			//it's a file or folder:
 			all_user_files[row]->deleteNode(path_name, true);
 		}
-
 		return true;
 	}
 }
 
 // only list emails
-vector<FileMetaData> BigTable::list_all_emails_for_currUser(string row){
+vector<FileMetaData> BigTable::list_all_emails(string row){
 	vector<FileMetaData> result;
 	for(auto itr = all_user_emails[row]->begin(); itr !=  all_user_emails[row]->end(); itr++){
 		FileMetaData* file = *itr;
@@ -121,7 +122,7 @@ vector<FileMetaData> BigTable::list_all_emails_for_currUser(string row){
 }
 
 // Return a list of file/folder metadata of given path:
-vector<FileMetaData> BigTable::list_all_files_for_currUser(string row, string path_name){
+vector<FileMetaData> BigTable::list_all_files(string row, string path_name){
 	vector<MetaTreeNode*> nodes = all_user_files[row]->searchNode(path_name);
 	vector<FileMetaData> result;
 	for(int i = 0; i < nodes.size(); i++){
@@ -133,9 +134,10 @@ vector<FileMetaData> BigTable::list_all_files_for_currUser(string row, string pa
 
 
 bool BigTable::rename_file_folder(string row, string file_type, string path_name, string new_file_name){
+	string file_name = Utility::parseFileName(new_file_name);
 	vector<MetaTreeNode*> nodes = all_user_files[row]->searchNode(path_name);
 	if(nodes == NULL) return false;
-	nodes.at(0)->file_name = new_file_name;
+	nodes.at(0)->file_name = file_name;
 	return true;
 }
 

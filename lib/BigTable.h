@@ -20,28 +20,77 @@ using namespace std;
 class BigTable
 {
 public:
-	unordered_map<string, unordered_map<string, TableCell*>> table; // row key: user name, col key: fileID (every folder has a unique ID: workerIndex + sequenceNum + timestamp
+	 // row key: user name, col key: fileID = timestamp + fullpath
+	unordered_map<string, unordered_map<string, TableCell*>> table;
 	unordered_map<string, vector<FileMetaData*>*> all_user_emails;
 	unordered_map<string, MetaTree*> all_user_files;
-	BigTable(){
-	};
+	BigTable();
 	~BigTable(){
+		for(auto it = table.begin(); it != table.end(); it++){
+			table.erase(it->first);
+		}
+
+		for(auto it = all_user_emails.begin(); it != all_user_emails.end(); it++){
+			// delete it->second;
+			all_user_emails.erase(it->first);
+		}
+
+		for(auto it = all_user_files.begin(); it != all_user_files.end(); it++){
+			// delete it->second;
+			all_user_files.erase(it->first);
+		}
+
 	}
 
-	// PUT(r,c,v): Stores a value v in column c of row r
-	bool put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data);
+	/*PUT: generate a fileID based on timestamp and path_name, which will be returned after the method is called.
+	*** if the file cannot be put into table, it will return "" (empty string). ***
+	row: username, (email) receiver/owner, created_time: file created time, file_type: "email", "folder", "file"
+	path_name: (email) email subject name, (file/folder): PATH/file or folder name
+	size: number of bytes of the file, it should be 0 when file type is "folder", file_from: (email) sender username, (file) "NULL" 
+	data: file data, it should be "NULL" when the file type is "folder"
+	*** the management structures: tree for file system, map for email system will be updated as well ***
+	*/
+	string put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data); // col is the file_id generated in server side
 
-	// GET(r,c): Returns the value stored in column c of row r
+	/* GET: row: username, col: fileID, return the content of the file */
 	string get(string row, string col);
 
-	// CPUT(r,c,v1,v2): Stores value v2 in column c of row r, but only if the current value is v1
-	bool cput(string new_created_time, int new_size, string file_type, string row, string col, string old_data, string new_data);
+	/* CPUT: row: username, (email) receiver/owner, new_created_time: file modified time
+	path_name: (email) email subject name, (file/folder): PATH/file or folder name
+	new_size: number of bytes of the modified file, old_data: original file data
+	new_data: modified file data
+	*** the management structures: tree for file system, map for email system will be updated as well ***
+	*/
+	bool cput(string new_created_time, int new_size, string path_name, string row, string col, string old_data, string new_data);
 
-	// DELETE(r,c): Deletes the value in column c of row r
-	bool table_delete(string row, string col);
+	/* DELETE: row: username, (email) receiver/owner, col: fileID
+	path_name: (email) email subject name, (file/folder): PATH/file or folder name
+	file_type: "email", "folder", "file"
+	*** the management structures: tree for file system, map for email system will be updated as well ***
+	*/
+	bool BigTable::table_delete(string row, string col, string file_type, string path_name);
 
-	vector<FileMetaData> list_all_files_for_currUser(string row);
-	vector<FileMetaData> list_all_emails_for_currUser(string row);
+	/* return a list of all file/folder metadata under a given path of a user (row) */
+	vector<FileMetaData> BigTable::list_all_files(string row, string path_name);
+
+	/* return a list of all emails metadata of a user (row) */
+	vector<FileMetaData> list_all_emails(string row);
+
+	/* only for file system:
+	   row: user, file_type: "email", "folder", "file", path_name: (email) email subject name, (file/folder): PATH/file or folder name
+	   new_file_name: PATH/newfilename
+	   *** the management structures: tree for file system will be updated as well ***
+	 */
+	bool rename_file_folder(string row, string file_type, string path_name, string new_file_name);
+
+	/* only for file system:
+	   row: user, file_type: "email", "folder", "file", path_name: (email) email subject name, (file/folder): PATH/file or folder name
+	   new_path: PATH/newfilename
+	   *** the management structures: tree for file system will be updated as well ***
+	*/
+	bool move_file_folder(string row, string file_type, string path_name, string new_path);
+
+
 
 };
 
