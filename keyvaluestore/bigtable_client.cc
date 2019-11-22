@@ -66,8 +66,8 @@ class TableClient {
   // Assembles the client's payload, sends it and presents the response back
   // from the server.
   // bool put(string created_time, int size, string file_name, string file_type, string file_from, string row, string col, string data) {
-  bool put(std::string& created_time, int size, std::string& file_name, std::string& file_type, std::string& file_from, std::string& user, 
-    std::string& file_id, std::string& file_content){ 
+  bool put(std::string created_time, int size, std::string file_name, std::string file_type, std::string file_from, std::string user,
+    std::string file_id, std::string file_content){
     // Data we are sending to the server.
     PutRequest request;
     request.set_created_time(created_time);
@@ -100,7 +100,7 @@ class TableClient {
     }
   }
 
-  std::string get(std::string& user, std::string& file_name){
+  std::string get(std::string user, std::string file_name){
     GetRequest req;
     req.set_row(user);
     req.set_col(file_name);
@@ -123,7 +123,7 @@ class TableClient {
 
   }
 
-  std::vector<FileMetaData> list_files(std::string& user){
+  std::vector<FileMetaData> list_files(std::string user){
     GetFileListRequest req;
     req.set_row("Janice");
     // req.set_row(user);
@@ -181,12 +181,13 @@ int main(int argc, char** argv) {
   TableClient greeter(grpc::CreateChannel(
       "localhost:50051", grpc::InsecureChannelCredentials()));
   // bool reply = greeter.put("2019/11/20", 0, "foo.txt", "file", "alice", "janice", "id1", "Welcome"); //??
-//  bool reply = greeter.put();
+  bool reply = greeter.put("2019/11/20", 1, "foo.txt", "file", "alice", "janice", "id1", "Welcome");
 //  greeter.put();
   // bool reply2 = greeter.put("2019/11/20", 10, "boo.txt", "email", "alice", "ben", "id2", "Hello");
 //  std::string res = greeter.get();
 //  std::vector<FileMetaData> file_list = greeter.list_emails();
 //  std::cout << "Greeter received: " << reply << "  res is "<< res << " file list size is "<<file_list.size()<< std::endl;
+    std::cout << "Greeter received: " << reply << std::endl;
 
   return 0;
 }
