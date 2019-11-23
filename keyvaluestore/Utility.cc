@@ -24,18 +24,17 @@ string Utility::generateFileID(string path_name) {
 	strftime(tmbuf, sizeof tmbuf, "%Y-%m-%d %H:%M:%S", nowtm);
 	snprintf(final_formatted_tm, sizeof(final_formatted_tm), "%s.%06ld", tmbuf, tv.tv_usec);
 	string timestamp(tmbuf);
-	string res = file_name + timestamp;
+	string res = path_name + timestamp;
 	return res;
 } 
 
 string Utility::parseFileName(string path_name){
-	int index = 0;
-	for (index = path_name.length() - 1, auto it = path_name.end(); it < path_name.begin(); --it, --index){
-		if(*it == '/'){
-			break;
-		}
+	// root/lib/foo.txt
+	int i = path_name.length() - 1;
+	for(; i >= 0; i--){
+		if(path_name.at(i) == '/') break;
 	}
-	return path_name.substr(index);
+	return path_name.substr(i + 1);
 }
 
 

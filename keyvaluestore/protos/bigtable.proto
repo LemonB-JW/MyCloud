@@ -38,8 +38,7 @@ message PutRequest {
   string file_type = 4;
   string file_from = 5;
   string row = 6;
-  string col = 7;
-  string data = 8;
+  string data = 7;
 }
 
 

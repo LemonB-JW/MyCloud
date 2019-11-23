@@ -11,7 +11,6 @@
 #include <unordered_map> 
 #include <stdbool.h> 
 #include "../lib/TableCell.h"
-#include "../lib/FileMetaData.h"
 #include "../lib/MetaTree.h"
 
 
@@ -24,23 +23,24 @@ public:
 	unordered_map<string, unordered_map<string, TableCell*>> table;
 	unordered_map<string, vector<FileMetaData*>*> all_user_emails;
 	unordered_map<string, MetaTree*> all_user_files;
-	BigTable();
+	// BigTable();
 	~BigTable(){
-		for(auto it = table.begin(); it != table.end(); it++){
+		for(auto it = table.begin(); it != table.end();++it){
 			table.erase(it->first);
 		}
 
-		for(auto it = all_user_emails.begin(); it != all_user_emails.end(); it++){
+		for(auto it = all_user_emails.begin(); it != all_user_emails.end();++it){
 			// delete it->second;
 			all_user_emails.erase(it->first);
 		}
 
-		for(auto it = all_user_files.begin(); it != all_user_files.end(); it++){
+		for(auto it = all_user_files.begin(); it != all_user_files.end();++it){
+			
 			// delete it->second;
 			all_user_files.erase(it->first);
 		}
 
-	}
+	};
 
 	/*PUT: generate a fileID based on timestamp and path_name, which will be returned after the method is called.
 	*** if the file cannot be put into table, it will return "" (empty string). ***
@@ -61,17 +61,17 @@ public:
 	new_data: modified file data
 	*** the management structures: tree for file system, map for email system will be updated as well ***
 	*/
-	bool cput(string new_created_time, int new_size, string path_name, string row, string col, string old_data, string new_data);
+	bool cput(string new_created_time, int new_size, string path_name, string file_type, string row, string col, string old_data, string new_data);
 
 	/* DELETE: row: username, (email) receiver/owner, col: fileID
 	path_name: (email) email subject name, (file/folder): PATH/file or folder name
 	file_type: "email", "folder", "file"
 	*** the management structures: tree for file system, map for email system will be updated as well ***
 	*/
-	bool BigTable::table_delete(string row, string col, string file_type, string path_name);
+	bool table_delete(string row, string col, string file_type, string path_name);
 
 	/* return a list of all file/folder metadata under a given path of a user (row) */
-	vector<FileMetaData> BigTable::list_all_files(string row, string path_name);
+	vector<FileMetaData> list_all_files(string row, string path_name);
 
 	/* return a list of all emails metadata of a user (row) */
 	vector<FileMetaData> list_all_emails(string row);

@@ -30,6 +30,9 @@ public:
 		// 	this->content->push_back(content_bytes[i]);
 		// }
 	};
+	FileMetaData(){
+
+	};
 	~FileMetaData(){
 		//delete this->content;
 	};

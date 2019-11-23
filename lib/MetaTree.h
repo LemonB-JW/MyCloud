@@ -1,6 +1,6 @@
 // Author: Jiaying Guo
 #include "../lib/MetaTreeNode.h"
-#include <vector.h>
+#include <vector>
 #include <string.h>
 
 using namespace std;
@@ -11,9 +11,12 @@ public:
 	MetaTreeNode* root;
 
 	MetaTree(){
-		root = new MetaTreeNode("root", NULL);
+		FileMetaData data;
+		root = new MetaTreeNode("root", data);
 	}
-	~MetaTree();
+	~MetaTree(){
+		delete root;
+	};
 	
 public:
 	void insertNode(string path_name, FileMetaData metadata);
