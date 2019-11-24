@@ -24,18 +24,18 @@ option objc_class_prefix = "MF";
 package masterFrontend;
 
 // 
-service getKVipport{
-	rpc receive_request (frontendRequest) returns (masterReply) {}
+service MasterFrontend{
+	rpc getServerList (getServerListRequest) returns (getServerListReply) {}
 }
 
 // 
-message frontendRequest {
+message getServerListRequest {
   string user_name = 1;
 }
 
 // 
-message masterReply {
-  string server_ipport = 1;
+message getServerListReply {
+  repeated string server_ipport = 1;
 }
 
 /*The numbers in these requests do not specify their values 

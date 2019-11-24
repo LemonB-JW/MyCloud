@@ -1,42 +1,49 @@
 #include <stdio.h>
 #include <string>
+#include <functional>
 
 #include <grpcpp/grpcpp.h>
-#include <functional>
 #include "masterFrontend.grpc.pb.h"
 
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 
-using masterFrontend::getKVipport;
-using masterFrontend::frontendRequest;
-using masterFrontend::masterReply;
+using masterFrontend::MasterFrontend;
+using masterFrontend::getServerListRequest;
+using masterFrontend::getServerListReply;
 
 
 class MFcommuClient {
 	public:
-		MFcommuClient(std::shared_ptr<Channel> channel):stub_(getKVipport::NewStub(channel)){}
+		MFcommuClient(std::shared_ptr<Channel> channel):stub_(MasterFrontend::NewStub(channel)){}
 	
-	std::string receive_request(std::string username){
-		frontendRequest request;
+	std::vector<std::string> getServerList(std::string username){
+		getServerListRequest request;
 		
 		request.set_user_name(username);
 		fprintf(stderr, "here I am\n");
 		ClientContext context;
-		masterReply reply;
-		Status status = stub_->receive_request(&context, request, &reply);
+		getServerListReply reply;
+		Status status = stub_->getServerList(&context, request, &reply);
 		
 		if(status.ok()){
-			return reply.server_ipport();
+			std::vector<std::string> res;
+			for (int i = 0; i < reply.server_ipport_size(); i++){
+				res.push_back(reply.server_ipport(i));
+			}
+			return res;
 		}else{
 			std::cout << status.error_code() << ": " << status.error_message() << std::endl;
 			std::string res("GRPC FAILED");
-			return res;
+			std::vector<std::string> response;
+			response.push_back(res);
+			return response;
 		}
 	}
+	
 	private:
-		std::unique_ptr<getKVipport::Stub> stub_;
+		std::unique_ptr<MasterFrontend::Stub> stub_;
 };
 
 int main(int argc, char** argv) {
@@ -52,9 +59,12 @@ int main(int argc, char** argv) {
     )
   );
   std::string myuser = "Alice";
-  fprintf(stderr, "ready to send alice to server\n");
-  std::string response = client.receive_request(myuser);
-  std::cout << "Client received: " << myuser << "  server list is "<< response << std::endl;
-
+  //fprintf(stderr, "ready to send alice to server\n");
+  std::vector<std::string> response = client.getServerList(myuser);
+  std::cout << "Client received: " << myuser << "  server list is "<< std::endl;
+	for (int i = 0; i<response.size(); i++){
+		fprintf(stderr, "%s ", response[i].c_str());
+	}
+	fprintf(stderr, "\n");
   return 0;
 }
