@@ -16,26 +16,24 @@ class masterInfo{
 		
 		std::map<int, std::vector<int>> replicaInfo;//find replica based on primary index, also served as a primary set( keys are primaries), also can found primary based on group number( iterator + groupID -> first)
 		std::unordered_map<int, int> myprimary; //find primary based on server index
-		std::vector<struct sockaddr_in> serverlist;
+		std::vector<std::string> bf_addr_list;//backend frontend grpc address
+		std::vector<std::string> bm_addr_list;//backend master grpc address
 		std::unordered_set<int> deadlist;
 		void setPrimary();//decide group and primary, called in readConfig
 		
 	public:
-		struct sockaddr_in master_addr;
-		std::string master_saddr;
-		int port;
+		std::string mf_addr;//master frontend grpc addr
+		std::string mb_addr;//master backend grpc addr
 		int groupNum;
-		masterInfo(){
-		}
-		~masterInfo(){
-		}
+		masterInfo(){}
+		~masterInfo(){}
 		/*readConfig will set master_addr, serverlist and assign group and primary*/
 		int readConfig(const char*);
-		bool isPrimary(int);	
-		int getPrime(int);
-		std::vector<int> getSub(int);
+		bool isPrimary(int); //given a kvstore server index, return true if it is a primary node
+		int getPrime(int); //get prime index given sub index, if prime index given, return itself
+		std::vector<int> getSub(int); //return a list of sub index given prime index
 		bool isAlive(int);	
-		int promoteNewPrimary(int);
-		std::string getServers(int);
+		int promoteNewPrimary(int); //promote a new primary given old primary
+		std::vector<std::string> getServers(int);
 };
 #endif /*MASTERINFO_H_*/
