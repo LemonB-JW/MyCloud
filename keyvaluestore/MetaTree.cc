@@ -59,21 +59,24 @@ void MetaTree::insertNode(string path_name, MetaTreeNode* treenode){
 vector<MetaTreeNode*> MetaTree::searchNode(string path_name){
 	// root/lib : foo.txt boo.txt
 	MetaTreeNode* node = root;
+	MetaTreeNode* parent_node = root;
 	vector<MetaTreeNode*> res;
 	vector<string> all_file_names = parse_filepath(path_name);
 	for(int i = 0; i < all_file_names.size(); i++){
 		string curr_file_name = all_file_names.at(i);
 		if(node->children.count(curr_file_name) == 0) return res;
 		else{
+			parent_node = node;
 			node = node->children[curr_file_name];
 		}
 	}
-
+	res.push_back(parent_node); // 1st node is parent node
 	// cout<<"search node children size is "<<node->file_name<<"  "<<node->children.size()<<endl;
-	res.push_back(node); // if it's a file, it only has on entry in the vector
+	res.push_back(node); // second node is current node : if it's a file, it only has on entry in the vector
 	// it's a folder
 	if(!node->children.empty()){
 		for(auto it = node->children.begin(); it != node->children.end(); ++it){
+			cout<<"child is "<<it->first<<endl;
 			res.push_back(it->second);
 		}
 	}

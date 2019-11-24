@@ -174,20 +174,13 @@ class TableClient {
 };
 
 int main(int argc, char** argv) {
-  // Instantiate the client. It requires a channel, out of which the actual RPCs
-  // are created. This channel models a connection to an endpoint (in this case,
-  // localhost at port 50051). We indicate that the channel isn't authenticated
-  // (use of InsecureChannelCredentials()).
   TableClient greeter(grpc::CreateChannel(
       "localhost:50051", grpc::InsecureChannelCredentials()));
-  // bool reply = greeter.put("2019/11/20", 0, "foo.txt", "file", "alice", "janice", "id1", "Welcome"); //??
+
+
   bool reply = greeter.put("2019/11/20", 1, "foo.txt", "file", "alice", "janice", "id1", "Welcome");
-//  greeter.put();
-  // bool reply2 = greeter.put("2019/11/20", 10, "boo.txt", "email", "alice", "ben", "id2", "Hello");
-//  std::string res = greeter.get();
-//  std::vector<FileMetaData> file_list = greeter.list_emails();
-//  std::cout << "Greeter received: " << reply << "  res is "<< res << " file list size is "<<file_list.size()<< std::endl;
-    std::cout << "Greeter received: " << reply << std::endl;
+
+  std::cout << "Greeter received: " << reply << std::endl;
 
   return 0;
 }

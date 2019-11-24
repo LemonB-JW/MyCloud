@@ -52,6 +52,7 @@ public:
 	*/
 	string put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data); // col is the file_id generated in server side
 
+	string put_with_fileid(string created_time, int size, string path_name, string file_type, string file_from, string row, string col, string data);
 	/* GET: row: username, col: fileID, return the content of the file */
 	string get(string row, string col);
 

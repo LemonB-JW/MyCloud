@@ -24,17 +24,26 @@ service Bigtable {
   rpc table_delete (DelRequest) returns (DelReply) {}
 
   // getEmailList operation
-  rpc list_all_emails_for_currUser (GetEmailListRequest) returns (GetEmailListReply) {}
+  rpc list_all_emails (GetEmailListRequest) returns (GetEmailListReply) {}
 
   // getFileList operation
-  rpc list_all_files_for_currUser (GetFileListRequest) returns (GetFileListReply) {}
+  rpc list_all_files (GetFileListRequest) returns (GetFileListReply) {}
+
+  // rename file/folder
+  rpc rename_file_folder(RenameFifoRequest) returns (RenameFifoReply){}
+
+  // move file/folder
+  rpc move_file_folder(MoveFifoRequest) returns (MoveFifoReply){}
+
+   // localPut with fileID operation
+  rpc localPut_with_fileid (LocalPutWithIDRequest) returns (LocalPutWithIDReply) {}
 }
 
 
 message PutRequest {
   string created_time = 1;
   int32 size = 2;
-  string file_name = 3;
+  string path_name = 3;
   string file_type = 4;
   string file_from = 5;
   string row = 6;
@@ -43,7 +52,7 @@ message PutRequest {
 
 
 message PutReply {
-  bool ret = 1;
+  string file_id = 1;
 }
 
 message GetRequest {
@@ -53,15 +62,14 @@ message GetRequest {
 
 
 message GetReply {
-  string content = 1;
+  string file_content = 1;
 }
 
 message CPutRequest {
-  string created_time = 1;
-  int32 size = 2;
-  string file_name = 3;
+  string new_created_time = 1;
+  int32 new_size = 2;
+  string path_name = 3;
   string file_type = 4;
-  string file_from = 5;
   string row = 6;
   string col = 7;
   string old_data = 8;
@@ -70,16 +78,18 @@ message CPutRequest {
 
 
 message CPutReply {
-  bool ret = 1;
+  bool is_successful = 1;
 }
 
 message DelRequest {
   string row = 1;
   string col = 2;
+  string file_type = 3;
+  string path_name = 4;
 }
 
 message DelReply {
-  bool ret = 1;
+  bool is_successful = 1;
 }
 
 message fileMetaData{
@@ -101,14 +111,52 @@ message GetEmailListReply {
 
 message GetFileListRequest {
   string row = 1;
+  string path_name = 2;
 }
 
 message GetFileListReply {
   repeated fileMetaData metadata= 1;
 }
 
+message RenameFifoRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_file_name = 4;
+}
+
+message RenameFifoReply{
+  bool is_successful = 1;
+}
+
+message MoveFifoRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_path = 4; 
+}
+
+message MoveFifoReply{
+  bool is_successful = 1;
+}
 
 
+
+message LocalPutWithIDRequest {
+  string created_time = 1;
+  int32 size = 2;
+  string path_name = 3;
+  string file_type = 4;
+  string file_from = 5;
+  string row = 6;
+  string col = 7; // file_id
+  string data = 8;
+}
+
+
+message LocalPutWithIDReply {
+  string file_id = 1;
+}
 
 
 

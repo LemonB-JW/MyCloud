@@ -47,6 +47,42 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 	return res;
 }
 
+// PUT(r,c,v): Stores a value v in column c of row r, if it's a folder, data should be "NULL"
+string BigTable::put_with_fileid(string created_time, int size, string path_name, string file_type, string file_from, string row, string col, string data){ // col is the file_id generated in server side
+	// write to big table
+	string res = "";
+	// cout<<"row is "<<row<<" generated file id is "<<col<<endl;
+	string file_name = Utility::parseFileName(path_name);
+	if (table.count(row) == 0 || table.count(col) == 0) {
+		res = col;
+		string* data_pointer = new string(data);
+		TableCell* new_cell = new TableCell(data_pointer);
+		table[row][col] = new_cell;
+		cout<<"put content is "<<(*(table[row][col]->contents))<<endl;
+		if(file_type == "email"){
+			if(all_user_emails.count(row) == 0){
+				all_user_emails[row] = new vector<FileMetaData*>();
+			}
+			// path_name for email as the file_name:
+	 		FileMetaData* file_metadata = new FileMetaData(created_time, size, path_name, file_type, file_from, col);
+			all_user_emails[row]->push_back(file_metadata);
+		}else{
+			if(all_user_files.count(row) == 0){
+				all_user_files[row] = new MetaTree();
+			}
+			// cout<<"before insert node"<<endl;
+			FileMetaData file_metadata(created_time, size, file_name, file_type, file_from, col);
+			all_user_files[row]->insertNode(path_name, file_metadata);
+		}
+		
+	}else{
+		return "";
+	}
+
+	return res;
+}
+
+
 // GET(r,c): Returns the value stored in column c of row r
 string BigTable::get(string row, string col) {
 	// cout<<"row, col "<<row<<" "<<col<<endl;
@@ -130,8 +166,9 @@ vector<FileMetaData> BigTable::list_all_emails(string row){
 vector<FileMetaData> BigTable::list_all_files(string row, string path_name){
 	vector<MetaTreeNode*> nodes = all_user_files[row]->searchNode(path_name);
 	vector<FileMetaData> result;
-	for(int i = 1; i < nodes.size(); i++){
+	for(int i = 2; i < nodes.size(); i++){
 		FileMetaData file_info(nodes.at(i)->metadata->created_time, nodes.at(i)->metadata->size, nodes.at(i)->metadata->file_name, nodes.at(i)->metadata->file_type, nodes.at(i)->metadata->file_from, nodes.at(i)->metadata->file_id);
+		cout<<"list all files file name is "<<file_info.file_name<<endl;
 		result.push_back(file_info);
 	}
 	return result;
@@ -140,9 +177,22 @@ vector<FileMetaData> BigTable::list_all_files(string row, string path_name){
 
 bool BigTable::rename_file_folder(string row, string file_type, string path_name, string new_file_name){
 	string file_name = Utility::parseFileName(new_file_name);
+	cout<<"rename folder/file new name "<<new_file_name<<endl;
 	vector<MetaTreeNode*> nodes = all_user_files[row]->searchNode(path_name);
 	if(nodes.empty()) return false;
-	nodes.at(0)->file_name = file_name;
+	string ori_filename = nodes.at(1)->file_name;
+	MetaTreeNode* temp;
+	for(auto it = nodes.at(0)->children.begin(); it != nodes.at(0)->children.end(); ++it){
+		if(it->first.compare(ori_filename) == 0){
+			it->second->file_name = file_name;
+			temp = it->second;
+			nodes.at(0)->children.erase(it->first);
+		}
+	}
+	nodes.at(1)->file_name = file_name;
+	nodes.at(1)->metadata->file_name = file_name;
+	nodes.at(0)->children[file_name] = temp;
+	cout<<"new child size "<<nodes.at(0)->children[file_name]->children.size()<<endl;
 	return true;
 }
 
