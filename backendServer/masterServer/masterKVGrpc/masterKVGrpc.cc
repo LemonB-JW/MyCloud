@@ -72,6 +72,7 @@ class MFcommu final : public MasterBackend::Service{
 			reply->add_sub_index(sublist[i]);
 			//reply->set_sub_index(sublist[i]);
 		}
+		fprintf(stderr, "size of reply msg %d\n", reply->sub_index_size());
 		return Status::OK;
 	}
 };
@@ -107,7 +108,6 @@ int main(int argc, char** argv){
 	}
 	/* Read the server list */
 	myInfo.readConfig(argv[optind]);
-
 	Run();
 	return 0;
 }

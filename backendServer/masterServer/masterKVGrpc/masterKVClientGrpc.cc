@@ -49,6 +49,7 @@ class MBcommuClient {
 			for (int i = 0; i< reply.sub_index_size(); i++){
 				response.push_back(reply.sub_index(i));
 			}
+			fprintf(stderr, "size of response %d\n", reply.sub_index_size());
 			return response;
 		}else{
 			std::cout << status.error_code() << ": " << status.error_message() << std::endl;

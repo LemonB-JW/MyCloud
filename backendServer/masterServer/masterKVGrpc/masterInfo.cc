@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <string>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
@@ -23,44 +24,28 @@ int masterInfo::readConfig(const char* filename){
 		panic("Cannot read server list from '%s'\n", filename);
 	int numServers = 0;
 	char linebuf[100];
-	
+	fprintf(stderr, "reading config file\n");
 	//the first line in the config file is master's address
 	if (fgets(linebuf, 100, infile)!= NULL){
 		char *sfrontaddr = strtok(linebuf, ",\r\n");
 	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;
 	  mf_addr = sfrontaddr;
-	  mb_addr = sbackaddr;
-	  /*char *sip = strtok(sproxyaddr, ":");
-	  char *sport = strtok(NULL, ":\r\n");	
-	  bzero((void*)&master_addr, sizeof(master_addr));
-	  master_addr.sin_family = AF_INET;
-	  inet_aton(sip, &(master_addr.sin_addr));
-	  port = atoi(sport);
-	  master_addr.sin_port = htons(port);*/
+	  if (sbackaddr != NULL) mb_addr = sbackaddr;
 	}
 	
 	while	(fgets(linebuf, 100, infile)!= NULL){
 		char *sfrontaddr = strtok(linebuf, ",\r\n");
 	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;  
 	  std::string tempbf(sfrontaddr);
-	  std::string tempbm(sbackaddr);
+	  std::string tempbm;
+	  if (sbackaddr != NULL) tempbm = (sbackaddr);
 	  bf_addr_list.push_back(tempbf);
 	  bm_addr_list.push_back(tempbm);
-	  /*char *sip = strtok(sproxyaddr, ":");
-	  char *sport = strtok(NULL, ":\r\n");	  
-  
-	  //store all forwarding address in server list
-	  struct sockaddr_in temp;
-	  bzero((void*)&temp, sizeof(temp));
-	  temp.sin_family = AF_INET;
-	  inet_aton(sip, &temp.sin_addr);
-	  temp.sin_port = htons(atoi(sport));
-	  serverlist.push_back(temp);*/
 	}
+	
 	fclose(infile);
 	fprintf(stderr, "Finish readConfig file\n");
 	setPrimary();
-	
 }
 
 
@@ -124,8 +109,8 @@ std::vector<int> masterInfo::getSub(int primeIdx){
 
 bool masterInfo::isAlive(int serverIdx){
 	if (deadlist.find(serverIdx) == deadlist.end())
-		return false;
-	return true;
+		return true;
+	return false;
 }
 
 int masterInfo::promoteNewPrimary(int oldPrimaryIdx){
