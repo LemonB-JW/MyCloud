@@ -126,16 +126,18 @@ int masterInfo::promoteNewPrimary(int oldPrimaryIdx){
 	return newPrimary;
 }
 
-std::vector<std::string> masterInfo::getServers(int groupId){
-	std::vector<int> replicas;
-	std::map<int, std::vector<int>>::iterator itr = replicaInfo.begin();
-	for (int i = 0; i<groupId; i++){
-		itr++;
-	}
-	replicas = itr->second;
+std::vector<std::string> masterInfo::getServers(int groupId){	
 	std::vector<std::string> servers;
-	for (int i = 0; i < replicas.size(); i++){
-		servers.push_back(bf_addr_list[replicas[i]]);
+	if (groupId < groupNum){
+		std::vector<int> replicas;
+		std::map<int, std::vector<int>>::iterator itr = replicaInfo.begin();
+		for (int i = 0; i<groupId; i++){
+			itr++;
+		}
+		replicas = itr->second;
+		for (int i = 0; i < replicas.size(); i++){
+			servers.push_back(bf_addr_list[replicas[i]]);
+		}
 	}
 	return servers;
 }
