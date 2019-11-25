@@ -11,10 +11,22 @@
 
 using namespace std;
 
+void BigTable::lock_cell(string row, string col){
+	pthread_mutex_lock(table[row][col]->cellMutex);
+}
+
+void BigTable::unlock_cell(string row, string col){
+	pthread_mutex_unlock(table[row][col]->cellMutex);
+}
+
 // PUT(r,c,v): Stores a value v in column c of row r, if it's a folder, data should be "NULL"
 string BigTable::put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data){ // col is the file_id generated in server side
 	// write to big table
 	string res = "";
+	vector<MetaTreeNode*> search_results = all_user_files[row]->searchNode(path_name);
+	if(search_results.size() > 0){
+		return res;
+	}
 	string col = Utility::generateFileID(path_name);
 	// cout<<"row is "<<row<<" generated file id is "<<col<<endl;
 	string file_name = Utility::parseFileName(path_name);
@@ -22,6 +34,7 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 		res = col;
 		string* data_pointer = new string(data);
 		TableCell* new_cell = new TableCell(data_pointer);
+		table[row][col] = new TableCell();
 		table[row][col] = new_cell;
 		cout<<"put content is "<<(*(table[row][col]->contents))<<endl;
 		if(file_type == "email"){
@@ -40,12 +53,11 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 			all_user_files[row]->insertNode(path_name, file_metadata);
 		}
 		
-	}else{
-		return "";
 	}
-
 	return res;
 }
+
+
 
 // PUT(r,c,v): Stores a value v in column c of row r, if it's a folder, data should be "NULL"
 string BigTable::put_with_fileid(string created_time, int size, string path_name, string file_type, string file_from, string row, string col, string data){ // col is the file_id generated in server side
@@ -184,12 +196,17 @@ bool BigTable::rename_file_folder(string row, string file_type, string path_name
 	string ori_filename = nodes.at(1)->file_name;
 	MetaTreeNode* temp;
 	for(auto it = nodes.at(0)->children.begin(); it != nodes.at(0)->children.end(); ++it){
+		cout<<"children name is "<<it->first<<endl;
 		if(it->first.compare(ori_filename) == 0){
+			cout<<"renaming .."<<endl;
 			it->second->file_name = file_name;
 			temp = it->second;
 			nodes.at(0)->children.erase(it->first);
+			break;
 		}
 	}
+
+	cout<<"out of for loop"<<endl;
 	nodes.at(1)->file_name = file_name;
 	nodes.at(1)->metadata->file_name = file_name;
 	nodes.at(0)->children[file_name] = temp;
