@@ -9,7 +9,7 @@ package mail;
 
 service Mail {
 
-  rpc GetMail (MailRequest) returns (MailReply) {}
+  rpc GetMailList (MailRequest) returns (MailReply) {}
   
 }
 
@@ -25,5 +25,4 @@ message Email {
   string from = 1;
   string subject = 2;
   string date = 3;
-  string content = 4;
 }
