@@ -21,20 +21,23 @@ PROTOS_PATH = protos
 
 vpath %.proto $(PROTOS_PATH)
 
-TARGETS = bigtable_server
+TARGETS = bigtable_server bigtable_client master_server
 all: $(TARGETS)
 
-# bigtable_client: bigtable.pb.o bigtable.grpc.pb.o bigtable_client.o
-# 	$(CXX) $^ $(LDFLAGS) -o $@
+bigtable_client: bigtable.pb.o bigtable.grpc.pb.o bigtable_client.o
+	$(CXX) $^ $(LDFLAGS) -o $@
 
-bigtable_server: bigtable.pb.o bigtable.grpc.pb.o bigtable_server.o TableCell.cc BigTable.cc FileMetaData.cc Utility.cc MetaTree.cc DistributedStorage.cc
+bigtable_server: bigtable.pb.o bigtable.grpc.pb.o bigtable_server.o TableCell.cc BigTable.cc FileMetaData.cc Utility.cc MetaTree.cc DistributedStorage.cc masterBackend.pb.o masterBackend.grpc.pb.o 
 	$(CXX) $^ $(LDFLAGS) $(IFLAG) -g -o $@
 
 tester: table_tester.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc MetaTree.cc
 	$(CXX) $^ $(IFLAG) -g -o $@
 
-storageserver: StorageServer.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc MetaTree.cc
-	$(CXX) $^ $(IFLAG) -o $@
+master_server: masterBackend.pb.o masterBackend.grpc.pb.o masterKVServer.o masterInfo.cc
+	$(CXX) $^ $(IFLAGS) $(LDFLAGS) -g -o $@
+
+# storageserver: StorageServer.cc TableCell.cc BigTable.cc FileMetaData.cc Utility.cc MetaTree.cc
+# 	$(CXX) $^ $(IFLAG) -o $@
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto

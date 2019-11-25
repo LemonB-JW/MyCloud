@@ -41,7 +41,7 @@ struct TableStruct_bigtable_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[19]
+  static const ::google::protobuf::internal::ParseTable schema[27]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -79,12 +79,36 @@ extern GetReplyDefaultTypeInternal _GetReply_default_instance_;
 class GetRequest;
 class GetRequestDefaultTypeInternal;
 extern GetRequestDefaultTypeInternal _GetRequest_default_instance_;
+class LocalCPutReply;
+class LocalCPutReplyDefaultTypeInternal;
+extern LocalCPutReplyDefaultTypeInternal _LocalCPutReply_default_instance_;
+class LocalCPutRequest;
+class LocalCPutRequestDefaultTypeInternal;
+extern LocalCPutRequestDefaultTypeInternal _LocalCPutRequest_default_instance_;
+class LocalDelReply;
+class LocalDelReplyDefaultTypeInternal;
+extern LocalDelReplyDefaultTypeInternal _LocalDelReply_default_instance_;
+class LocalDelRequest;
+class LocalDelRequestDefaultTypeInternal;
+extern LocalDelRequestDefaultTypeInternal _LocalDelRequest_default_instance_;
+class LocalMoveReply;
+class LocalMoveReplyDefaultTypeInternal;
+extern LocalMoveReplyDefaultTypeInternal _LocalMoveReply_default_instance_;
+class LocalMoveRequest;
+class LocalMoveRequestDefaultTypeInternal;
+extern LocalMoveRequestDefaultTypeInternal _LocalMoveRequest_default_instance_;
 class LocalPutWithIDReply;
 class LocalPutWithIDReplyDefaultTypeInternal;
 extern LocalPutWithIDReplyDefaultTypeInternal _LocalPutWithIDReply_default_instance_;
 class LocalPutWithIDRequest;
 class LocalPutWithIDRequestDefaultTypeInternal;
 extern LocalPutWithIDRequestDefaultTypeInternal _LocalPutWithIDRequest_default_instance_;
+class LocalRenameReply;
+class LocalRenameReplyDefaultTypeInternal;
+extern LocalRenameReplyDefaultTypeInternal _LocalRenameReply_default_instance_;
+class LocalRenameRequest;
+class LocalRenameRequestDefaultTypeInternal;
+extern LocalRenameRequestDefaultTypeInternal _LocalRenameRequest_default_instance_;
 class MoveFifoReply;
 class MoveFifoReplyDefaultTypeInternal;
 extern MoveFifoReplyDefaultTypeInternal _MoveFifoReply_default_instance_;
@@ -119,8 +143,16 @@ template<> ::bigtable::GetFileListReply* Arena::CreateMaybeMessage<::bigtable::G
 template<> ::bigtable::GetFileListRequest* Arena::CreateMaybeMessage<::bigtable::GetFileListRequest>(Arena*);
 template<> ::bigtable::GetReply* Arena::CreateMaybeMessage<::bigtable::GetReply>(Arena*);
 template<> ::bigtable::GetRequest* Arena::CreateMaybeMessage<::bigtable::GetRequest>(Arena*);
+template<> ::bigtable::LocalCPutReply* Arena::CreateMaybeMessage<::bigtable::LocalCPutReply>(Arena*);
+template<> ::bigtable::LocalCPutRequest* Arena::CreateMaybeMessage<::bigtable::LocalCPutRequest>(Arena*);
+template<> ::bigtable::LocalDelReply* Arena::CreateMaybeMessage<::bigtable::LocalDelReply>(Arena*);
+template<> ::bigtable::LocalDelRequest* Arena::CreateMaybeMessage<::bigtable::LocalDelRequest>(Arena*);
+template<> ::bigtable::LocalMoveReply* Arena::CreateMaybeMessage<::bigtable::LocalMoveReply>(Arena*);
+template<> ::bigtable::LocalMoveRequest* Arena::CreateMaybeMessage<::bigtable::LocalMoveRequest>(Arena*);
 template<> ::bigtable::LocalPutWithIDReply* Arena::CreateMaybeMessage<::bigtable::LocalPutWithIDReply>(Arena*);
 template<> ::bigtable::LocalPutWithIDRequest* Arena::CreateMaybeMessage<::bigtable::LocalPutWithIDRequest>(Arena*);
+template<> ::bigtable::LocalRenameReply* Arena::CreateMaybeMessage<::bigtable::LocalRenameReply>(Arena*);
+template<> ::bigtable::LocalRenameRequest* Arena::CreateMaybeMessage<::bigtable::LocalRenameRequest>(Arena*);
 template<> ::bigtable::MoveFifoReply* Arena::CreateMaybeMessage<::bigtable::MoveFifoReply>(Arena*);
 template<> ::bigtable::MoveFifoRequest* Arena::CreateMaybeMessage<::bigtable::MoveFifoRequest>(Arena*);
 template<> ::bigtable::PutReply* Arena::CreateMaybeMessage<::bigtable::PutReply>(Arena*);
@@ -2884,6 +2916,1166 @@ class LocalPutWithIDReply final :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bigtable_2eproto;
 };
+// -------------------------------------------------------------------
+
+class LocalCPutRequest final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalCPutRequest) */ {
+ public:
+  LocalCPutRequest();
+  virtual ~LocalCPutRequest();
+
+  LocalCPutRequest(const LocalCPutRequest& from);
+
+  inline LocalCPutRequest& operator=(const LocalCPutRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalCPutRequest(LocalCPutRequest&& from) noexcept
+    : LocalCPutRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalCPutRequest& operator=(LocalCPutRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalCPutRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalCPutRequest* internal_default_instance() {
+    return reinterpret_cast<const LocalCPutRequest*>(
+               &_LocalCPutRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    19;
+
+  void Swap(LocalCPutRequest* other);
+  friend void swap(LocalCPutRequest& a, LocalCPutRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalCPutRequest* New() const final {
+    return CreateMaybeMessage<LocalCPutRequest>(nullptr);
+  }
+
+  LocalCPutRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalCPutRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalCPutRequest& from);
+  void MergeFrom(const LocalCPutRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalCPutRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string new_created_time = 1;
+  void clear_new_created_time();
+  static const int kNewCreatedTimeFieldNumber = 1;
+  const ::std::string& new_created_time() const;
+  void set_new_created_time(const ::std::string& value);
+  #if LANG_CXX11
+  void set_new_created_time(::std::string&& value);
+  #endif
+  void set_new_created_time(const char* value);
+  void set_new_created_time(const char* value, size_t size);
+  ::std::string* mutable_new_created_time();
+  ::std::string* release_new_created_time();
+  void set_allocated_new_created_time(::std::string* new_created_time);
+
+  // string path_name = 3;
+  void clear_path_name();
+  static const int kPathNameFieldNumber = 3;
+  const ::std::string& path_name() const;
+  void set_path_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_path_name(::std::string&& value);
+  #endif
+  void set_path_name(const char* value);
+  void set_path_name(const char* value, size_t size);
+  ::std::string* mutable_path_name();
+  ::std::string* release_path_name();
+  void set_allocated_path_name(::std::string* path_name);
+
+  // string file_type = 4;
+  void clear_file_type();
+  static const int kFileTypeFieldNumber = 4;
+  const ::std::string& file_type() const;
+  void set_file_type(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_type(::std::string&& value);
+  #endif
+  void set_file_type(const char* value);
+  void set_file_type(const char* value, size_t size);
+  ::std::string* mutable_file_type();
+  ::std::string* release_file_type();
+  void set_allocated_file_type(::std::string* file_type);
+
+  // string row = 5;
+  void clear_row();
+  static const int kRowFieldNumber = 5;
+  const ::std::string& row() const;
+  void set_row(const ::std::string& value);
+  #if LANG_CXX11
+  void set_row(::std::string&& value);
+  #endif
+  void set_row(const char* value);
+  void set_row(const char* value, size_t size);
+  ::std::string* mutable_row();
+  ::std::string* release_row();
+  void set_allocated_row(::std::string* row);
+
+  // string col = 6;
+  void clear_col();
+  static const int kColFieldNumber = 6;
+  const ::std::string& col() const;
+  void set_col(const ::std::string& value);
+  #if LANG_CXX11
+  void set_col(::std::string&& value);
+  #endif
+  void set_col(const char* value);
+  void set_col(const char* value, size_t size);
+  ::std::string* mutable_col();
+  ::std::string* release_col();
+  void set_allocated_col(::std::string* col);
+
+  // string old_data = 7;
+  void clear_old_data();
+  static const int kOldDataFieldNumber = 7;
+  const ::std::string& old_data() const;
+  void set_old_data(const ::std::string& value);
+  #if LANG_CXX11
+  void set_old_data(::std::string&& value);
+  #endif
+  void set_old_data(const char* value);
+  void set_old_data(const char* value, size_t size);
+  ::std::string* mutable_old_data();
+  ::std::string* release_old_data();
+  void set_allocated_old_data(::std::string* old_data);
+
+  // string new_data = 8;
+  void clear_new_data();
+  static const int kNewDataFieldNumber = 8;
+  const ::std::string& new_data() const;
+  void set_new_data(const ::std::string& value);
+  #if LANG_CXX11
+  void set_new_data(::std::string&& value);
+  #endif
+  void set_new_data(const char* value);
+  void set_new_data(const char* value, size_t size);
+  ::std::string* mutable_new_data();
+  ::std::string* release_new_data();
+  void set_allocated_new_data(::std::string* new_data);
+
+  // int32 new_size = 2;
+  void clear_new_size();
+  static const int kNewSizeFieldNumber = 2;
+  ::google::protobuf::int32 new_size() const;
+  void set_new_size(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalCPutRequest)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr new_created_time_;
+  ::google::protobuf::internal::ArenaStringPtr path_name_;
+  ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr row_;
+  ::google::protobuf::internal::ArenaStringPtr col_;
+  ::google::protobuf::internal::ArenaStringPtr old_data_;
+  ::google::protobuf::internal::ArenaStringPtr new_data_;
+  ::google::protobuf::int32 new_size_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalCPutReply final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalCPutReply) */ {
+ public:
+  LocalCPutReply();
+  virtual ~LocalCPutReply();
+
+  LocalCPutReply(const LocalCPutReply& from);
+
+  inline LocalCPutReply& operator=(const LocalCPutReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalCPutReply(LocalCPutReply&& from) noexcept
+    : LocalCPutReply() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalCPutReply& operator=(LocalCPutReply&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalCPutReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalCPutReply* internal_default_instance() {
+    return reinterpret_cast<const LocalCPutReply*>(
+               &_LocalCPutReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    20;
+
+  void Swap(LocalCPutReply* other);
+  friend void swap(LocalCPutReply& a, LocalCPutReply& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalCPutReply* New() const final {
+    return CreateMaybeMessage<LocalCPutReply>(nullptr);
+  }
+
+  LocalCPutReply* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalCPutReply>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalCPutReply& from);
+  void MergeFrom(const LocalCPutReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalCPutReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bool is_successful = 1;
+  void clear_is_successful();
+  static const int kIsSuccessfulFieldNumber = 1;
+  bool is_successful() const;
+  void set_is_successful(bool value);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalCPutReply)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool is_successful_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalDelRequest final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalDelRequest) */ {
+ public:
+  LocalDelRequest();
+  virtual ~LocalDelRequest();
+
+  LocalDelRequest(const LocalDelRequest& from);
+
+  inline LocalDelRequest& operator=(const LocalDelRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalDelRequest(LocalDelRequest&& from) noexcept
+    : LocalDelRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalDelRequest& operator=(LocalDelRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalDelRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalDelRequest* internal_default_instance() {
+    return reinterpret_cast<const LocalDelRequest*>(
+               &_LocalDelRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    21;
+
+  void Swap(LocalDelRequest* other);
+  friend void swap(LocalDelRequest& a, LocalDelRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalDelRequest* New() const final {
+    return CreateMaybeMessage<LocalDelRequest>(nullptr);
+  }
+
+  LocalDelRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalDelRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalDelRequest& from);
+  void MergeFrom(const LocalDelRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalDelRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string row = 1;
+  void clear_row();
+  static const int kRowFieldNumber = 1;
+  const ::std::string& row() const;
+  void set_row(const ::std::string& value);
+  #if LANG_CXX11
+  void set_row(::std::string&& value);
+  #endif
+  void set_row(const char* value);
+  void set_row(const char* value, size_t size);
+  ::std::string* mutable_row();
+  ::std::string* release_row();
+  void set_allocated_row(::std::string* row);
+
+  // string col = 2;
+  void clear_col();
+  static const int kColFieldNumber = 2;
+  const ::std::string& col() const;
+  void set_col(const ::std::string& value);
+  #if LANG_CXX11
+  void set_col(::std::string&& value);
+  #endif
+  void set_col(const char* value);
+  void set_col(const char* value, size_t size);
+  ::std::string* mutable_col();
+  ::std::string* release_col();
+  void set_allocated_col(::std::string* col);
+
+  // string file_type = 3;
+  void clear_file_type();
+  static const int kFileTypeFieldNumber = 3;
+  const ::std::string& file_type() const;
+  void set_file_type(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_type(::std::string&& value);
+  #endif
+  void set_file_type(const char* value);
+  void set_file_type(const char* value, size_t size);
+  ::std::string* mutable_file_type();
+  ::std::string* release_file_type();
+  void set_allocated_file_type(::std::string* file_type);
+
+  // string path_name = 4;
+  void clear_path_name();
+  static const int kPathNameFieldNumber = 4;
+  const ::std::string& path_name() const;
+  void set_path_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_path_name(::std::string&& value);
+  #endif
+  void set_path_name(const char* value);
+  void set_path_name(const char* value, size_t size);
+  ::std::string* mutable_path_name();
+  ::std::string* release_path_name();
+  void set_allocated_path_name(::std::string* path_name);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalDelRequest)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr row_;
+  ::google::protobuf::internal::ArenaStringPtr col_;
+  ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr path_name_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalDelReply final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalDelReply) */ {
+ public:
+  LocalDelReply();
+  virtual ~LocalDelReply();
+
+  LocalDelReply(const LocalDelReply& from);
+
+  inline LocalDelReply& operator=(const LocalDelReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalDelReply(LocalDelReply&& from) noexcept
+    : LocalDelReply() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalDelReply& operator=(LocalDelReply&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalDelReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalDelReply* internal_default_instance() {
+    return reinterpret_cast<const LocalDelReply*>(
+               &_LocalDelReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  void Swap(LocalDelReply* other);
+  friend void swap(LocalDelReply& a, LocalDelReply& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalDelReply* New() const final {
+    return CreateMaybeMessage<LocalDelReply>(nullptr);
+  }
+
+  LocalDelReply* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalDelReply>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalDelReply& from);
+  void MergeFrom(const LocalDelReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalDelReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bool is_successful = 1;
+  void clear_is_successful();
+  static const int kIsSuccessfulFieldNumber = 1;
+  bool is_successful() const;
+  void set_is_successful(bool value);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalDelReply)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool is_successful_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalRenameRequest final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalRenameRequest) */ {
+ public:
+  LocalRenameRequest();
+  virtual ~LocalRenameRequest();
+
+  LocalRenameRequest(const LocalRenameRequest& from);
+
+  inline LocalRenameRequest& operator=(const LocalRenameRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalRenameRequest(LocalRenameRequest&& from) noexcept
+    : LocalRenameRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalRenameRequest& operator=(LocalRenameRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalRenameRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalRenameRequest* internal_default_instance() {
+    return reinterpret_cast<const LocalRenameRequest*>(
+               &_LocalRenameRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  void Swap(LocalRenameRequest* other);
+  friend void swap(LocalRenameRequest& a, LocalRenameRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalRenameRequest* New() const final {
+    return CreateMaybeMessage<LocalRenameRequest>(nullptr);
+  }
+
+  LocalRenameRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalRenameRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalRenameRequest& from);
+  void MergeFrom(const LocalRenameRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalRenameRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string row = 1;
+  void clear_row();
+  static const int kRowFieldNumber = 1;
+  const ::std::string& row() const;
+  void set_row(const ::std::string& value);
+  #if LANG_CXX11
+  void set_row(::std::string&& value);
+  #endif
+  void set_row(const char* value);
+  void set_row(const char* value, size_t size);
+  ::std::string* mutable_row();
+  ::std::string* release_row();
+  void set_allocated_row(::std::string* row);
+
+  // string file_type = 2;
+  void clear_file_type();
+  static const int kFileTypeFieldNumber = 2;
+  const ::std::string& file_type() const;
+  void set_file_type(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_type(::std::string&& value);
+  #endif
+  void set_file_type(const char* value);
+  void set_file_type(const char* value, size_t size);
+  ::std::string* mutable_file_type();
+  ::std::string* release_file_type();
+  void set_allocated_file_type(::std::string* file_type);
+
+  // string path_name = 3;
+  void clear_path_name();
+  static const int kPathNameFieldNumber = 3;
+  const ::std::string& path_name() const;
+  void set_path_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_path_name(::std::string&& value);
+  #endif
+  void set_path_name(const char* value);
+  void set_path_name(const char* value, size_t size);
+  ::std::string* mutable_path_name();
+  ::std::string* release_path_name();
+  void set_allocated_path_name(::std::string* path_name);
+
+  // string new_file_name = 4;
+  void clear_new_file_name();
+  static const int kNewFileNameFieldNumber = 4;
+  const ::std::string& new_file_name() const;
+  void set_new_file_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_new_file_name(::std::string&& value);
+  #endif
+  void set_new_file_name(const char* value);
+  void set_new_file_name(const char* value, size_t size);
+  ::std::string* mutable_new_file_name();
+  ::std::string* release_new_file_name();
+  void set_allocated_new_file_name(::std::string* new_file_name);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalRenameRequest)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr row_;
+  ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr path_name_;
+  ::google::protobuf::internal::ArenaStringPtr new_file_name_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalRenameReply final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalRenameReply) */ {
+ public:
+  LocalRenameReply();
+  virtual ~LocalRenameReply();
+
+  LocalRenameReply(const LocalRenameReply& from);
+
+  inline LocalRenameReply& operator=(const LocalRenameReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalRenameReply(LocalRenameReply&& from) noexcept
+    : LocalRenameReply() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalRenameReply& operator=(LocalRenameReply&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalRenameReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalRenameReply* internal_default_instance() {
+    return reinterpret_cast<const LocalRenameReply*>(
+               &_LocalRenameReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  void Swap(LocalRenameReply* other);
+  friend void swap(LocalRenameReply& a, LocalRenameReply& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalRenameReply* New() const final {
+    return CreateMaybeMessage<LocalRenameReply>(nullptr);
+  }
+
+  LocalRenameReply* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalRenameReply>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalRenameReply& from);
+  void MergeFrom(const LocalRenameReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalRenameReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bool is_successful = 1;
+  void clear_is_successful();
+  static const int kIsSuccessfulFieldNumber = 1;
+  bool is_successful() const;
+  void set_is_successful(bool value);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalRenameReply)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool is_successful_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalMoveRequest final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalMoveRequest) */ {
+ public:
+  LocalMoveRequest();
+  virtual ~LocalMoveRequest();
+
+  LocalMoveRequest(const LocalMoveRequest& from);
+
+  inline LocalMoveRequest& operator=(const LocalMoveRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalMoveRequest(LocalMoveRequest&& from) noexcept
+    : LocalMoveRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalMoveRequest& operator=(LocalMoveRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalMoveRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalMoveRequest* internal_default_instance() {
+    return reinterpret_cast<const LocalMoveRequest*>(
+               &_LocalMoveRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    25;
+
+  void Swap(LocalMoveRequest* other);
+  friend void swap(LocalMoveRequest& a, LocalMoveRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalMoveRequest* New() const final {
+    return CreateMaybeMessage<LocalMoveRequest>(nullptr);
+  }
+
+  LocalMoveRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalMoveRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalMoveRequest& from);
+  void MergeFrom(const LocalMoveRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalMoveRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string row = 1;
+  void clear_row();
+  static const int kRowFieldNumber = 1;
+  const ::std::string& row() const;
+  void set_row(const ::std::string& value);
+  #if LANG_CXX11
+  void set_row(::std::string&& value);
+  #endif
+  void set_row(const char* value);
+  void set_row(const char* value, size_t size);
+  ::std::string* mutable_row();
+  ::std::string* release_row();
+  void set_allocated_row(::std::string* row);
+
+  // string file_type = 2;
+  void clear_file_type();
+  static const int kFileTypeFieldNumber = 2;
+  const ::std::string& file_type() const;
+  void set_file_type(const ::std::string& value);
+  #if LANG_CXX11
+  void set_file_type(::std::string&& value);
+  #endif
+  void set_file_type(const char* value);
+  void set_file_type(const char* value, size_t size);
+  ::std::string* mutable_file_type();
+  ::std::string* release_file_type();
+  void set_allocated_file_type(::std::string* file_type);
+
+  // string path_name = 3;
+  void clear_path_name();
+  static const int kPathNameFieldNumber = 3;
+  const ::std::string& path_name() const;
+  void set_path_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_path_name(::std::string&& value);
+  #endif
+  void set_path_name(const char* value);
+  void set_path_name(const char* value, size_t size);
+  ::std::string* mutable_path_name();
+  ::std::string* release_path_name();
+  void set_allocated_path_name(::std::string* path_name);
+
+  // string new_path = 4;
+  void clear_new_path();
+  static const int kNewPathFieldNumber = 4;
+  const ::std::string& new_path() const;
+  void set_new_path(const ::std::string& value);
+  #if LANG_CXX11
+  void set_new_path(::std::string&& value);
+  #endif
+  void set_new_path(const char* value);
+  void set_new_path(const char* value, size_t size);
+  ::std::string* mutable_new_path();
+  ::std::string* release_new_path();
+  void set_allocated_new_path(::std::string* new_path);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalMoveRequest)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr row_;
+  ::google::protobuf::internal::ArenaStringPtr file_type_;
+  ::google::protobuf::internal::ArenaStringPtr path_name_;
+  ::google::protobuf::internal::ArenaStringPtr new_path_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LocalMoveReply final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:bigtable.LocalMoveReply) */ {
+ public:
+  LocalMoveReply();
+  virtual ~LocalMoveReply();
+
+  LocalMoveReply(const LocalMoveReply& from);
+
+  inline LocalMoveReply& operator=(const LocalMoveReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  LocalMoveReply(LocalMoveReply&& from) noexcept
+    : LocalMoveReply() {
+    *this = ::std::move(from);
+  }
+
+  inline LocalMoveReply& operator=(LocalMoveReply&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const LocalMoveReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LocalMoveReply* internal_default_instance() {
+    return reinterpret_cast<const LocalMoveReply*>(
+               &_LocalMoveReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    26;
+
+  void Swap(LocalMoveReply* other);
+  friend void swap(LocalMoveReply& a, LocalMoveReply& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LocalMoveReply* New() const final {
+    return CreateMaybeMessage<LocalMoveReply>(nullptr);
+  }
+
+  LocalMoveReply* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<LocalMoveReply>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const LocalMoveReply& from);
+  void MergeFrom(const LocalMoveReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LocalMoveReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bool is_successful = 1;
+  void clear_is_successful();
+  static const int kIsSuccessfulFieldNumber = 1;
+  bool is_successful() const;
+  void set_is_successful(bool value);
+
+  // @@protoc_insertion_point(class_scope:bigtable.LocalMoveReply)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool is_successful_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bigtable_2eproto;
+};
 // ===================================================================
 
 
@@ -5524,9 +6716,1134 @@ inline void LocalPutWithIDReply::set_allocated_file_id(::std::string* file_id) {
   // @@protoc_insertion_point(field_set_allocated:bigtable.LocalPutWithIDReply.file_id)
 }
 
+// -------------------------------------------------------------------
+
+// LocalCPutRequest
+
+// string new_created_time = 1;
+inline void LocalCPutRequest::clear_new_created_time() {
+  new_created_time_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::new_created_time() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.new_created_time)
+  return new_created_time_.GetNoArena();
+}
+inline void LocalCPutRequest::set_new_created_time(const ::std::string& value) {
+  
+  new_created_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.new_created_time)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_new_created_time(::std::string&& value) {
+  
+  new_created_time_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.new_created_time)
+}
+#endif
+inline void LocalCPutRequest::set_new_created_time(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  new_created_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.new_created_time)
+}
+inline void LocalCPutRequest::set_new_created_time(const char* value, size_t size) {
+  
+  new_created_time_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.new_created_time)
+}
+inline ::std::string* LocalCPutRequest::mutable_new_created_time() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.new_created_time)
+  return new_created_time_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_new_created_time() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.new_created_time)
+  
+  return new_created_time_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_new_created_time(::std::string* new_created_time) {
+  if (new_created_time != nullptr) {
+    
+  } else {
+    
+  }
+  new_created_time_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), new_created_time);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.new_created_time)
+}
+
+// int32 new_size = 2;
+inline void LocalCPutRequest::clear_new_size() {
+  new_size_ = 0;
+}
+inline ::google::protobuf::int32 LocalCPutRequest::new_size() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.new_size)
+  return new_size_;
+}
+inline void LocalCPutRequest::set_new_size(::google::protobuf::int32 value) {
+  
+  new_size_ = value;
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.new_size)
+}
+
+// string path_name = 3;
+inline void LocalCPutRequest::clear_path_name() {
+  path_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::path_name() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.path_name)
+  return path_name_.GetNoArena();
+}
+inline void LocalCPutRequest::set_path_name(const ::std::string& value) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.path_name)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_path_name(::std::string&& value) {
+  
+  path_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.path_name)
+}
+#endif
+inline void LocalCPutRequest::set_path_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.path_name)
+}
+inline void LocalCPutRequest::set_path_name(const char* value, size_t size) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.path_name)
+}
+inline ::std::string* LocalCPutRequest::mutable_path_name() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.path_name)
+  return path_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_path_name() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.path_name)
+  
+  return path_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_path_name(::std::string* path_name) {
+  if (path_name != nullptr) {
+    
+  } else {
+    
+  }
+  path_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path_name);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.path_name)
+}
+
+// string file_type = 4;
+inline void LocalCPutRequest::clear_file_type() {
+  file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::file_type() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.file_type)
+  return file_type_.GetNoArena();
+}
+inline void LocalCPutRequest::set_file_type(const ::std::string& value) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.file_type)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_file_type(::std::string&& value) {
+  
+  file_type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.file_type)
+}
+#endif
+inline void LocalCPutRequest::set_file_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.file_type)
+}
+inline void LocalCPutRequest::set_file_type(const char* value, size_t size) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.file_type)
+}
+inline ::std::string* LocalCPutRequest::mutable_file_type() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.file_type)
+  return file_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_file_type() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.file_type)
+  
+  return file_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_file_type(::std::string* file_type) {
+  if (file_type != nullptr) {
+    
+  } else {
+    
+  }
+  file_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_type);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.file_type)
+}
+
+// string row = 5;
+inline void LocalCPutRequest::clear_row() {
+  row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::row() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.row)
+  return row_.GetNoArena();
+}
+inline void LocalCPutRequest::set_row(const ::std::string& value) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.row)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_row(::std::string&& value) {
+  
+  row_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.row)
+}
+#endif
+inline void LocalCPutRequest::set_row(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.row)
+}
+inline void LocalCPutRequest::set_row(const char* value, size_t size) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.row)
+}
+inline ::std::string* LocalCPutRequest::mutable_row() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.row)
+  return row_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_row() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.row)
+  
+  return row_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_row(::std::string* row) {
+  if (row != nullptr) {
+    
+  } else {
+    
+  }
+  row_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), row);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.row)
+}
+
+// string col = 6;
+inline void LocalCPutRequest::clear_col() {
+  col_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::col() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.col)
+  return col_.GetNoArena();
+}
+inline void LocalCPutRequest::set_col(const ::std::string& value) {
+  
+  col_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.col)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_col(::std::string&& value) {
+  
+  col_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.col)
+}
+#endif
+inline void LocalCPutRequest::set_col(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  col_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.col)
+}
+inline void LocalCPutRequest::set_col(const char* value, size_t size) {
+  
+  col_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.col)
+}
+inline ::std::string* LocalCPutRequest::mutable_col() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.col)
+  return col_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_col() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.col)
+  
+  return col_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_col(::std::string* col) {
+  if (col != nullptr) {
+    
+  } else {
+    
+  }
+  col_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), col);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.col)
+}
+
+// string old_data = 7;
+inline void LocalCPutRequest::clear_old_data() {
+  old_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::old_data() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.old_data)
+  return old_data_.GetNoArena();
+}
+inline void LocalCPutRequest::set_old_data(const ::std::string& value) {
+  
+  old_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.old_data)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_old_data(::std::string&& value) {
+  
+  old_data_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.old_data)
+}
+#endif
+inline void LocalCPutRequest::set_old_data(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  old_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.old_data)
+}
+inline void LocalCPutRequest::set_old_data(const char* value, size_t size) {
+  
+  old_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.old_data)
+}
+inline ::std::string* LocalCPutRequest::mutable_old_data() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.old_data)
+  return old_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_old_data() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.old_data)
+  
+  return old_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_old_data(::std::string* old_data) {
+  if (old_data != nullptr) {
+    
+  } else {
+    
+  }
+  old_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), old_data);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.old_data)
+}
+
+// string new_data = 8;
+inline void LocalCPutRequest::clear_new_data() {
+  new_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalCPutRequest::new_data() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutRequest.new_data)
+  return new_data_.GetNoArena();
+}
+inline void LocalCPutRequest::set_new_data(const ::std::string& value) {
+  
+  new_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutRequest.new_data)
+}
+#if LANG_CXX11
+inline void LocalCPutRequest::set_new_data(::std::string&& value) {
+  
+  new_data_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalCPutRequest.new_data)
+}
+#endif
+inline void LocalCPutRequest::set_new_data(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  new_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalCPutRequest.new_data)
+}
+inline void LocalCPutRequest::set_new_data(const char* value, size_t size) {
+  
+  new_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalCPutRequest.new_data)
+}
+inline ::std::string* LocalCPutRequest::mutable_new_data() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalCPutRequest.new_data)
+  return new_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalCPutRequest::release_new_data() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalCPutRequest.new_data)
+  
+  return new_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalCPutRequest::set_allocated_new_data(::std::string* new_data) {
+  if (new_data != nullptr) {
+    
+  } else {
+    
+  }
+  new_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), new_data);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalCPutRequest.new_data)
+}
+
+// -------------------------------------------------------------------
+
+// LocalCPutReply
+
+// bool is_successful = 1;
+inline void LocalCPutReply::clear_is_successful() {
+  is_successful_ = false;
+}
+inline bool LocalCPutReply::is_successful() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalCPutReply.is_successful)
+  return is_successful_;
+}
+inline void LocalCPutReply::set_is_successful(bool value) {
+  
+  is_successful_ = value;
+  // @@protoc_insertion_point(field_set:bigtable.LocalCPutReply.is_successful)
+}
+
+// -------------------------------------------------------------------
+
+// LocalDelRequest
+
+// string row = 1;
+inline void LocalDelRequest::clear_row() {
+  row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalDelRequest::row() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalDelRequest.row)
+  return row_.GetNoArena();
+}
+inline void LocalDelRequest::set_row(const ::std::string& value) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalDelRequest.row)
+}
+#if LANG_CXX11
+inline void LocalDelRequest::set_row(::std::string&& value) {
+  
+  row_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalDelRequest.row)
+}
+#endif
+inline void LocalDelRequest::set_row(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalDelRequest.row)
+}
+inline void LocalDelRequest::set_row(const char* value, size_t size) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalDelRequest.row)
+}
+inline ::std::string* LocalDelRequest::mutable_row() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalDelRequest.row)
+  return row_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalDelRequest::release_row() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalDelRequest.row)
+  
+  return row_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalDelRequest::set_allocated_row(::std::string* row) {
+  if (row != nullptr) {
+    
+  } else {
+    
+  }
+  row_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), row);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalDelRequest.row)
+}
+
+// string col = 2;
+inline void LocalDelRequest::clear_col() {
+  col_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalDelRequest::col() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalDelRequest.col)
+  return col_.GetNoArena();
+}
+inline void LocalDelRequest::set_col(const ::std::string& value) {
+  
+  col_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalDelRequest.col)
+}
+#if LANG_CXX11
+inline void LocalDelRequest::set_col(::std::string&& value) {
+  
+  col_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalDelRequest.col)
+}
+#endif
+inline void LocalDelRequest::set_col(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  col_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalDelRequest.col)
+}
+inline void LocalDelRequest::set_col(const char* value, size_t size) {
+  
+  col_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalDelRequest.col)
+}
+inline ::std::string* LocalDelRequest::mutable_col() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalDelRequest.col)
+  return col_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalDelRequest::release_col() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalDelRequest.col)
+  
+  return col_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalDelRequest::set_allocated_col(::std::string* col) {
+  if (col != nullptr) {
+    
+  } else {
+    
+  }
+  col_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), col);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalDelRequest.col)
+}
+
+// string file_type = 3;
+inline void LocalDelRequest::clear_file_type() {
+  file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalDelRequest::file_type() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalDelRequest.file_type)
+  return file_type_.GetNoArena();
+}
+inline void LocalDelRequest::set_file_type(const ::std::string& value) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalDelRequest.file_type)
+}
+#if LANG_CXX11
+inline void LocalDelRequest::set_file_type(::std::string&& value) {
+  
+  file_type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalDelRequest.file_type)
+}
+#endif
+inline void LocalDelRequest::set_file_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalDelRequest.file_type)
+}
+inline void LocalDelRequest::set_file_type(const char* value, size_t size) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalDelRequest.file_type)
+}
+inline ::std::string* LocalDelRequest::mutable_file_type() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalDelRequest.file_type)
+  return file_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalDelRequest::release_file_type() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalDelRequest.file_type)
+  
+  return file_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalDelRequest::set_allocated_file_type(::std::string* file_type) {
+  if (file_type != nullptr) {
+    
+  } else {
+    
+  }
+  file_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_type);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalDelRequest.file_type)
+}
+
+// string path_name = 4;
+inline void LocalDelRequest::clear_path_name() {
+  path_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalDelRequest::path_name() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalDelRequest.path_name)
+  return path_name_.GetNoArena();
+}
+inline void LocalDelRequest::set_path_name(const ::std::string& value) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalDelRequest.path_name)
+}
+#if LANG_CXX11
+inline void LocalDelRequest::set_path_name(::std::string&& value) {
+  
+  path_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalDelRequest.path_name)
+}
+#endif
+inline void LocalDelRequest::set_path_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalDelRequest.path_name)
+}
+inline void LocalDelRequest::set_path_name(const char* value, size_t size) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalDelRequest.path_name)
+}
+inline ::std::string* LocalDelRequest::mutable_path_name() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalDelRequest.path_name)
+  return path_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalDelRequest::release_path_name() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalDelRequest.path_name)
+  
+  return path_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalDelRequest::set_allocated_path_name(::std::string* path_name) {
+  if (path_name != nullptr) {
+    
+  } else {
+    
+  }
+  path_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path_name);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalDelRequest.path_name)
+}
+
+// -------------------------------------------------------------------
+
+// LocalDelReply
+
+// bool is_successful = 1;
+inline void LocalDelReply::clear_is_successful() {
+  is_successful_ = false;
+}
+inline bool LocalDelReply::is_successful() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalDelReply.is_successful)
+  return is_successful_;
+}
+inline void LocalDelReply::set_is_successful(bool value) {
+  
+  is_successful_ = value;
+  // @@protoc_insertion_point(field_set:bigtable.LocalDelReply.is_successful)
+}
+
+// -------------------------------------------------------------------
+
+// LocalRenameRequest
+
+// string row = 1;
+inline void LocalRenameRequest::clear_row() {
+  row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalRenameRequest::row() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalRenameRequest.row)
+  return row_.GetNoArena();
+}
+inline void LocalRenameRequest::set_row(const ::std::string& value) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalRenameRequest.row)
+}
+#if LANG_CXX11
+inline void LocalRenameRequest::set_row(::std::string&& value) {
+  
+  row_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalRenameRequest.row)
+}
+#endif
+inline void LocalRenameRequest::set_row(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalRenameRequest.row)
+}
+inline void LocalRenameRequest::set_row(const char* value, size_t size) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalRenameRequest.row)
+}
+inline ::std::string* LocalRenameRequest::mutable_row() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalRenameRequest.row)
+  return row_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalRenameRequest::release_row() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalRenameRequest.row)
+  
+  return row_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalRenameRequest::set_allocated_row(::std::string* row) {
+  if (row != nullptr) {
+    
+  } else {
+    
+  }
+  row_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), row);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalRenameRequest.row)
+}
+
+// string file_type = 2;
+inline void LocalRenameRequest::clear_file_type() {
+  file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalRenameRequest::file_type() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalRenameRequest.file_type)
+  return file_type_.GetNoArena();
+}
+inline void LocalRenameRequest::set_file_type(const ::std::string& value) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalRenameRequest.file_type)
+}
+#if LANG_CXX11
+inline void LocalRenameRequest::set_file_type(::std::string&& value) {
+  
+  file_type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalRenameRequest.file_type)
+}
+#endif
+inline void LocalRenameRequest::set_file_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalRenameRequest.file_type)
+}
+inline void LocalRenameRequest::set_file_type(const char* value, size_t size) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalRenameRequest.file_type)
+}
+inline ::std::string* LocalRenameRequest::mutable_file_type() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalRenameRequest.file_type)
+  return file_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalRenameRequest::release_file_type() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalRenameRequest.file_type)
+  
+  return file_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalRenameRequest::set_allocated_file_type(::std::string* file_type) {
+  if (file_type != nullptr) {
+    
+  } else {
+    
+  }
+  file_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_type);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalRenameRequest.file_type)
+}
+
+// string path_name = 3;
+inline void LocalRenameRequest::clear_path_name() {
+  path_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalRenameRequest::path_name() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalRenameRequest.path_name)
+  return path_name_.GetNoArena();
+}
+inline void LocalRenameRequest::set_path_name(const ::std::string& value) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalRenameRequest.path_name)
+}
+#if LANG_CXX11
+inline void LocalRenameRequest::set_path_name(::std::string&& value) {
+  
+  path_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalRenameRequest.path_name)
+}
+#endif
+inline void LocalRenameRequest::set_path_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalRenameRequest.path_name)
+}
+inline void LocalRenameRequest::set_path_name(const char* value, size_t size) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalRenameRequest.path_name)
+}
+inline ::std::string* LocalRenameRequest::mutable_path_name() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalRenameRequest.path_name)
+  return path_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalRenameRequest::release_path_name() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalRenameRequest.path_name)
+  
+  return path_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalRenameRequest::set_allocated_path_name(::std::string* path_name) {
+  if (path_name != nullptr) {
+    
+  } else {
+    
+  }
+  path_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path_name);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalRenameRequest.path_name)
+}
+
+// string new_file_name = 4;
+inline void LocalRenameRequest::clear_new_file_name() {
+  new_file_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalRenameRequest::new_file_name() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalRenameRequest.new_file_name)
+  return new_file_name_.GetNoArena();
+}
+inline void LocalRenameRequest::set_new_file_name(const ::std::string& value) {
+  
+  new_file_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalRenameRequest.new_file_name)
+}
+#if LANG_CXX11
+inline void LocalRenameRequest::set_new_file_name(::std::string&& value) {
+  
+  new_file_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalRenameRequest.new_file_name)
+}
+#endif
+inline void LocalRenameRequest::set_new_file_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  new_file_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalRenameRequest.new_file_name)
+}
+inline void LocalRenameRequest::set_new_file_name(const char* value, size_t size) {
+  
+  new_file_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalRenameRequest.new_file_name)
+}
+inline ::std::string* LocalRenameRequest::mutable_new_file_name() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalRenameRequest.new_file_name)
+  return new_file_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalRenameRequest::release_new_file_name() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalRenameRequest.new_file_name)
+  
+  return new_file_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalRenameRequest::set_allocated_new_file_name(::std::string* new_file_name) {
+  if (new_file_name != nullptr) {
+    
+  } else {
+    
+  }
+  new_file_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), new_file_name);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalRenameRequest.new_file_name)
+}
+
+// -------------------------------------------------------------------
+
+// LocalRenameReply
+
+// bool is_successful = 1;
+inline void LocalRenameReply::clear_is_successful() {
+  is_successful_ = false;
+}
+inline bool LocalRenameReply::is_successful() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalRenameReply.is_successful)
+  return is_successful_;
+}
+inline void LocalRenameReply::set_is_successful(bool value) {
+  
+  is_successful_ = value;
+  // @@protoc_insertion_point(field_set:bigtable.LocalRenameReply.is_successful)
+}
+
+// -------------------------------------------------------------------
+
+// LocalMoveRequest
+
+// string row = 1;
+inline void LocalMoveRequest::clear_row() {
+  row_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalMoveRequest::row() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalMoveRequest.row)
+  return row_.GetNoArena();
+}
+inline void LocalMoveRequest::set_row(const ::std::string& value) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalMoveRequest.row)
+}
+#if LANG_CXX11
+inline void LocalMoveRequest::set_row(::std::string&& value) {
+  
+  row_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalMoveRequest.row)
+}
+#endif
+inline void LocalMoveRequest::set_row(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalMoveRequest.row)
+}
+inline void LocalMoveRequest::set_row(const char* value, size_t size) {
+  
+  row_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalMoveRequest.row)
+}
+inline ::std::string* LocalMoveRequest::mutable_row() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalMoveRequest.row)
+  return row_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalMoveRequest::release_row() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalMoveRequest.row)
+  
+  return row_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalMoveRequest::set_allocated_row(::std::string* row) {
+  if (row != nullptr) {
+    
+  } else {
+    
+  }
+  row_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), row);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalMoveRequest.row)
+}
+
+// string file_type = 2;
+inline void LocalMoveRequest::clear_file_type() {
+  file_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalMoveRequest::file_type() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalMoveRequest.file_type)
+  return file_type_.GetNoArena();
+}
+inline void LocalMoveRequest::set_file_type(const ::std::string& value) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalMoveRequest.file_type)
+}
+#if LANG_CXX11
+inline void LocalMoveRequest::set_file_type(::std::string&& value) {
+  
+  file_type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalMoveRequest.file_type)
+}
+#endif
+inline void LocalMoveRequest::set_file_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalMoveRequest.file_type)
+}
+inline void LocalMoveRequest::set_file_type(const char* value, size_t size) {
+  
+  file_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalMoveRequest.file_type)
+}
+inline ::std::string* LocalMoveRequest::mutable_file_type() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalMoveRequest.file_type)
+  return file_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalMoveRequest::release_file_type() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalMoveRequest.file_type)
+  
+  return file_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalMoveRequest::set_allocated_file_type(::std::string* file_type) {
+  if (file_type != nullptr) {
+    
+  } else {
+    
+  }
+  file_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), file_type);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalMoveRequest.file_type)
+}
+
+// string path_name = 3;
+inline void LocalMoveRequest::clear_path_name() {
+  path_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalMoveRequest::path_name() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalMoveRequest.path_name)
+  return path_name_.GetNoArena();
+}
+inline void LocalMoveRequest::set_path_name(const ::std::string& value) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalMoveRequest.path_name)
+}
+#if LANG_CXX11
+inline void LocalMoveRequest::set_path_name(::std::string&& value) {
+  
+  path_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalMoveRequest.path_name)
+}
+#endif
+inline void LocalMoveRequest::set_path_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalMoveRequest.path_name)
+}
+inline void LocalMoveRequest::set_path_name(const char* value, size_t size) {
+  
+  path_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalMoveRequest.path_name)
+}
+inline ::std::string* LocalMoveRequest::mutable_path_name() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalMoveRequest.path_name)
+  return path_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalMoveRequest::release_path_name() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalMoveRequest.path_name)
+  
+  return path_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalMoveRequest::set_allocated_path_name(::std::string* path_name) {
+  if (path_name != nullptr) {
+    
+  } else {
+    
+  }
+  path_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path_name);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalMoveRequest.path_name)
+}
+
+// string new_path = 4;
+inline void LocalMoveRequest::clear_new_path() {
+  new_path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& LocalMoveRequest::new_path() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalMoveRequest.new_path)
+  return new_path_.GetNoArena();
+}
+inline void LocalMoveRequest::set_new_path(const ::std::string& value) {
+  
+  new_path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bigtable.LocalMoveRequest.new_path)
+}
+#if LANG_CXX11
+inline void LocalMoveRequest::set_new_path(::std::string&& value) {
+  
+  new_path_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:bigtable.LocalMoveRequest.new_path)
+}
+#endif
+inline void LocalMoveRequest::set_new_path(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  new_path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bigtable.LocalMoveRequest.new_path)
+}
+inline void LocalMoveRequest::set_new_path(const char* value, size_t size) {
+  
+  new_path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bigtable.LocalMoveRequest.new_path)
+}
+inline ::std::string* LocalMoveRequest::mutable_new_path() {
+  
+  // @@protoc_insertion_point(field_mutable:bigtable.LocalMoveRequest.new_path)
+  return new_path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* LocalMoveRequest::release_new_path() {
+  // @@protoc_insertion_point(field_release:bigtable.LocalMoveRequest.new_path)
+  
+  return new_path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void LocalMoveRequest::set_allocated_new_path(::std::string* new_path) {
+  if (new_path != nullptr) {
+    
+  } else {
+    
+  }
+  new_path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), new_path);
+  // @@protoc_insertion_point(field_set_allocated:bigtable.LocalMoveRequest.new_path)
+}
+
+// -------------------------------------------------------------------
+
+// LocalMoveReply
+
+// bool is_successful = 1;
+inline void LocalMoveReply::clear_is_successful() {
+  is_successful_ = false;
+}
+inline bool LocalMoveReply::is_successful() const {
+  // @@protoc_insertion_point(field_get:bigtable.LocalMoveReply.is_successful)
+  return is_successful_;
+}
+inline void LocalMoveReply::set_is_successful(bool value) {
+  
+  is_successful_ = value;
+  // @@protoc_insertion_point(field_set:bigtable.LocalMoveReply.is_successful)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

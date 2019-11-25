@@ -28,6 +28,10 @@ static const char* Bigtable_method_names[] = {
   "/bigtable.Bigtable/rename_file_folder",
   "/bigtable.Bigtable/move_file_folder",
   "/bigtable.Bigtable/localPut_with_fileid",
+  "/bigtable.Bigtable/localCPut",
+  "/bigtable.Bigtable/localDelete",
+  "/bigtable.Bigtable/localRenameFifo",
+  "/bigtable.Bigtable/localMoveFifo",
 };
 
 std::unique_ptr< Bigtable::Stub> Bigtable::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -46,6 +50,10 @@ Bigtable::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_rename_file_folder_(Bigtable_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_move_file_folder_(Bigtable_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_localPut_with_fileid_(Bigtable_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_localCPut_(Bigtable_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_localDelete_(Bigtable_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_localRenameFifo_(Bigtable_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_localMoveFifo_(Bigtable_method_names[12], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Bigtable::Stub::put(::grpc::ClientContext* context, const ::bigtable::PutRequest& request, ::bigtable::PutReply* response) {
@@ -228,6 +236,86 @@ void Bigtable::Stub::experimental_async::localPut_with_fileid(::grpc::ClientCont
   return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalPutWithIDReply>::Create(channel_.get(), cq, rpcmethod_localPut_with_fileid_, context, request, false);
 }
 
+::grpc::Status Bigtable::Stub::localCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::bigtable::LocalCPutReply* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_localCPut_, context, request, response);
+}
+
+void Bigtable::Stub::experimental_async::localCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localCPut_, context, request, response, std::move(f));
+}
+
+void Bigtable::Stub::experimental_async::localCPut(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalCPutReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localCPut_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>* Bigtable::Stub::AsynclocalCPutRaw(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalCPutReply>::Create(channel_.get(), cq, rpcmethod_localCPut_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>* Bigtable::Stub::PrepareAsynclocalCPutRaw(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalCPutReply>::Create(channel_.get(), cq, rpcmethod_localCPut_, context, request, false);
+}
+
+::grpc::Status Bigtable::Stub::localDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::bigtable::LocalDelReply* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_localDelete_, context, request, response);
+}
+
+void Bigtable::Stub::experimental_async::localDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localDelete_, context, request, response, std::move(f));
+}
+
+void Bigtable::Stub::experimental_async::localDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalDelReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localDelete_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>* Bigtable::Stub::AsynclocalDeleteRaw(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalDelReply>::Create(channel_.get(), cq, rpcmethod_localDelete_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>* Bigtable::Stub::PrepareAsynclocalDeleteRaw(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalDelReply>::Create(channel_.get(), cq, rpcmethod_localDelete_, context, request, false);
+}
+
+::grpc::Status Bigtable::Stub::localRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::bigtable::LocalRenameReply* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_localRenameFifo_, context, request, response);
+}
+
+void Bigtable::Stub::experimental_async::localRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localRenameFifo_, context, request, response, std::move(f));
+}
+
+void Bigtable::Stub::experimental_async::localRenameFifo(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalRenameReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localRenameFifo_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>* Bigtable::Stub::AsynclocalRenameFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalRenameReply>::Create(channel_.get(), cq, rpcmethod_localRenameFifo_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>* Bigtable::Stub::PrepareAsynclocalRenameFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalRenameReply>::Create(channel_.get(), cq, rpcmethod_localRenameFifo_, context, request, false);
+}
+
+::grpc::Status Bigtable::Stub::localMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::bigtable::LocalMoveReply* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_localMoveFifo_, context, request, response);
+}
+
+void Bigtable::Stub::experimental_async::localMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localMoveFifo_, context, request, response, std::move(f));
+}
+
+void Bigtable::Stub::experimental_async::localMoveFifo(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalMoveReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_localMoveFifo_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>* Bigtable::Stub::AsynclocalMoveFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalMoveReply>::Create(channel_.get(), cq, rpcmethod_localMoveFifo_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>* Bigtable::Stub::PrepareAsynclocalMoveFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::bigtable::LocalMoveReply>::Create(channel_.get(), cq, rpcmethod_localMoveFifo_, context, request, false);
+}
+
 Bigtable::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Bigtable_method_names[0],
@@ -274,6 +362,26 @@ Bigtable::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Bigtable::Service, ::bigtable::LocalPutWithIDRequest, ::bigtable::LocalPutWithIDReply>(
           std::mem_fn(&Bigtable::Service::localPut_with_fileid), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Bigtable_method_names[9],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Bigtable::Service, ::bigtable::LocalCPutRequest, ::bigtable::LocalCPutReply>(
+          std::mem_fn(&Bigtable::Service::localCPut), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Bigtable_method_names[10],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Bigtable::Service, ::bigtable::LocalDelRequest, ::bigtable::LocalDelReply>(
+          std::mem_fn(&Bigtable::Service::localDelete), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Bigtable_method_names[11],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Bigtable::Service, ::bigtable::LocalRenameRequest, ::bigtable::LocalRenameReply>(
+          std::mem_fn(&Bigtable::Service::localRenameFifo), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Bigtable_method_names[12],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Bigtable::Service, ::bigtable::LocalMoveRequest, ::bigtable::LocalMoveReply>(
+          std::mem_fn(&Bigtable::Service::localMoveFifo), this)));
 }
 
 Bigtable::Service::~Service() {
@@ -336,6 +444,34 @@ Bigtable::Service::~Service() {
 }
 
 ::grpc::Status Bigtable::Service::localPut_with_fileid(::grpc::ServerContext* context, const ::bigtable::LocalPutWithIDRequest* request, ::bigtable::LocalPutWithIDReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Bigtable::Service::localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Bigtable::Service::localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Bigtable::Service::localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Bigtable::Service::localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) {
   (void) context;
   (void) request;
   (void) response;

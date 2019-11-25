@@ -1,0 +1,69 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+//option
+option java_multiple_files = true;
+option java_package = "io.grpc.masterBackend";
+option java_outer_classname = "masterBackendProto";
+option objc_class_prefix = "MB";
+
+package masterBackend;
+
+// 
+service MasterBackend{
+	rpc get_prim (GetPrimRequest) returns (GetPrimReply) {}
+	rpc list_sub (ListSubRequest) returns (ListSubReply) {}
+	//rpc promote_prim(PromotePrimRequest) returns (PromotePrimReply) {}
+	//rpc heartbeat (HeartBeatRequest) returns (HeartBeatReply) {}	
+}
+
+// 
+message GetPrimRequest {
+	int32 my_index = 1;
+}
+
+message GetPrimReply {
+	int32 prim_index = 1;
+}
+
+message ListSubRequest {
+	int32 my_index = 1;
+}
+
+message ListSubReply {
+	repeated int32 sub_index = 1;
+}
+
+message PromotePrimRequest {
+  int32 my_index = 1;
+}
+ 
+message PromotePrimReply {
+  string prim_index = 1;
+}
+
+
+/*message HeartBeatRequest {
+	int32 my_index = 1;
+}
+
+message HeartBeatReply {
+	bool ok = 1;
+}*/
+/*The numbers in these requests do not specify their values 
+only labeling for the proto file generation. 
+We will set these messages using generated code stub in our C++ code later.
+*/

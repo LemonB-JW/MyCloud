@@ -180,6 +180,7 @@ bool BigTable::rename_file_folder(string row, string file_type, string path_name
 	cout<<"rename folder/file new name "<<new_file_name<<endl;
 	vector<MetaTreeNode*> nodes = all_user_files[row]->searchNode(path_name);
 	if(nodes.empty()) return false;
+	cout<<"rename came back from searchNode"<<" nodes size is "<<nodes.size()<<endl;
 	string ori_filename = nodes.at(1)->file_name;
 	MetaTreeNode* temp;
 	for(auto it = nodes.at(0)->children.begin(); it != nodes.at(0)->children.end(); ++it){

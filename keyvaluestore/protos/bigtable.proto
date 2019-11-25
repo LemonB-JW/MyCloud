@@ -37,6 +37,15 @@ service Bigtable {
 
    // localPut with fileID operation
   rpc localPut_with_fileid (LocalPutWithIDRequest) returns (LocalPutWithIDReply) {}
+
+  rpc localCPut (LocalCPutRequest) returns (LocalCPutReply) {}
+
+  rpc localDelete(LocalDelRequest) returns (LocalDelReply) {}
+
+  rpc localRenameFifo(LocalRenameRequest) returns (LocalRenameReply) {}
+
+  rpc localMoveFifo(LocalMoveRequest) returns (LocalMoveReply) {}
+
 }
 
 
@@ -159,6 +168,52 @@ message LocalPutWithIDReply {
 }
 
 
+message LocalCPutRequest{
+  string new_created_time = 1;
+  int32 new_size = 2;
+  string path_name = 3;
+  string file_type = 4;
+  string row = 5;
+  string col = 6;
+  string old_data = 7;
+  string new_data = 8;
+}
 
+message LocalCPutReply{
+  bool is_successful = 1;
+}
 
+message LocalDelRequest{
+  string row = 1;
+  string col = 2;
+  string file_type = 3;
+  string path_name = 4;
+  
+}
+
+message LocalDelReply{
+  bool is_successful = 1;
+}
+
+message LocalRenameRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_file_name = 4;
+}
+
+message LocalRenameReply{
+  bool is_successful = 1;
+}
+
+message LocalMoveRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_path = 4;
+}
+
+message LocalMoveReply{
+  bool is_successful = 1;
+}
 

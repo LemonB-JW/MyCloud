@@ -113,6 +113,34 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalPutWithIDReply>> PrepareAsynclocalPut_with_fileid(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalPutWithIDReply>>(PrepareAsynclocalPut_with_fileidRaw(context, request, cq));
     }
+    virtual ::grpc::Status localCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::bigtable::LocalCPutReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalCPutReply>> AsynclocalCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalCPutReply>>(AsynclocalCPutRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalCPutReply>> PrepareAsynclocalCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalCPutReply>>(PrepareAsynclocalCPutRaw(context, request, cq));
+    }
+    virtual ::grpc::Status localDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::bigtable::LocalDelReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalDelReply>> AsynclocalDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalDelReply>>(AsynclocalDeleteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalDelReply>> PrepareAsynclocalDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalDelReply>>(PrepareAsynclocalDeleteRaw(context, request, cq));
+    }
+    virtual ::grpc::Status localRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::bigtable::LocalRenameReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalRenameReply>> AsynclocalRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalRenameReply>>(AsynclocalRenameFifoRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalRenameReply>> PrepareAsynclocalRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalRenameReply>>(PrepareAsynclocalRenameFifoRaw(context, request, cq));
+    }
+    virtual ::grpc::Status localMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::bigtable::LocalMoveReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalMoveReply>> AsynclocalMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalMoveReply>>(AsynclocalMoveFifoRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalMoveReply>> PrepareAsynclocalMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalMoveReply>>(PrepareAsynclocalMoveFifoRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -143,6 +171,14 @@ class Bigtable final {
       // localPut with fileID operation
       virtual void localPut_with_fileid(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest* request, ::bigtable::LocalPutWithIDReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void localPut_with_fileid(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalPutWithIDReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localCPut(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalCPutReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalDelReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localRenameFifo(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalRenameReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void localMoveFifo(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalMoveReply* response, std::function<void(::grpc::Status)>) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -164,6 +200,14 @@ class Bigtable final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::MoveFifoReply>* PrepareAsyncmove_file_folderRaw(::grpc::ClientContext* context, const ::bigtable::MoveFifoRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalPutWithIDReply>* AsynclocalPut_with_fileidRaw(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalPutWithIDReply>* PrepareAsynclocalPut_with_fileidRaw(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalCPutReply>* AsynclocalCPutRaw(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalCPutReply>* PrepareAsynclocalCPutRaw(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalDelReply>* AsynclocalDeleteRaw(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalDelReply>* PrepareAsynclocalDeleteRaw(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalRenameReply>* AsynclocalRenameFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalRenameReply>* PrepareAsynclocalRenameFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalMoveReply>* AsynclocalMoveFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bigtable::LocalMoveReply>* PrepareAsynclocalMoveFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -231,6 +275,34 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalPutWithIDReply>> PrepareAsynclocalPut_with_fileid(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalPutWithIDReply>>(PrepareAsynclocalPut_with_fileidRaw(context, request, cq));
     }
+    ::grpc::Status localCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::bigtable::LocalCPutReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>> AsynclocalCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>>(AsynclocalCPutRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>> PrepareAsynclocalCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>>(PrepareAsynclocalCPutRaw(context, request, cq));
+    }
+    ::grpc::Status localDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::bigtable::LocalDelReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>> AsynclocalDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>>(AsynclocalDeleteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>> PrepareAsynclocalDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>>(PrepareAsynclocalDeleteRaw(context, request, cq));
+    }
+    ::grpc::Status localRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::bigtable::LocalRenameReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>> AsynclocalRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>>(AsynclocalRenameFifoRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>> PrepareAsynclocalRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>>(PrepareAsynclocalRenameFifoRaw(context, request, cq));
+    }
+    ::grpc::Status localMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::bigtable::LocalMoveReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>> AsynclocalMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>>(AsynclocalMoveFifoRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>> PrepareAsynclocalMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>>(PrepareAsynclocalMoveFifoRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
@@ -252,6 +324,14 @@ class Bigtable final {
       void move_file_folder(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::MoveFifoReply* response, std::function<void(::grpc::Status)>) override;
       void localPut_with_fileid(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest* request, ::bigtable::LocalPutWithIDReply* response, std::function<void(::grpc::Status)>) override;
       void localPut_with_fileid(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalPutWithIDReply* response, std::function<void(::grpc::Status)>) override;
+      void localCPut(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response, std::function<void(::grpc::Status)>) override;
+      void localCPut(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalCPutReply* response, std::function<void(::grpc::Status)>) override;
+      void localDelete(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response, std::function<void(::grpc::Status)>) override;
+      void localDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalDelReply* response, std::function<void(::grpc::Status)>) override;
+      void localRenameFifo(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response, std::function<void(::grpc::Status)>) override;
+      void localRenameFifo(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalRenameReply* response, std::function<void(::grpc::Status)>) override;
+      void localMoveFifo(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response, std::function<void(::grpc::Status)>) override;
+      void localMoveFifo(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::bigtable::LocalMoveReply* response, std::function<void(::grpc::Status)>) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -281,6 +361,14 @@ class Bigtable final {
     ::grpc::ClientAsyncResponseReader< ::bigtable::MoveFifoReply>* PrepareAsyncmove_file_folderRaw(::grpc::ClientContext* context, const ::bigtable::MoveFifoRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::bigtable::LocalPutWithIDReply>* AsynclocalPut_with_fileidRaw(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::bigtable::LocalPutWithIDReply>* PrepareAsynclocalPut_with_fileidRaw(::grpc::ClientContext* context, const ::bigtable::LocalPutWithIDRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>* AsynclocalCPutRaw(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalCPutReply>* PrepareAsynclocalCPutRaw(::grpc::ClientContext* context, const ::bigtable::LocalCPutRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>* AsynclocalDeleteRaw(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalDelReply>* PrepareAsynclocalDeleteRaw(::grpc::ClientContext* context, const ::bigtable::LocalDelRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>* AsynclocalRenameFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalRenameReply>* PrepareAsynclocalRenameFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalRenameRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>* AsynclocalMoveFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bigtable::LocalMoveReply>* PrepareAsynclocalMoveFifoRaw(::grpc::ClientContext* context, const ::bigtable::LocalMoveRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_put_;
     const ::grpc::internal::RpcMethod rpcmethod_get_;
     const ::grpc::internal::RpcMethod rpcmethod_cput_;
@@ -290,6 +378,10 @@ class Bigtable final {
     const ::grpc::internal::RpcMethod rpcmethod_rename_file_folder_;
     const ::grpc::internal::RpcMethod rpcmethod_move_file_folder_;
     const ::grpc::internal::RpcMethod rpcmethod_localPut_with_fileid_;
+    const ::grpc::internal::RpcMethod rpcmethod_localCPut_;
+    const ::grpc::internal::RpcMethod rpcmethod_localDelete_;
+    const ::grpc::internal::RpcMethod rpcmethod_localRenameFifo_;
+    const ::grpc::internal::RpcMethod rpcmethod_localMoveFifo_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -315,6 +407,10 @@ class Bigtable final {
     virtual ::grpc::Status move_file_folder(::grpc::ServerContext* context, const ::bigtable::MoveFifoRequest* request, ::bigtable::MoveFifoReply* response);
     // localPut with fileID operation
     virtual ::grpc::Status localPut_with_fileid(::grpc::ServerContext* context, const ::bigtable::LocalPutWithIDRequest* request, ::bigtable::LocalPutWithIDReply* response);
+    virtual ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response);
+    virtual ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response);
+    virtual ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response);
+    virtual ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_put : public BaseClass {
@@ -496,7 +592,87 @@ class Bigtable final {
       ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_put<WithAsyncMethod_get<WithAsyncMethod_cput<WithAsyncMethod_table_delete<WithAsyncMethod_list_all_emails<WithAsyncMethod_list_all_files<WithAsyncMethod_rename_file_folder<WithAsyncMethod_move_file_folder<WithAsyncMethod_localPut_with_fileid<Service > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_localCPut : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_localCPut() {
+      ::grpc::Service::MarkMethodAsync(9);
+    }
+    ~WithAsyncMethod_localCPut() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalCPut(::grpc::ServerContext* context, ::bigtable::LocalCPutRequest* request, ::grpc::ServerAsyncResponseWriter< ::bigtable::LocalCPutReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_localDelete : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_localDelete() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_localDelete() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalDelete(::grpc::ServerContext* context, ::bigtable::LocalDelRequest* request, ::grpc::ServerAsyncResponseWriter< ::bigtable::LocalDelReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_localRenameFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_localRenameFifo() {
+      ::grpc::Service::MarkMethodAsync(11);
+    }
+    ~WithAsyncMethod_localRenameFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalRenameFifo(::grpc::ServerContext* context, ::bigtable::LocalRenameRequest* request, ::grpc::ServerAsyncResponseWriter< ::bigtable::LocalRenameReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_localMoveFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_localMoveFifo() {
+      ::grpc::Service::MarkMethodAsync(12);
+    }
+    ~WithAsyncMethod_localMoveFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalMoveFifo(::grpc::ServerContext* context, ::bigtable::LocalMoveRequest* request, ::grpc::ServerAsyncResponseWriter< ::bigtable::LocalMoveReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_put<WithAsyncMethod_get<WithAsyncMethod_cput<WithAsyncMethod_table_delete<WithAsyncMethod_list_all_emails<WithAsyncMethod_list_all_files<WithAsyncMethod_rename_file_folder<WithAsyncMethod_move_file_folder<WithAsyncMethod_localPut_with_fileid<WithAsyncMethod_localCPut<WithAsyncMethod_localDelete<WithAsyncMethod_localRenameFifo<WithAsyncMethod_localMoveFifo<Service > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_put : public BaseClass {
    private:
@@ -722,7 +898,107 @@ class Bigtable final {
     }
     virtual void localPut_with_fileid(::grpc::ServerContext* context, const ::bigtable::LocalPutWithIDRequest* request, ::bigtable::LocalPutWithIDReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
-  typedef ExperimentalWithCallbackMethod_put<ExperimentalWithCallbackMethod_get<ExperimentalWithCallbackMethod_cput<ExperimentalWithCallbackMethod_table_delete<ExperimentalWithCallbackMethod_list_all_emails<ExperimentalWithCallbackMethod_list_all_files<ExperimentalWithCallbackMethod_rename_file_folder<ExperimentalWithCallbackMethod_move_file_folder<ExperimentalWithCallbackMethod_localPut_with_fileid<Service > > > > > > > > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_localCPut : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_localCPut() {
+      ::grpc::Service::experimental().MarkMethodCallback(9,
+        new ::grpc::internal::CallbackUnaryHandler< ::bigtable::LocalCPutRequest, ::bigtable::LocalCPutReply>(
+          [this](::grpc::ServerContext* context,
+                 const ::bigtable::LocalCPutRequest* request,
+                 ::bigtable::LocalCPutReply* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->localCPut(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_localCPut() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_localDelete : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_localDelete() {
+      ::grpc::Service::experimental().MarkMethodCallback(10,
+        new ::grpc::internal::CallbackUnaryHandler< ::bigtable::LocalDelRequest, ::bigtable::LocalDelReply>(
+          [this](::grpc::ServerContext* context,
+                 const ::bigtable::LocalDelRequest* request,
+                 ::bigtable::LocalDelReply* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->localDelete(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_localDelete() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_localRenameFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_localRenameFifo() {
+      ::grpc::Service::experimental().MarkMethodCallback(11,
+        new ::grpc::internal::CallbackUnaryHandler< ::bigtable::LocalRenameRequest, ::bigtable::LocalRenameReply>(
+          [this](::grpc::ServerContext* context,
+                 const ::bigtable::LocalRenameRequest* request,
+                 ::bigtable::LocalRenameReply* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->localRenameFifo(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_localRenameFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_localMoveFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_localMoveFifo() {
+      ::grpc::Service::experimental().MarkMethodCallback(12,
+        new ::grpc::internal::CallbackUnaryHandler< ::bigtable::LocalMoveRequest, ::bigtable::LocalMoveReply>(
+          [this](::grpc::ServerContext* context,
+                 const ::bigtable::LocalMoveRequest* request,
+                 ::bigtable::LocalMoveReply* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->localMoveFifo(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_localMoveFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_put<ExperimentalWithCallbackMethod_get<ExperimentalWithCallbackMethod_cput<ExperimentalWithCallbackMethod_table_delete<ExperimentalWithCallbackMethod_list_all_emails<ExperimentalWithCallbackMethod_list_all_files<ExperimentalWithCallbackMethod_rename_file_folder<ExperimentalWithCallbackMethod_move_file_folder<ExperimentalWithCallbackMethod_localPut_with_fileid<ExperimentalWithCallbackMethod_localCPut<ExperimentalWithCallbackMethod_localDelete<ExperimentalWithCallbackMethod_localRenameFifo<ExperimentalWithCallbackMethod_localMoveFifo<Service > > > > > > > > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_put : public BaseClass {
    private:
@@ -872,6 +1148,74 @@ class Bigtable final {
     }
     // disable synchronous version of this method
     ::grpc::Status localPut_with_fileid(::grpc::ServerContext* context, const ::bigtable::LocalPutWithIDRequest* request, ::bigtable::LocalPutWithIDReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_localCPut : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_localCPut() {
+      ::grpc::Service::MarkMethodGeneric(9);
+    }
+    ~WithGenericMethod_localCPut() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_localDelete : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_localDelete() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_localDelete() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_localRenameFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_localRenameFifo() {
+      ::grpc::Service::MarkMethodGeneric(11);
+    }
+    ~WithGenericMethod_localRenameFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_localMoveFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_localMoveFifo() {
+      ::grpc::Service::MarkMethodGeneric(12);
+    }
+    ~WithGenericMethod_localMoveFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1054,6 +1398,86 @@ class Bigtable final {
     }
     void RequestlocalPut_with_fileid(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_localCPut : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_localCPut() {
+      ::grpc::Service::MarkMethodRaw(9);
+    }
+    ~WithRawMethod_localCPut() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalCPut(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_localDelete : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_localDelete() {
+      ::grpc::Service::MarkMethodRaw(10);
+    }
+    ~WithRawMethod_localDelete() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalDelete(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_localRenameFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_localRenameFifo() {
+      ::grpc::Service::MarkMethodRaw(11);
+    }
+    ~WithRawMethod_localRenameFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalRenameFifo(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_localMoveFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_localMoveFifo() {
+      ::grpc::Service::MarkMethodRaw(12);
+    }
+    ~WithRawMethod_localMoveFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestlocalMoveFifo(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1282,6 +1706,106 @@ class Bigtable final {
     virtual void localPut_with_fileid(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_localCPut : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_localCPut() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(9,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->localCPut(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_localCPut() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localCPut(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_localDelete : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_localDelete() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(10,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->localDelete(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_localDelete() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localDelete(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_localRenameFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_localRenameFifo() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(11,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->localRenameFifo(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_localRenameFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localRenameFifo(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_localMoveFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_localMoveFifo() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(12,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->localMoveFifo(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_localMoveFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void localMoveFifo(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_put : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -1461,9 +1985,89 @@ class Bigtable final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedlocalPut_with_fileid(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bigtable::LocalPutWithIDRequest,::bigtable::LocalPutWithIDReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_put<WithStreamedUnaryMethod_get<WithStreamedUnaryMethod_cput<WithStreamedUnaryMethod_table_delete<WithStreamedUnaryMethod_list_all_emails<WithStreamedUnaryMethod_list_all_files<WithStreamedUnaryMethod_rename_file_folder<WithStreamedUnaryMethod_move_file_folder<WithStreamedUnaryMethod_localPut_with_fileid<Service > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_localCPut : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_localCPut() {
+      ::grpc::Service::MarkMethodStreamed(9,
+        new ::grpc::internal::StreamedUnaryHandler< ::bigtable::LocalCPutRequest, ::bigtable::LocalCPutReply>(std::bind(&WithStreamedUnaryMethod_localCPut<BaseClass>::StreamedlocalCPut, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_localCPut() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status localCPut(::grpc::ServerContext* context, const ::bigtable::LocalCPutRequest* request, ::bigtable::LocalCPutReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedlocalCPut(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bigtable::LocalCPutRequest,::bigtable::LocalCPutReply>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_localDelete : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_localDelete() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::internal::StreamedUnaryHandler< ::bigtable::LocalDelRequest, ::bigtable::LocalDelReply>(std::bind(&WithStreamedUnaryMethod_localDelete<BaseClass>::StreamedlocalDelete, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_localDelete() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status localDelete(::grpc::ServerContext* context, const ::bigtable::LocalDelRequest* request, ::bigtable::LocalDelReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedlocalDelete(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bigtable::LocalDelRequest,::bigtable::LocalDelReply>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_localRenameFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_localRenameFifo() {
+      ::grpc::Service::MarkMethodStreamed(11,
+        new ::grpc::internal::StreamedUnaryHandler< ::bigtable::LocalRenameRequest, ::bigtable::LocalRenameReply>(std::bind(&WithStreamedUnaryMethod_localRenameFifo<BaseClass>::StreamedlocalRenameFifo, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_localRenameFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status localRenameFifo(::grpc::ServerContext* context, const ::bigtable::LocalRenameRequest* request, ::bigtable::LocalRenameReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedlocalRenameFifo(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bigtable::LocalRenameRequest,::bigtable::LocalRenameReply>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_localMoveFifo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_localMoveFifo() {
+      ::grpc::Service::MarkMethodStreamed(12,
+        new ::grpc::internal::StreamedUnaryHandler< ::bigtable::LocalMoveRequest, ::bigtable::LocalMoveReply>(std::bind(&WithStreamedUnaryMethod_localMoveFifo<BaseClass>::StreamedlocalMoveFifo, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_localMoveFifo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status localMoveFifo(::grpc::ServerContext* context, const ::bigtable::LocalMoveRequest* request, ::bigtable::LocalMoveReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedlocalMoveFifo(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bigtable::LocalMoveRequest,::bigtable::LocalMoveReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_put<WithStreamedUnaryMethod_get<WithStreamedUnaryMethod_cput<WithStreamedUnaryMethod_table_delete<WithStreamedUnaryMethod_list_all_emails<WithStreamedUnaryMethod_list_all_files<WithStreamedUnaryMethod_rename_file_folder<WithStreamedUnaryMethod_move_file_folder<WithStreamedUnaryMethod_localPut_with_fileid<WithStreamedUnaryMethod_localCPut<WithStreamedUnaryMethod_localDelete<WithStreamedUnaryMethod_localRenameFifo<WithStreamedUnaryMethod_localMoveFifo<Service > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_put<WithStreamedUnaryMethod_get<WithStreamedUnaryMethod_cput<WithStreamedUnaryMethod_table_delete<WithStreamedUnaryMethod_list_all_emails<WithStreamedUnaryMethod_list_all_files<WithStreamedUnaryMethod_rename_file_folder<WithStreamedUnaryMethod_move_file_folder<WithStreamedUnaryMethod_localPut_with_fileid<Service > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_put<WithStreamedUnaryMethod_get<WithStreamedUnaryMethod_cput<WithStreamedUnaryMethod_table_delete<WithStreamedUnaryMethod_list_all_emails<WithStreamedUnaryMethod_list_all_files<WithStreamedUnaryMethod_rename_file_folder<WithStreamedUnaryMethod_move_file_folder<WithStreamedUnaryMethod_localPut_with_fileid<WithStreamedUnaryMethod_localCPut<WithStreamedUnaryMethod_localDelete<WithStreamedUnaryMethod_localRenameFifo<WithStreamedUnaryMethod_localMoveFifo<Service > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace bigtable
