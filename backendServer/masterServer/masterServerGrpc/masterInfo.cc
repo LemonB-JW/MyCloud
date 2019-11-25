@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <string>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
@@ -15,15 +16,6 @@
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
 #endif
 
-std::string addrTOstr(in_addr_t ip, int port)
-{
-  struct in_addr addr;
-  addr.s_addr = ip;
-  char buf[150];
-  sprintf(buf, "%s:%d", inet_ntoa(addr), port);
-  std::string saddr(buf);
-  return saddr;
-}
 
 int masterInfo::readConfig(const char* filename){
 	// read file and find my ip and port
@@ -32,48 +24,37 @@ int masterInfo::readConfig(const char* filename){
 		panic("Cannot read server list from '%s'\n", filename);
 	int numServers = 0;
 	char linebuf[100];
-	
+	fprintf(stderr, "reading config file\n");
 	//the first line in the config file is master's address
 	if (fgets(linebuf, 100, infile)!= NULL){
-		char *sproxyaddr = strtok(linebuf, ",\r\n");
-	  char *srealaddr = sproxyaddr ? strtok(NULL, ",\r\n") : NULL;
-	  master_saddr = sproxyaddr;
-	  char *sip = strtok(sproxyaddr, ":");
-	  char *sport = strtok(NULL, ":\r\n");	
-	  bzero((void*)&master_addr, sizeof(master_addr));
-	  master_addr.sin_family = AF_INET;
-	  inet_aton(sip, &(master_addr.sin_addr));
-	  port = atoi(sport);
-	  master_addr.sin_port = htons(port);
+		char *sfrontaddr = strtok(linebuf, ",\r\n");
+	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;
+	  mf_addr = sfrontaddr;
+	  if (sbackaddr != NULL) mb_addr = sbackaddr;
 	}
 	
 	while	(fgets(linebuf, 100, infile)!= NULL){
-		char *sproxyaddr = strtok(linebuf, ",\r\n");
-	  char *srealaddr = sproxyaddr ? strtok(NULL, ",\r\n") : NULL;  
-	  char *sip = strtok(sproxyaddr, ":");
-	  char *sport = strtok(NULL, ":\r\n");	  
-  
-	  //store all forwarding address in server list
-	  struct sockaddr_in temp;
-	  bzero((void*)&temp, sizeof(temp));
-	  temp.sin_family = AF_INET;
-	  inet_aton(sip, &temp.sin_addr);
-	  temp.sin_port = htons(atoi(sport));
-	  serverlist.push_back(temp);
+		char *sfrontaddr = strtok(linebuf, ",\r\n");
+	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;  
+	  std::string tempbf(sfrontaddr);
+	  std::string tempbm;
+	  if (sbackaddr != NULL) tempbm = (sbackaddr);
+	  bf_addr_list.push_back(tempbf);
+	  bm_addr_list.push_back(tempbm);
 	}
-	fclose(infile);
-	fprintf(stderr, "finish readConfig file\n");
-	setPrimary();
 	
+	fclose(infile);
+	fprintf(stderr, "Finish readConfig file\n");
+	setPrimary();
 }
 
+
 void masterInfo::setPrimary(){
-	int remainS = serverlist.size();
+	int remainS = bf_addr_list.size();
 	int groupID = 0;
 	int primaryIdx = 0;
 	std::vector<int> replica;
 	//at least 3 servers in a group
-	fprintf(stderr, "inside setPrimary\n");
 	while (remainS >= 6){
 		primaryIdx = groupID*3;
 		replicaInfo[primaryIdx] = replica;
@@ -92,18 +73,19 @@ void masterInfo::setPrimary(){
 			replicaInfo[primaryIdx].push_back(primaryIdx+i);
 			myprimary[primaryIdx+i] = primaryIdx;
 		}
-		groupID++;
 		groupNum = groupID + 1;
 		remainS = 0;		
 	}
-	fprintf(stderr, "leaving setPrimary\n");
+	fprintf(stderr, "Finish setPrimary\n");
 }
+
 
 bool masterInfo::isPrimary(int index){
 	if (replicaInfo.find(index) == replicaInfo.end())
 		return false;
 	return true;
 }
+
 
 int masterInfo::getPrime(int index){
 	if (myprimary.find(index) == myprimary.end())
@@ -117,7 +99,7 @@ std::vector<int> masterInfo::getSub(int primeIdx){
 	if (replicaInfo.find(primeIdx) == replicaInfo.end())
 		return sublist;
 	for (int i = 0; i < replicaInfo[primeIdx].size(); i++){
-		if (replicaInfo[primeIdx][i] != primeIdx){
+		if (replicaInfo[primeIdx][i] != primeIdx && isAlive(replicaInfo[primeIdx][i])){
 			sublist.push_back(replicaInfo[primeIdx][i]);
 		}
 	}
@@ -126,36 +108,35 @@ std::vector<int> masterInfo::getSub(int primeIdx){
 
 bool masterInfo::isAlive(int serverIdx){
 	if (deadlist.find(serverIdx) == deadlist.end())
-		return false;
-	return true;
+		return true;
+	return false;
 }
 
 int masterInfo::promoteNewPrimary(int oldPrimaryIdx){
 	std::vector<int> replicas = replicaInfo[oldPrimaryIdx];
+	int newPrimary = -1;
 	for(int i = 0; i < replicas.size(); i++){
 		if (replicas[i] != oldPrimaryIdx && isAlive(replicas[i])){
 			/*need to add mutax here when make changes to replicaInfo list*/
-			replicaInfo[replicas[i]] = replicas;
+			newPrimary = replicas[i];
+			replicaInfo[newPrimary ] = replicas;
 			replicaInfo.erase(oldPrimaryIdx);
 		}
 	}
+	return newPrimary;
 }
 
-std::string masterInfo::getServers(int groupId){
+std::vector<std::string> masterInfo::getServers(int groupId){
 	std::vector<int> replicas;
 	std::map<int, std::vector<int>>::iterator itr = replicaInfo.begin();
 	for (int i = 0; i<groupId; i++){
 		itr++;
 	}
-	//itr = itr+ groupId;
 	replicas = itr->second;
-	std::string servers;
+	std::vector<std::string> servers;
 	for (int i = 0; i < replicas.size(); i++){
-		if (i != 0)
-			servers.append(",");
-		servers.append(addrTOstr(serverlist[replicas[i]].sin_addr.s_addr, ntohs(serverlist[replicas[i]].sin_port)));
+		servers.push_back(bf_addr_list[replicas[i]]);
 	}
-	servers.append("\r\n");
 	return servers;
 }
 

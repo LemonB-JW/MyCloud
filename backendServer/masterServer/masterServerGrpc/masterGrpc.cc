@@ -38,9 +38,9 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
-using masterFrontend::getKVipport;
-using masterFrontend::frontendRequest;
-using masterFrontend::masterReply;
+using masterFrontend::MasterFrontend;
+using masterFrontend::getServerListRequest;
+using masterFrontend::getServerListReply;
 
 
 bool shutDown = false; //true if ctrl-c received
@@ -48,22 +48,24 @@ bool debugMode = false; //print debug msg if true
 int socketfd;
 masterInfo myInfo;
 std::vector<int> threadID;
-//getKVipport getKV;
 
 
-std::string getServerList(std::string userName);
+std::vector<std::string> getServers(std::string userName);
 
-class MFcommu final : public getKVipport::Service{
-	Status receive_request(
+class MFcommu final : public MasterFrontend::Service{
+	Status getServerList(
 		ServerContext* context,
-		const frontendRequest* request,
-		masterReply* reply
+		const getServerListRequest* request,
+		getServerListReply* reply
 	)override{
-		//std::string username = receive_request(request->user_name());
-		std::string serverlist = getServerList(request->user_name());
-		fprintf(stderr, "get server list '%s'\n", serverlist.c_str());
-		reply->set_server_ipport(serverlist);
-		fprintf(stderr, "server replied\n");
+		//std::string username = getServerList(request->user_name());
+		std::vector<std::string> serverlist = getServers(request->user_name());
+		fprintf(stderr, "get server list:\n");
+		for (int i = 0; i < serverlist.size(); i++){
+			reply->add_server_ipport(serverlist[i]);
+			fprintf(stderr, "%s ", serverlist[i].c_str());
+		}
+		fprintf(stderr, "\nserver replied\n");
 		return Status::OK;
 	}
 };
@@ -99,32 +101,6 @@ int main(int argc, char** argv){
 	}
 	/* Read the server list */
 	myInfo.readConfig(argv[optind]);
-	
-	//open server sockets
- 	/*socketfd = socket(PF_INET, SOCK_STREAM, 0);
-  if (socketfd <= 0)
-  	panic("Cannot open bind socket (%s)\n", strerror(errno));
-  
-  //------------------set socket option-------------------
-  int optval = 1;
-	if (setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(optval))) 
-		panic("Set socket option to SO_REUSEADDR and SO_REUSEPORT failed (%s)\n", strerror(errno)); 
-	
-	//===============bind() associates a socket with a specific port=========
-  if (bind(socketfd, (struct sockaddr*)&myInfo.master_addr, sizeof(myInfo.master_addr)) < 0){ 
-  	panic("Cannot bind to %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr), myInfo.port, strerror(errno));
-  }
-  
-  //==============listen() puts a socket into the listening state==========
-  if (listen(socketfd, MAX_CONNECTIONS) < 0)  
-  	panic("Cannot enter listening state %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr), myInfo.port, strerror(errno));*/
-  /*
-  	create a thread for grpc frontend communication
-  */	
-  
-  
-  /*main loop*/
-  
   
 
 	Run();
@@ -150,7 +126,7 @@ void Run(){
 	server->Wait();
 }
 
-std::string getServerList(std::string userName){
+std::vector<std::string> getServers(std::string userName){
 	std::hash<std::string> str_hash;
 	fprintf(stderr, "In get server list\n");
 	int group = (str_hash(userName))%(myInfo.groupNum);
