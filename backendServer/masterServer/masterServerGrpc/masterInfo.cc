@@ -73,7 +73,6 @@ void masterInfo::setPrimary(){
 			replicaInfo[primaryIdx].push_back(primaryIdx+i);
 			myprimary[primaryIdx+i] = primaryIdx;
 		}
-		groupID++;
 		groupNum = groupID + 1;
 		remainS = 0;		
 	}
