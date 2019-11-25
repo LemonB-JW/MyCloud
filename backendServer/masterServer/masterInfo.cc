@@ -10,7 +10,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include "../../../lib/masterInfo.h"
+#include "../../lib/masterInfo.h"
 
 #ifndef panic
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
