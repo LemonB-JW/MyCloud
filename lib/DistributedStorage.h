@@ -29,7 +29,7 @@ class DistributedStorage
 {
 	
 public:
-	int server_index = 0, num_of_servers = 0;
+	int server_index = 0, num_of_servers = 0, primary_index = 0;
 	bool is_primary = false; 
 	vector<addr_info> all_server_front_addr;
 	vector<addr_info> all_server_back_addr;
@@ -37,6 +37,7 @@ public:
 	addr_info* primary_addr;
 	vector<addr_info> all_sub_addr;
 	BigTable table;
+	unordered_map<string, pthread_mutex_t*> all_user_locks; // key: user, val: lock
 	// DistributedStorage();
 	~DistributedStorage();
 
@@ -46,6 +47,8 @@ public:
 	void updatePrimary(int primary_index);
 	string localPut(string created_time, int size, string path_name, string file_type, string file_from, string row, string data);
 	string localPut_with_fileid(string created_time, int size, string path_name, string file_type, string file_from, string row, string col, string data);
-
-	
+	bool localCPut(string new_created_time, int new_size, string path_name, string file_type, string row, string col, string old_data, string new_data);
+	bool localDelete(string row, string col, string file_type, string path_name);
+	bool localRenameFifo(string row, string file_type, string path_name, string new_file_name);
+	bool localMoveFifo(string row, string file_type, string path_name, string new_path);
 };

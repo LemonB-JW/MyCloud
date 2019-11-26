@@ -16,12 +16,12 @@ class masterInfo{
 		
 		std::map<int, std::vector<int>> replicaInfo;//find replica based on primary index, also served as a primary set( keys are primaries), also can found primary based on group number( iterator + groupID -> first)
 		std::unordered_map<int, int> myprimary; //find primary based on server index
-		std::vector<std::string> bf_addr_list;//backend frontend grpc address
-		std::vector<std::string> bm_addr_list;//backend master grpc address
 		std::unordered_set<int> deadlist;
 		void setPrimary();//decide group and primary, called in readConfig
 		
 	public:
+		std::vector<std::string> bf_addr_list;//backend frontend grpc address
+		std::vector<std::string> bm_addr_list;//backend master grpc address
 		std::string mf_addr;//master frontend grpc addr
 		std::string mb_addr;//master backend grpc addr
 		int groupNum;

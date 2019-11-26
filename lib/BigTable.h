@@ -10,6 +10,7 @@
 #include <string.h>
 #include <unordered_map> 
 #include <stdbool.h> 
+#include <pthread.h>
 #include "../lib/TableCell.h"
 #include "../lib/MetaTree.h"
 
@@ -23,22 +24,37 @@ public:
 	unordered_map<string, unordered_map<string, TableCell*>> table;
 	unordered_map<string, vector<FileMetaData*>*> all_user_emails;
 	unordered_map<string, MetaTree*> all_user_files;
-	// BigTable();
+	unordered_map<string, pthread_mutex_t*> all_user_locks; // key: user, val: lock
+	pthread_mutex_t table_lock;
+	BigTable(){
+		if (pthread_mutex_init(&table_lock, NULL) != 0) { 
+	        printf("\n mutex init has failed\n"); 
+    	} 
+	}
 	~BigTable(){
 		for(auto it = table.begin(); it != table.end();++it){
-			table.erase(it->first);
+			for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2){
+				delete it2->second;
+			}
 		}
 
 		for(auto it = all_user_emails.begin(); it != all_user_emails.end();++it){
-			// delete it->second;
-			all_user_emails.erase(it->first);
+			delete it->second;
+			
 		}
 
 		for(auto it = all_user_files.begin(); it != all_user_files.end();++it){
-			
-			// delete it->second;
-			all_user_files.erase(it->first);
+			delete it->second;
 		}
+		
+
+		for(auto it = all_user_locks.begin(); it != all_user_locks.end(); ++it){
+			pthread_mutex_destroy(it->second);
+			// delete it->second;
+		}
+
+		pthread_mutex_destroy(&table_lock); 
+  
 
 	};
 
@@ -91,7 +107,8 @@ public:
 	*/
 	bool move_file_folder(string row, string file_type, string path_name, string new_path);
 
-
+	void lock_row(string row);
+	void unlock_row(string row);
 
 };
 

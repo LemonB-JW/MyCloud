@@ -126,15 +126,15 @@ void DistributedStorage::readConfigFile(const char* config_file, const char* ser
 	  cout<<"Prime index is "<<primeIndex<<" server_index is "<<server_index<<" master full ip is "<<master_full_ip<<endl; 
 	  updatePrimary(primeIndex);
 	  if(is_primary){
-	    std::vector<int> sublist_1 = client.list_sub(primeIndex - 1);
-	    cout<<"sublist size "<<sublist_1.size()<<endl;
-	    for(int i = 0; i < sublist_1.size(); i++){
-	    	cout<<"sublist value  is "<<sublist_1.at(i)<<endl;
-	    }
-	    // std::vector<int> sublist;
-	    // sublist.push_back(2);
-	    // sublist.push_back(3);
-	    parseAllSubIndices(sublist_1);
+	    // std::vector<int> sublist_1 = client.list_sub(primeIndex - 1);
+	    // cout<<"sublist size "<<sublist_1.size()<<endl;
+	    // for(int i = 0; i < sublist_1.size(); i++){
+	    // 	cout<<"sublist value  is "<<sublist_1.at(i)<<endl;
+	    // }
+	    std::vector<int> sublist;
+	    sublist.push_back(2);
+	    sublist.push_back(3);
+	    parseAllSubIndices(sublist);
 	  }
 }
 
@@ -170,57 +170,57 @@ std::string DistributedStorage::localPut(std::string created_time, int size, std
 }
 
 std::string DistributedStorage::localPut_with_fileid(std::string created_time, int size, std::string path_name, std::string file_type, std::string file_from, std::string row, std::string col, std::string data){
-	// table.lock_row(row);
+	table.lock_row(row);
 	std::string file_id = table.put_with_fileid(created_time, size, path_name, file_type, file_from, row, col, data);
 	cout<<"self id is "<<server_index<<" is_primary"<<is_primary<<" called by primary "<<primary_index<<endl;
-	// table.unlock_row(row);
+	table.unlock_row(row);
 	return file_id;
 }
 
 bool DistributedStorage::localCPut(std::string new_created_time, int new_size, std::string path_name, std::string file_type, std::string row, std::string col, std::string old_data, std::string new_data){
-	// if(!is_primary){
-	// 	table.lock_row(row);
-	// }
+	if(!is_primary){
+		table.lock_row(row);
+	}
 	bool res = table.cput(new_created_time, new_size, path_name, file_type, row, col, old_data, new_data);
 	cout<<"self id is "<<server_index<<" calling localCPut"<<endl;
-	// if(!is_primary){
-	// 	table.unlock_row(row);
-	// }
+	if(!is_primary){
+		table.unlock_row(row);
+	}
 	return res;
 }
 
 bool DistributedStorage::localDelete(string row, string col, string file_type, string path_name){
-	// if(!is_primary){
-	// 	table.lock_row(row);
-	// }
+	if(!is_primary){
+		table.lock_row(row);
+	}
 	bool res = table.table_delete(row, col, file_type, path_name);
 	cout<<"self id is "<<server_index<<" calling localDelete"<<endl;
-	// if(!is_primary){
-	// 	table.unlock_row(row);
-	// }
+	if(!is_primary){
+		table.unlock_row(row);
+	}
 	return res;
 }
 
 bool DistributedStorage::localRenameFifo(string row, string file_type, string path_name, string new_file_name){
-	// if(!is_primary){
-	// 	table.lock_row(row);
-	// }
+	if(!is_primary){
+		table.lock_row(row);
+	}
 	bool res = table.rename_file_folder(row, file_type, path_name, new_file_name);
 	cout<<"self id is "<<server_index<<" calling localRenameFifo"<<endl;
-	// if(!is_primary){
-	// 	table.unlock_row(row);
-	// }
+	if(!is_primary){
+		table.unlock_row(row);
+	}
 	return res;
 }
 
 bool DistributedStorage::localMoveFifo(string row, string file_type, string path_name, string new_path){
-	// if(!is_primary){
-	// 	table.lock_row(row);
-	// }
+	if(!is_primary){
+		table.lock_row(row);
+	}
 	bool res = table.move_file_folder(row, file_type, path_name, new_path);
 	cout<<"self id is "<<server_index<<" calling localMoveFifo"<<endl;
-	// if(!is_primary){
-	// 	table.unlock_row(row);
-	// }
+	if(!is_primary){
+		table.unlock_row(row);
+	}
 	return res;
 }
