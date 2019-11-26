@@ -126,14 +126,14 @@ void DistributedStorage::readConfigFile(const char* config_file, const char* ser
 	  cout<<"Prime index is "<<primeIndex<<" server_index is "<<server_index<<" master full ip is "<<master_full_ip<<endl; 
 	  updatePrimary(primeIndex);
 	  if(is_primary){
-	    // std::vector<int> sublist_1 = client.list_sub(primeIndex - 1);
-	    // cout<<"sublist size "<<sublist_1.size()<<endl;
-	    // for(int i = 0; i < sublist_1.size(); i++){
-	    // 	cout<<"sublist value  is "<<sublist_1.at(i)<<endl;
-	    // }
-	    std::vector<int> sublist;
-	    sublist.push_back(2);
-	    sublist.push_back(3);
+	    std::vector<int> sublist= client.list_sub(primeIndex - 1);
+	    cout<<"sublist size "<<sublist.size()<<endl;
+	    for(int i = 0; i < sublist.size(); i++){
+	    	cout<<"sublist value  is "<<sublist.at(i)<<endl;
+	    }
+	    // std::vector<int> sublist;
+	    // sublist.push_back(2);
+	    // sublist.push_back(3);
 	    parseAllSubIndices(sublist);
 	  }
 }
@@ -141,8 +141,8 @@ void DistributedStorage::readConfigFile(const char* config_file, const char* ser
 void DistributedStorage::parseAllSubIndices(std::vector<int> all_sub_indices){
 	cout<<"all sub indices size is "<< all_sub_indices.size()<<endl;
 	for(int i = 0; i < all_sub_indices.size(); i++){
-		cout<<"my sub is "<<all_server_back_addr.at(all_sub_indices.at(i)).port<<endl;
-		all_sub_addr.push_back(all_server_back_addr.at(all_sub_indices.at(i)));
+		cout<<"my sub is "<<all_server_back_addr.at(all_sub_indices.at(i) + 1).port<<endl;
+		all_sub_addr.push_back(all_server_back_addr.at(all_sub_indices.at(i) + 1));
 	}
 }
 
