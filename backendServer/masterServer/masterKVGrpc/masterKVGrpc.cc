@@ -115,11 +115,11 @@ int main(int argc, char** argv){
 
 void Run(){
 	//std::string address("0.0.0.0:5000");
-	std::string address("127.0.0.1:10001");
+	std::string address(myInfo.mb_addr);
 	fprintf(stderr, "into run\n");
 	MFcommu service;
 	
-	//bind server to port and service
+	//bind server to port and servicecd 
 	ServerBuilder builder;
 	
 	builder.AddListeningPort(address, grpc::InsecureServerCredentials());
