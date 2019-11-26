@@ -229,8 +229,10 @@ bool BigTable::rename_file_folder(string row, string file_type, string path_name
 
 bool BigTable::move_file_folder(string row, string file_type, string path_name, string new_path){
 	MetaTreeNode* node = all_user_files[row]->deleteNode(path_name, false);
+	cout<<"finished deleting in move_file_folder.."<<endl;
 	if(node == NULL) return false;
 	all_user_files[row]->insertNode(new_path, node);
+	cout<<"finished inserting in move_file_folder.."<<endl;
 	return true;
 }
 
