@@ -10,9 +10,9 @@
 #include "../lib/FileMetaData.h"
 
 #ifdef BAZEL_BUILD
-#include "bigtable.grpc.pb.h"
+#include "../keyvaluestore/bigtable.grpc.pb.h"
 #else
-#include "bigtable.grpc.pb.h"
+#include "../keyvaluestore/bigtable.grpc.pb.h"
 #endif
 
 

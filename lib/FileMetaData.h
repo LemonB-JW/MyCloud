@@ -1,3 +1,6 @@
+#ifndef FILEMETADATA_H
+#define FILEMETADATA_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -43,4 +46,6 @@ public:
  	// string contentToString(const FileData* file_data); 	
 
 };
+
+#endif
 

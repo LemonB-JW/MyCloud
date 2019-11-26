@@ -9,15 +9,17 @@ package mail;
 
 service Mail {
 
-  rpc GetMailList (MailRequest) returns (MailReply) {}
+  rpc GetMailList (GetMailListRequest) returns (GetMailListReply) {}
+  rpc GetMail (GetMailRequest) returns (GetMailReply) {}
+  rpc PutMail (PutMailRequest) returns (PutMailReply) {}
   
 }
 
-message MailRequest {
+message GetMailListRequest {
   string user = 1;
 }
 
-message MailReply {
+message GetMailListReply {
 	repeated Email item = 1;
 }
 
@@ -25,4 +27,26 @@ message Email {
   string from = 1;
   string subject = 2;
   string date = 3;
+}
+
+message GetMailRequest {
+  string user = 1;
+  string email_id = 2;
+}
+
+message GetMailReply {
+	string content = 1;
+}
+
+message PutMailRequest {
+  string receiver = 1;
+  string created_time = 2;
+  string subject = 3;
+  string sender = 4; 
+  string content = 5;
+  int32 size = 6;
+}
+
+message PutMailReply {
+  string email_id = 1;
 }
