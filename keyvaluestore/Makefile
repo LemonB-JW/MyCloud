@@ -21,10 +21,13 @@ PROTOS_PATH = protos
 
 vpath %.proto $(PROTOS_PATH)
 
-TARGETS = bigtable_server bigtable_client master_server
+TARGETS = bigtable_server bigtable_client master_server bigtable_client_2
 all: $(TARGETS)
 
 bigtable_client: bigtable.pb.o bigtable.grpc.pb.o bigtable_client.o
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+bigtable_client_2: bigtable.pb.o bigtable.grpc.pb.o bigtable_client_2.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 bigtable_server: bigtable.pb.o bigtable.grpc.pb.o bigtable_server.o TableCell.cc BigTable.cc FileMetaData.cc Utility.cc MetaTree.cc DistributedStorage.cc masterBackend.pb.o masterBackend.grpc.pb.o 

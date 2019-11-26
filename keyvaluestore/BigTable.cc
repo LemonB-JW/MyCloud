@@ -11,30 +11,43 @@
 
 using namespace std;
 
-// void BigTable::lock_cell(string row, string col){
-// 	pthread_mutex_lock(table[row][col]->cellMutex);
-// }
+void BigTable::lock_row(string row){
+	pthread_mutex_lock(&table_lock);
+	cout<<"enter bigtable lock_row.."<<endl;
+	if(table.count(row) == 0){
+		unordered_map<string, TableCell*> values;
+		table[row] = values;
+		all_user_locks[row] = new pthread_mutex_t();
+		pthread_mutex_init(all_user_locks[row], NULL);
+	}
+	pthread_mutex_unlock(&table_lock);
+	pthread_mutex_lock(all_user_locks[row]);
+}
 
-// void BigTable::unlock_cell(string row, string col){
-// 	pthread_mutex_unlock(table[row][col]->cellMutex);
-// }
+void BigTable::unlock_row(string row){
+	cout<<"enter bigtable unlock_row.."<<endl;
+	pthread_mutex_unlock(all_user_locks[row]);
+}
 
 // PUT(r,c,v): Stores a value v in column c of row r, if it's a folder, data should be "NULL"
 string BigTable::put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data){ // col is the file_id generated in server side
 	// write to big table
 	string res = "";
-	vector<MetaTreeNode*> search_results = all_user_files[row]->searchNode(path_name);
-	if(search_results.size() > 0){
-		return res;
+	if(all_user_files.count(row) != 0){
+		vector<MetaTreeNode*> search_results = all_user_files[row]->searchNode(path_name);
+		if(search_results.size() > 0){
+			return res;
+		}
 	}
+	cout<<"finish searching the node"<<endl;
 	string col = Utility::generateFileID(path_name);
 	// cout<<"row is "<<row<<" generated file id is "<<col<<endl;
 	string file_name = Utility::parseFileName(path_name);
-	if (table.count(row) == 0 || table.count(col) == 0) {
+	cout<<"in big table put, parsed file name is "<<file_name<<endl;
+	if (table.count(row) == 0 || table[row].count(col) == 0 ) {
 		res = col;
 		string* data_pointer = new string(data);
 		TableCell* new_cell = new TableCell(data_pointer);
-		table[row][col] = new TableCell();
 		table[row][col] = new_cell;
 		cout<<"put content is "<<(*(table[row][col]->contents))<<endl;
 		if(file_type == "email"){

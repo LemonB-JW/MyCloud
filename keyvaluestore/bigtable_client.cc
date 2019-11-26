@@ -511,18 +511,28 @@ class TableClient {
 
 int main(int argc, char** argv) {
   TableClient table(grpc::CreateChannel(
-      "localhost:5002", grpc::InsecureChannelCredentials()));
+      "localhost:5003", grpc::InsecureChannelCredentials()));
+
 
   string fileID1 = table.put("2019/11/20", 0, "root", "folder", "alice", "janice", "NULL");
+  cout<<"file_id 1"<<endl;
   string val = table.get("janice", fileID1);
+  cout<<"get val"<<endl;
   string fileID3 = table.put("2019/11/20", 0, "root/lib", "folder", "alice", "janice", "NULL");
+  cout<<"file_id 3"<<endl;
+  sleep(1);
   string fileID2 = table.put("2019/11/20", 20, "root/lib/boo.txt", "file", "alice", "janice", "Welcome\n");
+  cout<<"file_id 2"<<endl;
+  sleep(1);
   string fileID4 = table.put("2019/11/20", 10, "root/lib/foo.txt", "file", "alice", "janice", "Hellooo\n");
-
+  cout<<"file_id 4"<<endl;
 
   table.rename_file_folder("janice", "folder", "root/lib", "usr");
+  cout<<"rename_file_folder"<<endl;
   table.move_file_folder("janice","file", "root/usr/foo.txt", "root/foo.txt");
+  cout<<"move_file_folder"<<endl;
   std::vector<FileMetaData> all_files = table.list_all_files("janice","root/usr");
+  cout<<"list_all_files"<<endl;
   if(all_files.empty()) cout<<"not exist folder / file.."<<endl;
   else{
     for(int i = 0; i < all_files.size(); i++){

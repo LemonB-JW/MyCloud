@@ -488,6 +488,8 @@ class TableClient {
     }
   }
 
+
+
  private:
   std::unique_ptr<Bigtable::Stub> stub_;
 };
@@ -516,17 +518,21 @@ class TableServiceImpl final : public Bigtable::Service {
           inner_rpc_reply = primary_node.put(request->created_time(), request->size(), request->path_name(), request->file_type(), request->file_from(), request->row(), request->data());
         }
     }else{
-        // std::cout<<"primary!"<<std::endl;
+       //apply row lock
+        storage->table.lock_row(request->row()); 
         file_id = storage->localPut(request->created_time(), request->size(), request->path_name(), request->file_type(), request->file_from(), request->row(), request->data());
         for(int i = 0; i < storage->all_sub_addr.size(); i++){
           std::string curr_sub_addr = storage->all_sub_addr.at(i).ip + ":" + std::to_string(storage->all_sub_addr.at(i).port);
           TableClient worker_node(grpc::CreateChannel(curr_sub_addr, grpc::InsecureChannelCredentials()));
-           // std::cout<<"calling other worker from primary!"<<std::endl;
+
+           std::cout<<"calling other worker from primary! "<<curr_sub_addr<<std::endl;
           std::string inner_rpc_reply = worker_node.localPut_with_fileid(request->created_time(), request->size(), request->path_name(), request->file_type(), request->file_from(), request->row(), file_id, request->data());
           while(inner_rpc_reply == "RPC failed" || inner_rpc_reply != file_id){
             inner_rpc_reply = worker_node.localPut_with_fileid(request->created_time(), request->size(), request->path_name(), request->file_type(), request->file_from(), request->row(), file_id, request->data());
-          }
-      }
+          } 
+        }
+         // unlock
+        storage->table.unlock_row(request->row());
     }
    
     reply->set_file_id(file_id);
@@ -535,9 +541,12 @@ class TableServiceImpl final : public Bigtable::Service {
 
   Status get(ServerContext* context, const GetRequest* request,
                   GetReply* reply) override {
-    // std::string prefix("Hello ");
+    //apply row lock
+    // storage->table.lock_row(request->row()); 
     std::string res = storage->table.get(request->row(), request->col());
     reply->set_file_content(res);
+    // unlock
+    // storage->table.unlock_row(request->row());
     return Status::OK;
   }
 
@@ -556,6 +565,7 @@ class TableServiceImpl final : public Bigtable::Service {
         }
     }else{
         bool worker_res;
+        storage->table.lock_row(request->row());
         // std::cout<<"primary!"<<std::endl;
         res = storage->localCPut(request->new_created_time(), request->new_size(), request->path_name(), request->file_type(), request->row(), request->col(), request->old_data(), request->new_data());
         for(int i = 0; i < storage->all_sub_addr.size(); i++){
@@ -568,7 +578,8 @@ class TableServiceImpl final : public Bigtable::Service {
           while(inner_rpc_reply == "RPC failed" || worker_res != res){
             inner_rpc_reply = worker_node.localCPut(request->new_created_time(), request->new_size(), request->path_name(), request->file_type(), request->row(), request->col(), request->old_data(), request->new_data());
           }
-      }
+        }
+        storage->table.unlock_row(request->row());
     }
     // std::string prefix("Hello ");
     
@@ -592,6 +603,7 @@ class TableServiceImpl final : public Bigtable::Service {
         }
     }else{
         bool worker_res;
+        storage->table.lock_row(request->row());
         // std::cout<<"primary!"<<std::endl;
         res = storage->localDelete(request->row(), request->col(), request->file_type(), request->path_name());
         for(int i = 0; i < storage->all_sub_addr.size(); i++){
@@ -604,7 +616,8 @@ class TableServiceImpl final : public Bigtable::Service {
           while(inner_rpc_reply == "RPC failed" || worker_res != res){
             inner_rpc_reply = worker_node.localDelete(request->row(), request->col(), request->file_type(), request->path_name());
           }
-      }
+        }
+        storage->table.unlock_row(request->row());
     }
 
     reply->set_is_successful(res);
@@ -663,6 +676,7 @@ class TableServiceImpl final : public Bigtable::Service {
         }
     }else{
         bool worker_res;
+        storage->table.lock_row(request->row());
         std::cout<<"primary in rename_file_folder "<<std::endl;
         res = storage->localRenameFifo(request->row(), request->file_type(), request->path_name(), request->new_file_name());
         for(int i = 0; i < storage->all_sub_addr.size(); i++){
@@ -676,6 +690,7 @@ class TableServiceImpl final : public Bigtable::Service {
             inner_rpc_reply = worker_node.localRenameFifo(request->row(), request->file_type(), request->path_name(), request->new_file_name());
           }
       }
+      storage->table.unlock_row(request->row());
     }
 
     reply->set_is_successful(res);
@@ -699,6 +714,7 @@ class TableServiceImpl final : public Bigtable::Service {
         }
     }else{
         bool worker_res;
+        storage->table.lock_row(request->row());
         // std::cout<<"primary!"<<std::endl;
         res = storage->localMoveFifo(request->row(), request->file_type(), request->path_name(), request->new_path());
         for(int i = 0; i < storage->all_sub_addr.size(); i++){
@@ -711,7 +727,8 @@ class TableServiceImpl final : public Bigtable::Service {
           while(inner_rpc_reply == "RPC failed" || worker_res != res){
             inner_rpc_reply = worker_node.localMoveFifo(request->row(), request->file_type(), request->path_name(), request->new_path());
           }
-      }
+        }
+        storage->table.unlock_row(request->row());
     }
 
     reply->set_is_successful(res);
