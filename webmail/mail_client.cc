@@ -32,13 +32,17 @@
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-using mail::MailRequest;
-using mail::MailReply;
+using mail::GetMailListRequest;
+using mail::GetMailListReply;
+using mail::GetMailRequest;
+using mail::GetMailReply;
+using mail::PutMailRequest;
+using mail::PutMailReply;
 using mail::Mail;
 using mail::Email;
 
 
-std::vector<MailItem> ListMailFromReply(const mail::MailReply& mail_reply) {
+std::vector<MailItem> ListMailFromReply(const mail::GetMailListReply& mail_reply) {
   std::vector<MailItem> emails;
 
   for (int i = 0; i < mail_reply.item_size(); i++) {
@@ -58,6 +62,7 @@ std::vector<MailItem> ListMailFromReply(const mail::MailReply& mail_reply) {
 
 
 class MailClient {
+
  public:
   MailClient(std::shared_ptr<Channel> channel)
       : stub_(Mail::NewStub(channel)) {}
@@ -66,11 +71,11 @@ class MailClient {
   // from the server.
   std::vector<MailItem> requestMailList(const std::string& user) {
     // Data we are sending to the server.
-    MailRequest request;
+    GetMailListRequest request;
     request.set_user(user);
 
     // Container for the data we expect from the server.
-    MailReply reply;
+    GetMailListReply reply;
 
     // Context for the client. It could be used to convey extra information to
     // the server and/or tweak certain RPC behaviors.
@@ -89,6 +94,68 @@ class MailClient {
       std::vector<MailItem> emails;
       return emails;
     }
+  }
+
+  std::string requestMail(const std::string& user, const std::string& email_id) {
+
+    // Data we are sending to the server.
+    GetMailRequest request;
+    request.set_user(user);
+    request.set_email_id(email_id);
+
+    // Container for the data we expect from the server.
+    GetMailReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->GetMail(&context, request, &reply);
+
+    // Act upon its status.
+    if (status.ok()) {
+      return reply.content();
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+
+      return "Could not find the email!";
+    }
+
+  }
+
+  std::string sendMail(const std::string& receiver, const std::string& created_time, const std::string& subject, 
+    const int& size, const std::string& sender, const std::string& content) {
+
+    // Data we are sending to the server.
+    PutMailRequest request;
+    request.set_receiver(receiver);
+    request.set_created_time(created_time);
+    request.set_subject(subject);
+    request.set_sender(sender);
+    request.set_content(content);
+    request.set_size(size);
+
+
+    // Container for the data we expect from the server.
+    PutMailReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->PutMail(&context, request, &reply);
+
+    // Act upon its status.
+    if (status.ok()) {
+      return reply.email_id();
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+
+      return "Unable to deliver the email!";
+    }
+
   }
 
  private:

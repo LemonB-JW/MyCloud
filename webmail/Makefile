@@ -41,8 +41,14 @@ all: mail_client mail_server
 mail_client: mail.pb.o mail.grpc.pb.o mail_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-mail_server: mail.pb.o mail.grpc.pb.o mail_server.o bigtable.pb.o bigtable.grpc.pb.o TableClient.cc
+mail_server: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc smtp_server.cc
+	$(CXX) $^ $(LDFLAGS) -lpthread -g -o $@
+
+grpc_test: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc MailServiceGRPCTest.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc
 	$(CXX) $^ $(LDFLAGS) -o $@
+
+# smtp_server: smtp_server.cc
+# 	g++ $< -lpthread -g -o $@
 
 # tableclient: bigtable.pb.o bigtable.grpc.pb.o TableClient.cc
 # 	$(CXX) $^ $(LDFLAGS) -o $@
@@ -57,7 +63,7 @@ mail_server: mail.pb.o mail.grpc.pb.o mail_server.o bigtable.pb.o bigtable.grpc.
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h mail_client mail_server 
+	rm -f *.o *.pb.cc *.pb.h mail_client mail_server smtp_server
 
 
 # The following is to test your system and ensure a smoother experience.
