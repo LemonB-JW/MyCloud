@@ -11,13 +11,13 @@
 
 using namespace std;
 
-void BigTable::lock_cell(string row, string col){
-	pthread_mutex_lock(table[row][col]->cellMutex);
-}
+// void BigTable::lock_cell(string row, string col){
+// 	pthread_mutex_lock(table[row][col]->cellMutex);
+// }
 
-void BigTable::unlock_cell(string row, string col){
-	pthread_mutex_unlock(table[row][col]->cellMutex);
-}
+// void BigTable::unlock_cell(string row, string col){
+// 	pthread_mutex_unlock(table[row][col]->cellMutex);
+// }
 
 // PUT(r,c,v): Stores a value v in column c of row r, if it's a folder, data should be "NULL"
 string BigTable::put(string created_time, int size, string path_name, string file_type, string file_from, string row, string data){ // col is the file_id generated in server side
