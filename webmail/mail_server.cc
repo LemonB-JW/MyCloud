@@ -19,6 +19,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include "TableClient.h"
+#include "../lib/FileMetaData.h"
 
 
 #include <grpcpp/grpcpp.h>
@@ -38,22 +40,27 @@ using mail::MailReply;
 using mail::Mail;
 using mail::Email;
 
-void ConstructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date, std::string content) {
+void ConstructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date) {
   emailReply->set_from(from);
   emailReply->set_subject(subject);
   emailReply->set_date(date);
-  emailReply->set_content(content);
 }
 
 
 // Logic and data behind the server's behavior.
 class MailServiceImpl final : public Mail::Service {
-  Status GetMail(ServerContext* context, const MailRequest* request,
+  Status GetMailList(ServerContext* context, const MailRequest* request,
     MailReply* reply) override {
 
-    ConstructMailReply(reply->add_item(), "Jill", "First", "11/22/2019", "Hello");
-    ConstructMailReply(reply->add_item(), "Janice", "Second", "11/22/2019", "Hello");
-    ConstructMailReply(reply->add_item(), "Xuan", "Third", "11/22/2019", "Hello");
+
+    TableClient tableClient(grpc::CreateChannel(
+      "localhost:50051", grpc::InsecureChannelCredentials()));
+
+    std::vector<FileMetaData> emailList = tableClient.listEmails(request->user());
+
+    for (int i = 0; i < emailList.size(); i++) {
+      ConstructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time);
+    }
 
     return Status::OK;
   }

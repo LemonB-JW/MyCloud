@@ -44,12 +44,11 @@ std::vector<MailItem> ListMailFromReply(const mail::MailReply& mail_reply) {
   for (int i = 0; i < mail_reply.item_size(); i++) {
     const mail::Email& email = mail_reply.item(i);
 
-    std::cout << "From: " << email.from() << std::endl;
-    std::cout << "Subject: " << email.subject() << std::endl;
-    std::cout << "Date: " << email.date() << std::endl;
-    std::cout << "Content: " << email.content() << std::endl;
+    // std::cout << "From: " << email.from() << std::endl;
+    // std::cout << "Subject: " << email.subject() << std::endl;
+    // std::cout << "Date: " << email.date() << std::endl;
 
-    MailItem item(email.from(), email.subject(), email.date(), email.content());
+    MailItem item(email.from(), email.subject(), email.date());
     emails.push_back(item);
    
   }
@@ -65,7 +64,7 @@ class MailClient {
 
   // Assembles the client's payload, sends it and presents the response back
   // from the server.
-  std::vector<MailItem> GetMail(const std::string& user) {
+  std::vector<MailItem> requestMailList(const std::string& user) {
     // Data we are sending to the server.
     MailRequest request;
     request.set_user(user);
@@ -78,7 +77,7 @@ class MailClient {
     ClientContext context;
 
     // The actual RPC.
-    Status status = stub_->GetMail(&context, request, &reply);
+    Status status = stub_->GetMailList(&context, request, &reply);
 
     // Act upon its status.
     if (status.ok()) {
@@ -104,7 +103,7 @@ int main(int argc, char** argv) {
   MailClient greeter(grpc::CreateChannel(
       "localhost:50051", grpc::InsecureChannelCredentials()));
   std::string user("Jill");
-  std::vector<MailItem> emails = greeter.GetMail(user);
+  std::vector<MailItem> emails = greeter.requestMailList(user);
   // Email reply = greeter.GetMail(user);
   // std::cout << "Greeter received: " << reply.from() << std::endl;
   std::cout << "Greeter received: " << emails.size() << std::endl;

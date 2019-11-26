@@ -36,13 +36,16 @@ PROTOS_PATH = protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: mail_client mail_server 
+all: mail_client mail_server
 
 mail_client: mail.pb.o mail.grpc.pb.o mail_client.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-mail_server: mail.pb.o mail.grpc.pb.o mail_server.o
+mail_server: mail.pb.o mail.grpc.pb.o mail_server.o bigtable.pb.o bigtable.grpc.pb.o TableClient.cc
 	$(CXX) $^ $(LDFLAGS) -o $@
+
+# tableclient: bigtable.pb.o bigtable.grpc.pb.o TableClient.cc
+# 	$(CXX) $^ $(LDFLAGS) -o $@
 
 
 .PRECIOUS: %.grpc.pb.cc

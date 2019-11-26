@@ -11,12 +11,10 @@ public:
 	std::string from;
 	std::string subject;
 	std::string date;
-	std::string content;
 
 public:
 	// constructor
-	MailItem(std::string from, std::string subject, std::string date, std::string content) : from(from), 
-	subject(subject), date(date), content(content) {};
+	MailItem(std::string from, std::string subject, std::string date) : from(from), subject(subject), date(date) {};
 
 	// deconstructor
 	~MailItem() {};
