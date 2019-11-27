@@ -8,7 +8,6 @@
 #include <string.h>
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <unordered_set>
 #include "../../../lib/masterInfo.h"
 
@@ -60,7 +59,7 @@ void masterInfo::setPrimary(){
 		replicaInfo[primaryIdx] = replica;
 		for (int i = 0; i < 3; i++){
 			replicaInfo[primaryIdx].push_back(primaryIdx+i);
-			myprimary[primaryIdx+i] = primaryIdx;
+			myprimary.push_back(primaryIdx);
 		}
 		groupID++;
 		remainS -= 3;
@@ -71,7 +70,7 @@ void masterInfo::setPrimary(){
 		replicaInfo[primaryIdx] = replica;
 		for (int i = 0; i < remainS; i++){
 			replicaInfo[primaryIdx].push_back(primaryIdx+i);
-			myprimary[primaryIdx+i] = primaryIdx;
+			myprimary.push_back(primaryIdx);
 		}
 		groupNum = groupID + 1;
 		remainS = 0;		
@@ -88,7 +87,7 @@ bool masterInfo::isPrimary(int index){
 
 
 int masterInfo::getPrime(int index){
-	if (myprimary.find(index) == myprimary.end())
+	if (index >= myprimary.size())
 		return -1;
 	return myprimary[index];
 }
@@ -126,16 +125,18 @@ int masterInfo::promoteNewPrimary(int oldPrimaryIdx){
 	return newPrimary;
 }
 
-std::vector<std::string> masterInfo::getServers(int groupId){
-	std::vector<int> replicas;
-	std::map<int, std::vector<int>>::iterator itr = replicaInfo.begin();
-	for (int i = 0; i<groupId; i++){
-		itr++;
-	}
-	replicas = itr->second;
+std::vector<std::string> masterInfo::getServers(int groupId){	
 	std::vector<std::string> servers;
-	for (int i = 0; i < replicas.size(); i++){
-		servers.push_back(bf_addr_list[replicas[i]]);
+	if (groupId < groupNum){
+		std::vector<int> replicas;
+		std::map<int, std::vector<int>>::iterator itr = replicaInfo.begin();
+		for (int i = 0; i<groupId; i++){
+			itr++;
+		}
+		replicas = itr->second;
+		for (int i = 0; i < replicas.size(); i++){
+			servers.push_back(bf_addr_list[replicas[i]]);
+		}
 	}
 	return servers;
 }
