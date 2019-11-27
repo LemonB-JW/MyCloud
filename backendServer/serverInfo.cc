@@ -1,10 +1,11 @@
+/*
+	Author: Peng Li
+	
+*/
+
 #include <stdio.h> //FILE type
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <vector>
 #include <string.h>
 
@@ -14,7 +15,25 @@
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
 #endif
 
-int serverInfo::readConfig(const char* filename, int pos){
+serverInfo::serverInfo(){
+	isprimary = false;	
+	status = 0; //0: initlizing, 1: normal, 2: recovering
+	FILE_PATH = ".";
+	LOG_PATH = "/log.txt";//binary or txt, need to decide
+	CHECKPOINT_PATH = "/checkpoint.txt;
+	mySeq = 0;
+	checkpointState = true;
+	
+	if (pthread_mutex_init(&mySeqMutex, NULL)) ;//init lock for mySeq
+	pthread_mutex_init(&mapMutex, NULL);//init lock for map???
+}
+
+serverInfo::~serverInfo(){
+	pthread_mutex_destroy(&mySeqMutex);
+	pthread_mutex_destroy(&mapMutex);//must make sure mapMutex is unlock!
+}
+
+void serverInfo::readConfig(const char* filename, int pos){
 	// read file and find my ip and port
 	FILE *infile = fopen(filename, "r");
 	if (!infile) 
@@ -24,57 +43,62 @@ int serverInfo::readConfig(const char* filename, int pos){
 	
 	//the first line in the config file is master's address
 	if (fgets(linebuf, 100, infile)!= NULL){
-		char *sproxyaddr = strtok(linebuf, ",\r\n");
-	  char *srealaddr = sproxyaddr ? strtok(NULL, ",\r\n") : NULL;
-	  
-	  char *sip = strtok(sproxyaddr, ":");
-	  char *sport = strtok(NULL, ":\r\n");	
-	  
-	  master_addr.sin_family = AF_INET;
-	  inet_aton(sip, &(master_addr.sin_addr));
-	  master_addr.sin_port = htons(atoi(sport));
+		char *sfrontaddr = strtok(linebuf, ",\r\n");
+	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;
+	  if (sbackaddr == NULL) master_addr = sfrontaddr;
+	  else master_addr = sbackaddr;
 	}
 	
 	while	(fgets(linebuf, 100, infile)!= NULL){
-		char *sproxyaddr = strtok(linebuf, ",\r\n");
-	  char *srealaddr = sproxyaddr ? strtok(NULL, ",\r\n") : NULL;
-	  
-	  char *sip = strtok(sproxyaddr, ":");
-	  char *sport = strtok(NULL, ":\r\n");	  
-	  
-	  //store all forwarding address in server list
-	  struct sockaddr_in temp;
-	  temp.sin_family = AF_INET;
-	  inet_aton(sip, &temp.sin_addr);
-	  temp.sin_port = htons(atoi(sport));
+		char *sfrontaddr = strtok(linebuf, ",\r\n");
+	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;
+	  std::string temp;
+	  if (sbackaddr == NULL) temp = sfrontaddr;
+	  else temp = sbackaddr;
 	  serverlist.push_back(temp);
-	  
 	  numServers++;
-		
 		if (numServers == pos){
-			myID = pos;
-			myaddr.sin_family = AF_INET;
-			if(srealaddr){
-			
-				char *sip2 = strtok(srealaddr,":");
-				char *sport2 = strtok(NULL, ":\r\n");
-				
-				inet_aton(sip2, &(myaddr.sin_addr));
-				myaddr.sin_port = htons(atoi(sport2));
-				
-			}else{
-			
-				inet_aton(sip, &ip);
-				port = atoi(sport);
-				
-			}
+			myIdx = pos - 1;//index 
+			myaddr_front = sfrontaddr;
 		}	
 	}
+	//finish reading config file
 }
 
-void serverInfo::setPrimary(int primaryID){
-	primary_addr = serverlist[primaryID - 1];
-	if (primaryID == myID)
+
+bool serverInfo::setPrimary(int primaryIdx){
+	if (primaryIdx >= serverlist.size()) return false;
+	primary_addr = serverlist[primaryIdx];
+	if (primaryIdx == myIdx)
 		isprimary = true;
 	else isprimary = false;
+	return true;
 }
+
+
+void serverInfo::updateMySeq(long seq){
+	pthread_mutex_lock(&mySeqMutex);
+	mySeq = std::max(mySeq, seq);
+	pthread_mutex_unlock(&mySeqMutex);
+}
+
+
+long serverInfo::increaseMySeq(){
+	//long newSeq;
+	pthread_mutex_lock(&mySeqMutex);
+	mySeq++;
+	//newSeq = mySeq;
+	pthread_mutex_unlock(&mySeqMutex);
+	return mySeq;//newSeq
+}
+
+void serverInfo::lockMap(){
+	pthread_mutex_lock(&mapMutex);
+}
+
+void serverInfo::unlockMap(){
+	pthread_mutex_unlock(&mapMutex);
+}
+
+
+
