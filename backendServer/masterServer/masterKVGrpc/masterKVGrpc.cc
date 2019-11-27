@@ -115,7 +115,7 @@ int main(int argc, char** argv){
 
 void Run(){
 	//std::string address("0.0.0.0:5000");
-	std::string address(myInfo.mb_addr);
+	std::string address(myInfo.getMBaddr());
 	fprintf(stderr, "into run\n");
 	MFcommu service;
 	
