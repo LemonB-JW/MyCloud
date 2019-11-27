@@ -129,7 +129,7 @@ void Run(){
 std::vector<std::string> getServers(std::string userName){
 	std::hash<std::string> str_hash;
 	fprintf(stderr, "In get server list\n");
-	int group = (str_hash(userName))%(myInfo.groupNum);
+	int group = (str_hash(userName))%(myInfo.getGroupNum());
 	fprintf(stderr, "group is %d\n", group);
 	return myInfo.getServers(group);
 }
