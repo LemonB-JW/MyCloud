@@ -8,23 +8,38 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 
 class masterInfo{
 	private:
-		
+		std::string mf_addr;//master frontend grpc addr
+		std::string mb_addr;//master backend grpc addr
 		std::map<int, std::vector<int>> replicaInfo;//find replica based on primary index, also served as a primary set( keys are primaries), also can found primary based on group number( iterator + groupID -> first)
-		std::unordered_map<int, int> myprimary; //find primary based on server index
+		std::vector<int> myprimary; //find primary based on server index
+		std::vector<int> checkpointV; //checkpoint version do i need this or primary server need this?
 		std::unordered_set<int> deadlist;
+		std::vector<std::string> bf_addr_list;//backend frontend grpc address
+		std::vector<std::string> bm_addr_list;//backend master grpc address
+		int groupNum;
 		void setPrimary();//decide group and primary, called in readConfig
 		
 	public:
-		std::vector<std::string> bf_addr_list;//backend frontend grpc address
-		std::vector<std::string> bm_addr_list;//backend master grpc address
-		std::string mf_addr;//master frontend grpc addr
-		std::string mb_addr;//master backend grpc addr
-		int groupNum;
+		int getGroupNum(){
+			return groupNum;
+		}
+		
+		const std::string& getMFaddr() const{
+			return mf_addr;
+		}
+		
+		const std::string& getMBaddr() const{
+			return mb_addr;
+		}
+		
+		const std::string& getBMaddr(int index) const{
+			return bm_addr_list[index];
+		}
+		
 		masterInfo(){}
 		~masterInfo(){}
 		/*readConfig will set master_addr, serverlist and assign group and primary*/
