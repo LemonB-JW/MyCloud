@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>//getopt
-#include <sys/socket.h>
 #include <stdlib.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <signal.h>//signal
 #include <string.h>//strerror
 #include <pthread.h>
@@ -15,7 +12,13 @@
 #include <string>
 #include <sstream>
 
+#include <grpcpp/grpcpp.h>
+
 #include "../../lib/masterInfo.h"
+
+#include "masterFrontend.grpc.pb.h"
+#include "masterBackend.grpc.pb.h"
+#include "backendMaster.grpc.pb.h"
 
 #ifndef panic
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
@@ -24,19 +27,116 @@
 #define MAX_CONNECTIONS 100
 #define MAX_COMMAND_LENGTH 1000
 
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+
+using grpc::Server;
+using grpc::ServerBuilder;
+using grpc::ServerContext;
+using grpc::Status;
+
+using masterFrontend::MasterFrontend;
+using masterFrontend::getServerListRequest;
+using masterFrontend::getServerListReply;
+
+using masterBackend::MasterBackend;
+using masterBackend::GetPrimRequest;
+using masterBackend::GetPrimReply;
+using masterBackend::ListSubRequest;
+using masterBackend::ListSubReply;
+
+using backendMaster::BackendMaster;
+using backendMaster::EmptyRequest;
+using backendMaster::HeartbeatReply;
+
 bool shutDown = false; //true if ctrl-c received
 bool debugMode = false; //print debug msg if true
 int socketfd;
 masterInfo myInfo;
-std::vector<pthread_t> threadID;
+pthread_t frontendThread;
+pthread_t backendThread;
 
 
-bool match(const char *data, char *buf);
-void writeToclient(int fd, const char *data);
-void* threadWorker(void* arg);
 void sigintHandler(int sig_num);
 void sigusr1Handler(int sig_num);
+std::vector<std::string> getServers(std::string userName);
 
+
+class BMcommuClient {
+	public:
+		BMcommuClient(std::shared_ptr<Channel> channel):stub_(BackendMaster::NewStub(channel)){}
+	
+	int heartbeat(){
+		EmptyRequest request;
+		
+		//request.set_my_index(myindex);
+		ClientContext context;
+		HeartbeatReply reply;
+		Status status = stub_->heartbeat(&context, request, &reply);
+		
+		if(status.ok()){
+			return reply.checkpoint_v();
+		}else{
+			std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+			return -1;
+		}
+	}
+	
+	private:
+		std::unique_ptr<BackendMaster::Stub> stub_;
+};
+
+
+
+class MFcommu final : public MasterFrontend::Service{
+	Status getServerList(
+		ServerContext* context,
+		const getServerListRequest* request,
+		getServerListReply* reply
+	)override{
+		//std::string username = getServerList(request->user_name());
+		std::vector<std::string> serverlist = getServers(request->user_name());
+		fprintf(stderr, "get server list:\n");
+		for (int i = 0; i < serverlist.size(); i++){
+			reply->add_server_ipport(serverlist[i]);
+			fprintf(stderr, "%s ", serverlist[i].c_str());
+		}
+		fprintf(stderr, "\nserver replied\n");
+		return Status::OK;
+	}
+};
+
+
+class MBcommu final : public MasterBackend::Service{
+	Status get_prim(
+		ServerContext* context,
+		const GetPrimRequest* request,
+		GetPrimReply* reply
+	)override{
+		//std::string username = getServerList(request->user_name());
+		int primInd = myInfo.getPrime(request->my_index());
+		reply->set_prim_index(primInd);
+		return Status::OK;
+	}
+	
+	Status list_sub(
+		ServerContext* context,
+		const ListSubRequest* request,
+		ListSubReply* reply
+	)override{
+		std::vector<int> sublist = myInfo.getSub(request->my_index());
+		for (int i = 0; i < sublist.size(); i++){
+			reply->add_sub_index(sublist[i]);
+			//reply->set_sub_index(sublist[i]);
+		}
+		fprintf(stderr, "size of reply msg %d\n", reply->sub_index_size());
+		return Status::OK;
+	}
+};
+
+void* RunF(void* arg);
+void* RunB(void* arg);
 
 int main(int argc, char *argv[]) {
 	/* Parse arguments */
@@ -67,181 +167,96 @@ int main(int argc, char *argv[]) {
 	}
 	/* Read the server list */
 	myInfo.readConfig(argv[optind]);
-	
-	//open server sockets
- 	socketfd = socket(AF_INET, SOCK_STREAM, 0);
-  if (socketfd <= 0)
-  	panic("Cannot open bind socket (%s)\n", strerror(errno));
-  
-  //------------------set socket option-------------------
-  int optval = 1;
-	if (setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(optval))) 
-		panic("Set socket option to SO_REUSEADDR and SO_REUSEPORT failed (%s)\n", strerror(errno)); 
-	
-	//===============bind() associates a socket with a specific port=========
-  if (bind(socketfd, (struct sockaddr*)&myInfo.master_addr, sizeof(myInfo.master_addr)) < 0){ 
-  	panic("Cannot bind to %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr), myInfo.port, strerror(errno));
-  }
-  
-  //==============listen() puts a socket into the listening state==========
-  if (listen(socketfd, MAX_CONNECTIONS) < 0)  
-  	panic("Cannot enter listening state %s:%d (%s)\n", inet_ntoa(myInfo.master_addr.sin_addr), myInfo.port, strerror(errno));
-  /*
-  	create a thread for grpc frontend communication
-  */	
-  
-  
+
   /*main loop*/
+  if (pthread_create(&frontendThread, NULL, &RunF, NULL) != 0) 
+  	panic("Error: failed to create frontend GRPC thread");
+  	
+  if (pthread_create(&backendThread, NULL, &RunB, NULL) != 0) 
+  	panic("Error: failed to create backend GRPC thread");
+  
+  //loop listen to the backend servers' heartbeat
+  //periodically listen to the heartbeat
+  
   while(!shutDown){
-  	struct sockaddr_in client_addr;
-  	int len;
-  	len = sizeof(client_addr);
-  	int connfd = accept(socketfd, (struct sockaddr*)&client_addr, (socklen_t*)&len);
-  	if (shutDown) break;
-  	
-  	if (connfd < 0)
-  		panic("Master accept failed...(%s)\n", strerror(errno));
-  	threadID.push_back(0);
-  	if (pthread_create(&threadID[threadID.size()-1], NULL, threadWorker, (void*)&connfd)){
-  		panic("Failed to create thread\n");
+  	for (int i = 0; i < myInfo.numServers(); i++){
+  		std::string address(myInfo.getBMaddr(i));
+  		
+  		BMcommuClient client(
+				grpc::CreateChannel(
+				  address,
+				  grpc::InsecureChannelCredentials()
+				)
+			);
+			int temp_checkpoint_version = client.heartbeat();
+			//TODO: update checkpoint version
+			if (temp_checkpoint_version < 0){
+				//TODO: add server index to dead list
+			}else{
+				//TODO: if server index in dead list: remove it from dead list and do recovery!!!
+			}
   	}
-  	
   }
   
-  //close socketfd
-  close(socketfd);
+  //close this thread
+  return 0;//double check
 }
 
-void* threadWorker(void* arg){
-	struct sigaction sigUsr1Handler;
-  sigUsr1Handler.sa_handler = sigusr1Handler;
-  sigemptyset(&sigUsr1Handler.sa_mask);
-  sigUsr1Handler.sa_flags = 0;
-	sigaction(SIGUSR1, &sigUsr1Handler, NULL);
+
+void* RunF(void* arg){
+	//std::string address("0.0.0.0:5000");
+	fprintf(stderr, "into runF\n");
+	std::string addressF(myInfo.getMFaddr());
+	MFcommu serviceFront;
+	//bind server to port and service
+	ServerBuilder builderF;
+	builderF.AddListeningPort(myInfo.getMFaddr(), grpc::InsecureServerCredentials());
+	builderF.RegisterService(&serviceFront);
 	
-	int comm_fd = *(int*)(arg);
-	pthread_t tid = pthread_self();
-	int bytesInBuf = 0;
-	int bytesRead = 0;
-	int crlfpos = 0;
-	char buf[MAX_COMMAND_LENGTH];
-	int endpos = 0;
-	fprintf(stderr, "in worker\n");
+	std::unique_ptr<Server> serverF(builderF.BuildAndStart());
+	fprintf(stderr, "Master Server listening on port: %s\n", addressF.c_str());
+	serverF->Wait();
+}
+
+void* RunB(void* arg){
+	fprintf(stderr, "into runB\n");
+	std::string addressB(myInfo.getMBaddr());
+	MBcommu serviceBack;
+	//bind server to port and service
+	ServerBuilder builderB;
+	builderB.AddListeningPort(myInfo.getMBaddr(), grpc::InsecureServerCredentials());
+	builderB.RegisterService(&serviceBack);
+	
+	std::unique_ptr<Server> serverB(builderB.BuildAndStart());
+	fprintf(stderr, "Master Server listening on port: %s\n", addressB.c_str());
+	serverB->Wait();
+}
+
+void* heartbeat(void* arg){
+	//signal handler here
 	while(!shutDown){
+		//loop: ask for heartbeat for every backend server every minute
 		
-		bytesInBuf = bytesInBuf - crlfpos - 1;
-		if (bytesInBuf<0) bytesInBuf = 0;
-		crlfpos = 0;
-		
-		//fprintf(stderr, "crlf: %d bytesInBuf: %d\n", crlfpos, bytesInBuf);
-		//keep reading until \r\n
-		while(!shutDown){
-			for (int i = 0; i < bytesInBuf; i++){
-				if(buf[i] == '\n' && i > 0){
-					if( buf[i-1] =='\r'){
-						crlfpos = i;
-						break;
-					}
-				}
-			}
-			//fprintf(stderr, "in loop crlf: %d\n", crlfpos);
-			if (crlfpos > 0 || shutDown) break;
-			if(bytesInBuf >= MAX_COMMAND_LENGTH) panic("Read %d bytes, but no CRLF found.\r\n", bytesInBuf);
-			bytesRead = recv(comm_fd, &buf[bytesInBuf], MAX_COMMAND_LENGTH - bytesInBuf, 0);
-			if (bytesRead < 0) panic("Read failed (%s)\n", strerror(errno));
-			bytesInBuf += bytesRead;
-			//fprintf(stderr, "after read %d\n", bytesRead);
-			//fprintf(stderr, "read from server: '%s'", buf);
-		}//end of find CRLF while loop 
-		if (shutDown) break;
-		//found CRLF
-		if (crlfpos > 0){
-			if (match("GET_PRIME,*", buf)) {
-				//reply the the prime 
-				char* scomd = strtok(buf, ",");
-				char* sid = strtok(NULL, "\r\n");
-				int serverid = atoi(sid);
-				
-				char sendbuf[MAX_COMMAND_LENGTH];
-				sprintf(sendbuf, "GET_PRIME,%d\r\n", myInfo.getPrime(serverid));
-				writeToclient(comm_fd, sendbuf); 
-				
-			}else if (match("LIST_SUB,*", buf)) {
-				//reply the sub
-				char* scomd = strtok(buf, ",");
-				char* sid = strtok(NULL, "\r\n");
-				int primeId = atoi(sid);
-				
-				char sendbuf[MAX_COMMAND_LENGTH];
-				std::vector<int> subVec = myInfo.getSub(primeId);
-				std::stringstream ss;
-				for (int i = 0; i < subVec.size(); i++){
-					if (i > 0)
-						ss << ",";
-					ss<<subVec[i];
-				}
-				std::string subInString = ss.str();
-				sprintf(sendbuf, "LIST_SUB,%s\r\n", subInString.c_str());
-				writeToclient(comm_fd, sendbuf); 
-			}else {
-				fprintf(stderr, "Command not yet implemented\n");
-			}
-			
-			//remove handled command
-			for(int i = 0; i <(bytesInBuf - crlfpos - 1); i++){	
-				buf[i] = buf[crlfpos+i+1];
-				buf[crlfpos+i+1] = '\0';
-			}
-		}
-		
-	}//end of outter while
-	close(comm_fd);
-	fprintf(stderr, "exit thread %ld\r\n", tid);
-	pthread_detach(tid);
-	pthread_exit(NULL);
-}
-
-
-//=====================match=======================
-bool match(const char *data, char *buf){
-	bool matchCheck = true;
-	int argptr = 0, bufptr = 0;
-	while(matchCheck && data[argptr]){
-		if(data[argptr] == '*')
-			break;
-		if(data[argptr++] != buf[bufptr++])
-			matchCheck = false;
+		/*wait for grpc reply if failed, mark the server as down*/
+		//TODO: add mutex in masterInfo, prevent reading and modifying at the same time
 	}
 	
-	if (!data[argptr] && buf[bufptr]){
-    	matchCheck = false;
-  }
-	return matchCheck;
+	//exit thread
+	//pthread_exit(heartbeatThread);
 }
 
-//****************write message to client**************
-void writeToclient(int fd, const char *data){
-	int len = strlen(data);
-	int wptr = 0;
-	while (wptr < len) {
-    int w = send(fd, &data[wptr], len-wptr, 0);
-  	if (w<0){
-    	panic("Cannot write to conncetion (%s)\r\n", strerror(errno));
-		}
-  	if (w==0){
-    	panic("Connection closed unexpectedly\r\n");
-		}
-  	wptr += w;
-	}
-	if (debugMode) fprintf(stderr, "Sent successfully (%s) \n", data);
+std::vector<std::string> getServers(std::string userName){
+	std::hash<std::string> str_hash;
+	fprintf(stderr, "In get server list, number of Group is%d\n", myInfo.getGroupNum());
+	int group = (str_hash(userName))%(myInfo.getGroupNum());
+	fprintf(stderr, "group is %d\n", group);
+	return myInfo.getServers(group);
 }
 
 /* Signal Handler for SIGINT ----- Ctrl-C*/
 void sigintHandler(int sig_num){ 
 	shutDown = true;
-	for (int i = 0; i < threadID.size(); i++){
-		pthread_kill(threadID[i], SIGUSR1);
-	}
+	//pthread_kill(heatbeatThread, SIGUSR1);
 }
 
 /* Signal Handler for SIGUSR1-----------doing nothing just to unblock worker */

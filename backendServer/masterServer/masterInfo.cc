@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
-#include "../../../lib/masterInfo.h"
+#include "../../lib/masterInfo.h"
 
 #ifndef panic
 #define panic(a...) do { fprintf(stderr, a); fprintf(stderr, "\n"); exit(1); } while (0) 
@@ -32,6 +32,8 @@ int masterInfo::readConfig(const char* filename){
 	  if (sbackaddr != NULL) mb_addr = sbackaddr;
 	}
 	
+	pthread_mutex_t tempMutex;
+	
 	while	(fgets(linebuf, 100, infile)!= NULL){
 		char *sfrontaddr = strtok(linebuf, ",\r\n");
 	  char *sbackaddr = sfrontaddr ? strtok(NULL, ",\r\n") : NULL;  
@@ -40,9 +42,12 @@ int masterInfo::readConfig(const char* filename){
 	  if (sbackaddr != NULL) tempbm = (sbackaddr);
 	  bf_addr_list.push_back(tempbf);
 	  bm_addr_list.push_back(tempbm);
+	  
+	  cpMutex.push_back(tempMutex);
 	}
 	
 	fclose(infile);
+	serverNum = bm_addr_list.size();
 	fprintf(stderr, "Finish readConfig file\n");
 	setPrimary();
 }
