@@ -110,8 +110,8 @@ int main(int argc, char** argv){
 
 void Run(){
 	//std::string address("0.0.0.0:5000");
-	std::string address("127.0.0.1:10001");
-	fprintf(stderr, "into run\n");
+	std::string address(myInfo.getMFaddr());
+	//fprintf(stderr, "into run\n");
 	MFcommu service;
 	
 	//bind server to port and service
