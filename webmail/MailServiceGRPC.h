@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include "TableClient.h"
+#include "MasterClient.h"
 #include "../lib/FileMetaData.h"
 
 
@@ -40,7 +41,9 @@ class MailServiceGRPC final : public Mail::Service {
     Status PutMail(ServerContext* context, const PutMailRequest* request,
     PutMailReply* reply) override;
 
-    void ConstructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date);
+    void constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date);
+
+    std::string getServerAddress(std::string username);
 
 };
 

@@ -1,32 +1,4 @@
-// #include <iostream>
-// #include <memory>
-// #include <string>
-// #include "TableClient.h"
-// #include "../lib/FileMetaData.h"
-
-
-// #include <grpcpp/grpcpp.h>
-
-// #ifdef BAZEL_BUILD
-// #include "mail.grpc.pb.h"
-// #else
-// #include "mail.grpc.pb.h"
-// #endif
-
 #include "MailServiceGRPC.h"
-// using grpc::Server;
-// using grpc::ServerBuilder;
-// using grpc::ServerContext;
-// using grpc::Status;
-// using mail::GetMailListRequest;
-// using mail::GetMailListReply;
-// using mail::GetMailRequest;
-// using mail::GetMailReply;
-// using mail::PutMailRequest;
-// using mail::PutMailReply;
-// using mail::Mail;
-// using mail::Email;
-
 
 
 
@@ -35,13 +7,18 @@
     GetMailListReply* reply) {
 
 
+    std::string serverAddress = getServerAddress(request->user());
+
+    // std::string serverAddress = "127.0.0.1:5001";
+
+
     TableClient tableClient(grpc::CreateChannel(
-      "localhost:50051", grpc::InsecureChannelCredentials()));
+      serverAddress, grpc::InsecureChannelCredentials()));
 
     std::vector<FileMetaData> emailList = tableClient.listEmails(request->user());
 
     for (int i = 0; i < emailList.size(); i++) {
-      ConstructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time);
+      constructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time);
     }
 
     return Status::OK;
@@ -51,8 +28,13 @@
   Status MailServiceGRPC::GetMail(ServerContext* context, const GetMailRequest* request,
     GetMailReply* reply) {
 
+
+    std::string serverAddress = getServerAddress(request->user());
+
+    // std::string serverAddress = "127.0.0.1:5001";
+
     TableClient tableClient(grpc::CreateChannel(
-      "localhost:50051", grpc::InsecureChannelCredentials()));
+      serverAddress, grpc::InsecureChannelCredentials()));
 
     std::string content = tableClient.getEmail(request->user(), request->email_id());
 
@@ -64,8 +46,12 @@
   Status MailServiceGRPC::PutMail(ServerContext* context, const PutMailRequest* request,
     PutMailReply* reply) {
 
+    std::string serverAddress = getServerAddress(request->receiver());
+
+    // std::string serverAddress = "127.0.0.1:5001";
+
     TableClient tableClient(grpc::CreateChannel(
-      "localhost:50051", grpc::InsecureChannelCredentials()));
+      serverAddress, grpc::InsecureChannelCredentials()));
 
     std::string id = tableClient.put(request->created_time(), request->size(), request->subject(), 
       "email", request->sender(), request->receiver(), request->content());
@@ -78,10 +64,26 @@
 
 
   // helper function to reconstruct email from BigTable's GRPC reply
-  void MailServiceGRPC::ConstructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date) {
+  void MailServiceGRPC::constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date) {
     emailReply->set_from(from);
     emailReply->set_subject(subject);
     emailReply->set_date(date);
+  }
+
+
+  // helper function to return an IP address of a live backend server
+  std::string MailServiceGRPC::getServerAddress(std::string username) {
+     MasterClient masterClient(grpc::CreateChannel(
+      "127.0.0.1:8001", grpc::InsecureChannelCredentials()));
+
+     std::vector<std::string> validServers = masterClient.getServerList(username);
+
+     if (validServers.size() == 0) {
+      return NULL;
+     }
+
+     return validServers[0];
+
   }
 
 

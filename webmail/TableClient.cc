@@ -76,53 +76,53 @@ std::string TableClient::localPut_with_fileid(std::string created_time, int size
 }
 
 std::string TableClient::getEmail(std::string user, std::string fileID) {
-    GetRequest req;
-    req.set_row(user);
-    req.set_col(fileID);
+  GetRequest req;
+  req.set_row(user);
+  req.set_col(fileID);
 
-    GetReply reply;
+  GetReply reply;
 
-    ClientContext context;
-
-    // The actual RPC.
-    Status status = stub_->get(&context, req, &reply);
-
-    // Act upon its status.
-    if (status.ok()) {
-      return reply.file_content();
-    } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
-      return "RPC failed";
-    }
-
-  }
-
-  std::vector<FileMetaData> TableClient::listEmails(std::string user){
-
-    GetEmailListRequest req;
-    req.set_row(user);
-
-    GetEmailListReply reply;
-
-    ClientContext context;
+  ClientContext context;
 
     // The actual RPC.
-    Status status = stub_->list_all_emails(&context, req, &reply);
+  Status status = stub_->get(&context, req, &reply);
 
     // Act upon its status.
-    if (status.ok()) {
-      return ListEmailsFromReply(reply);
-    } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
-      std::vector<FileMetaData> v;
-      return v;
-    }
-
+  if (status.ok()) {
+    return reply.file_content();
+  } else {
+    std::cout << status.error_code() << ": " << status.error_message()
+    << std::endl;
+    return "RPC failed";
   }
 
-  std::vector<FileMetaData> TableClient::ListEmailsFromReply(const bigtable::GetEmailListReply& email_list_reply) {
+}
+
+std::vector<FileMetaData> TableClient::listEmails(std::string user){
+
+  GetEmailListRequest req;
+  req.set_row(user);
+
+  GetEmailListReply reply;
+
+  ClientContext context;
+
+    // The actual RPC.
+  Status status = stub_->list_all_emails(&context, req, &reply);
+
+    // Act upon its status.
+  if (status.ok()) {
+    return ListEmailsFromReply(reply);
+  } else {
+    std::cout << status.error_code() << ": " << status.error_message()
+    << std::endl;
+    std::vector<FileMetaData> v;
+    return v;
+  }
+
+}
+
+std::vector<FileMetaData> TableClient::ListEmailsFromReply(const bigtable::GetEmailListReply& email_list_reply) {
   
   std::vector<FileMetaData> email_list;
 
@@ -133,7 +133,7 @@ std::string TableClient::getEmail(std::string user, std::string fileID) {
     // cout << "  Name: " << mdata.file_name() << endl;
     FileMetaData file_info(mdata.created_time(), mdata.size(), mdata.file_name(), mdata.file_type(), mdata.file_from(), mdata.file_id());
     email_list.push_back(file_info);
-   
+    
   }
 
   return email_list;

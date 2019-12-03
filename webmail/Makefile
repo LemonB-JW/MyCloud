@@ -38,14 +38,23 @@ vpath %.proto $(PROTOS_PATH)
 
 all: mail_client mail_server
 
-mail_client: mail.pb.o mail.grpc.pb.o mail_client.o
+mail_client: mail.pb.o mail.grpc.pb.o MailClient.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-mail_server: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc smtp_server.cc
+client_test: mail.pb.o mail.grpc.pb.o MailClient.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc MailClientTest.cc
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+mail_server: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc SMTPServer.cc
 	$(CXX) $^ $(LDFLAGS) -lpthread -g -o $@
 
-grpc_test: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc MailServiceGRPCTest.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc
+grpc_test: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc MailServiceGRPCTest.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc
 	$(CXX) $^ $(LDFLAGS) -o $@
+
+smtp_test: SMTPClientTest.cc
+	$(CXX) $^ -lresolv -o $@
+
+# master_client: masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc
+# 	$(CXX) $^ $(LDFLAGS) -o $@
 
 # smtp_server: smtp_server.cc
 # 	g++ $< -lpthread -g -o $@
@@ -63,7 +72,7 @@ grpc_test: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc MailServiceGRPCTest.cc bi
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h mail_client mail_server smtp_server
+	rm -f *.o *.pb.cc *.pb.h mail_client mail_server smtp_server smtp_test
 
 
 # The following is to test your system and ensure a smoother experience.
