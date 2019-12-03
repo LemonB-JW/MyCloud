@@ -23,6 +23,7 @@ class masterInfo{
 		std::vector<std::string> bf_addr_list;//backend frontend grpc address
 		std::vector<std::string> bm_addr_list;//backend master grpc address
 		int groupNum;
+		int serverNum; //number of servers;
 		void setPrimary();//decide group and primary, called in readConfig
 		
 	public:
@@ -36,6 +37,10 @@ class masterInfo{
 		
 		const std::string& getMBaddr() const{
 			return mb_addr;
+		}
+		
+		const int numServers() const{
+			return serverNum;
 		}
 		
 		const std::string& getBMaddr(int index) const{
