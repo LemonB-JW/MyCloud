@@ -32,6 +32,7 @@ foreach(_target
             utils/utils.cc
             ../webmail/MailClient.cc
             ../webmail/MasterClient.cc
+#            ../webmail/TableClient.cc
             ${all_hw_proto_srcs}
             ${all_hw_grpc_srcs})
     target_link_libraries(${_target} ${Protobuf_LIBRARIES})
