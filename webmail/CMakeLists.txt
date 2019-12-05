@@ -18,7 +18,7 @@ pkg_search_module(GRPCPP REQUIRED grpc++)
 
 # Generated Proto sources
 foreach(_target
-        bigtable masterBackend)
+        bigtable mail masterFrontend)
     get_filename_component(hw_proto "protos/${_target}.proto" ABSOLUTE)
     get_filename_component(hw_proto_path "${hw_proto}" PATH)
     set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/${_target}.pb.cc")
@@ -42,13 +42,14 @@ endforeach()
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 include_directories("${Protobuf_INCLUDE_DIRS}")
 
+
 foreach(_target
-        bigtable_client bigtable_server)
+        MailClientTest SMTPServer)
     add_penn_cloud_executable(${_target} "${_target}.cc"
-            BigTable.cc
-            Utility.cc
-            DistributedStorage.cc
-            MetaTree.cc
+            MailServiceGRPC.cc
+            TableClient.cc
+            MasterClient.cc
+            SMTPServer.cc
             ${all_hw_proto_srcs}
             ${all_hw_grpc_srcs})
     target_link_libraries(${_target} ${Protobuf_LIBRARIES})

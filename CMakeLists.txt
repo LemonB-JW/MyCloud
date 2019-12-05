@@ -24,3 +24,4 @@ endfunction(add_penn_cloud_executable)
 
 add_subdirectory(frontendServer)
 add_subdirectory(keyvaluestore)
+add_subdirectory(webmail)

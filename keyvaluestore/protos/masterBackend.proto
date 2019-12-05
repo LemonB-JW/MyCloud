@@ -22,15 +22,15 @@ option objc_class_prefix = "MB";
 
 package masterBackend;
 
-// 
+//
 service MasterBackend{
 	rpc get_prim (GetPrimRequest) returns (GetPrimReply) {}
 	rpc list_sub (ListSubRequest) returns (ListSubReply) {}
 	//rpc promote_prim(PromotePrimRequest) returns (PromotePrimReply) {}
-	//rpc heartbeat (HeartBeatRequest) returns (HeartBeatReply) {}	
+	//rpc heartbeat (HeartBeatRequest) returns (HeartBeatReply) {}
 }
 
-// 
+//
 message GetPrimRequest {
 	int32 my_index = 1;
 }
@@ -50,7 +50,7 @@ message ListSubReply {
 message PromotePrimRequest {
   int32 my_index = 1;
 }
- 
+
 message PromotePrimReply {
   string prim_index = 1;
 }
@@ -63,7 +63,7 @@ message PromotePrimReply {
 message HeartBeatReply {
 	bool ok = 1;
 }*/
-/*The numbers in these requests do not specify their values 
-only labeling for the proto file generation. 
+/*The numbers in these requests do not specify their values
+only labeling for the proto file generation.
 We will set these messages using generated code stub in our C++ code later.
 */

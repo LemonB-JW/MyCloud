@@ -9,18 +9,19 @@
 
     // std::string serverAddress = getServerAddress(request->user());
 
+
     std::string serverAddress = "127.0.0.1:5002";
 
 
-    TableClient tableClient(grpc::CreateChannel(
-      serverAddress, grpc::InsecureChannelCredentials()));
+    //TableClient tableClient(grpc::CreateChannel(serverAddress, grpc::InsecureChannelCredentials()));
 
-    std::vector<FileMetaData> emailList = tableClient.listEmails(request->user());
+    //std::vector<FileMetaData> emailList = tableClient.listEmails(request->user());
 
-    for (int i = 0; i < emailList.size(); i++) {
-      constructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time, emailList[i].file_id);
-    }
+//    for (int i = 0; i < emailList.size(); i++) {
+//      constructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time, emailList[i].file_id);
+//    }
 
+    constructMailReply(reply->add_item(), "Jill", "Hello", "12/04/2019", "12345");
     return Status::OK;
   }
 
@@ -31,12 +32,14 @@
 
     // std::string serverAddress = getServerAddress(request->user());
 
+
     std::string serverAddress = "127.0.0.1:5002";
 
-    TableClient tableClient(grpc::CreateChannel(
-      serverAddress, grpc::InsecureChannelCredentials()));
+    //TableClient tableClient(grpc::CreateChannel(serverAddress, grpc::InsecureChannelCredentials()));
 
-    std::string content = tableClient.getEmail(request->user(), request->email_id());
+    //std::string content = tableClient.getEmail(request->user(), request->email_id());
+
+    std::string content = "Success";
 
     reply->set_content(content);
 

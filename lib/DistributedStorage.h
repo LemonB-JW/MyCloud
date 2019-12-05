@@ -11,10 +11,8 @@
 #include <ctype.h>
 #include <vector>
 #include <sys/types.h>
-#include <sys/prctl.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
-#include <bits/stdc++.h> 
 #include <sys/file.h>
 #include <iterator> 
 #include "../lib/BigTable.h"

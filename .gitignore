@@ -2,6 +2,8 @@
 .DS_Store
 *.o
 httpServer
+MailClientTest
+SMTPServer
 bigtable_client
 bigtable_server
 cmake-build-debug/*

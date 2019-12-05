@@ -1,6 +1,7 @@
 #include "../lib/DistributedStorage.h"
 #include <sys/file.h>
 #include <iostream>
+#include <fstream>
 #include <iterator>
 #include <stdio.h>
 #include <string>
@@ -80,7 +81,7 @@ struct addr_info DistributedStorage::constructAddrInfo(std::string ip_port){
 void DistributedStorage::readConfigFile(const char* config_file, const char* server_id){
 	 // read from config file, get the forward and bind address of current server and of all other servers
 	  std::string f_name(config_file);
-	  ifstream file(config_file);
+	  ifstream file(config_file, ifstream::in);
 	  cout<<"server id is "<<config_file<<" "<<server_id<<endl;
 	  server_index = atoi(server_id) - 1;
 	  cout<<"server index is "<<server_index<<endl;
