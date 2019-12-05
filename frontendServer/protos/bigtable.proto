@@ -1,0 +1,219 @@
+// Author: Jiaying Guo
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.bigtable";
+option java_outer_classname = "BigtableProto";
+option objc_class_prefix = "BT";
+
+package bigtable;
+
+// The bigtable service definition.
+service Bigtable {
+  // put operation
+  rpc put (PutRequest) returns (PutReply) {}
+
+  // get operation
+  rpc get (GetRequest) returns (GetReply) {}
+
+  // cput operation
+  rpc cput (CPutRequest) returns (CPutReply) {}
+
+  // delete operation
+  rpc table_delete (DelRequest) returns (DelReply) {}
+
+  // getEmailList operation
+  rpc list_all_emails (GetEmailListRequest) returns (GetEmailListReply) {}
+
+  // getFileList operation
+  rpc list_all_files (GetFileListRequest) returns (GetFileListReply) {}
+
+  // rename file/folder
+  rpc rename_file_folder(RenameFifoRequest) returns (RenameFifoReply){}
+
+  // move file/folder
+  rpc move_file_folder(MoveFifoRequest) returns (MoveFifoReply){}
+
+   // localPut with fileID operation
+  rpc localPut_with_fileid (LocalPutWithIDRequest) returns (LocalPutWithIDReply) {}
+
+  rpc localCPut (LocalCPutRequest) returns (LocalCPutReply) {}
+
+  rpc localDelete(LocalDelRequest) returns (LocalDelReply) {}
+
+  rpc localRenameFifo(LocalRenameRequest) returns (LocalRenameReply) {}
+
+  rpc localMoveFifo(LocalMoveRequest) returns (LocalMoveReply) {}
+
+}
+
+
+message PutRequest {
+  string created_time = 1;
+  int32 size = 2;
+  string path_name = 3;
+  string file_type = 4;
+  string file_from = 5;
+  string row = 6;
+  string data = 7;
+}
+
+
+message PutReply {
+  string file_id = 1;
+}
+
+message GetRequest {
+  string row = 1;
+  string col = 2;
+}
+
+
+message GetReply {
+  string file_content = 1;
+}
+
+message CPutRequest {
+  string new_created_time = 1;
+  int32 new_size = 2;
+  string path_name = 3;
+  string file_type = 4;
+  string row = 6;
+  string col = 7;
+  string old_data = 8;
+  string new_data = 9;
+}
+
+
+message CPutReply {
+  bool is_successful = 1;
+}
+
+message DelRequest {
+  string row = 1;
+  string col = 2;
+  string file_type = 3;
+  string path_name = 4;
+}
+
+message DelReply {
+  bool is_successful = 1;
+}
+
+message fileMetaData{
+  string created_time = 1;
+  int32 size = 2;
+  string file_name = 3;
+  string file_type = 4;
+  string file_from = 5;
+  string file_id = 6;
+}
+
+message GetEmailListRequest {
+  string row = 1;
+}
+
+message GetEmailListReply {
+  repeated fileMetaData metadata = 1;
+}
+
+message GetFileListRequest {
+  string row = 1;
+  string path_name = 2;
+}
+
+message GetFileListReply {
+  repeated fileMetaData metadata= 1;
+}
+
+message RenameFifoRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_file_name = 4;
+}
+
+message RenameFifoReply{
+  bool is_successful = 1;
+}
+
+message MoveFifoRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_path = 4;
+}
+
+message MoveFifoReply{
+  bool is_successful = 1;
+}
+
+
+
+message LocalPutWithIDRequest {
+  string created_time = 1;
+  int32 size = 2;
+  string path_name = 3;
+  string file_type = 4;
+  string file_from = 5;
+  string row = 6;
+  string col = 7; // file_id
+  string data = 8;
+}
+
+
+message LocalPutWithIDReply {
+  string file_id = 1;
+}
+
+
+message LocalCPutRequest{
+  string new_created_time = 1;
+  int32 new_size = 2;
+  string path_name = 3;
+  string file_type = 4;
+  string row = 5;
+  string col = 6;
+  string old_data = 7;
+  string new_data = 8;
+}
+
+message LocalCPutReply{
+  bool is_successful = 1;
+}
+
+message LocalDelRequest{
+  string row = 1;
+  string col = 2;
+  string file_type = 3;
+  string path_name = 4;
+
+}
+
+message LocalDelReply{
+  bool is_successful = 1;
+}
+
+message LocalRenameRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_file_name = 4;
+}
+
+message LocalRenameReply{
+  bool is_successful = 1;
+}
+
+message LocalMoveRequest{
+  string row = 1;
+  string file_type = 2;
+  string path_name = 3;
+  string new_path = 4;
+}
+
+message LocalMoveReply{
+  bool is_successful = 1;
+}
+
