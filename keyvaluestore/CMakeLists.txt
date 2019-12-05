@@ -1,21 +1,3 @@
-cmake_minimum_required(VERSION 3.5.1)
-
-# configure protoc
-find_program(PROTOC_PLUGIN protoc)
-if (NOT PROTOC_PLUGIN)
-    message(FATAL_ERROR "protoc not found! please install it")
-endif()
-find_package(Protobuf REQUIRED)
-message(STATUS "Using protobuf ${Protobuf_VERSION}")
-
-# configure grpc
-find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
-if (NOT GRPC_CPP_PLUGIN)
-    message(FATAL_ERROR "grpc_cpp_plugin not found! please install it")
-endif()
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GRPCPP REQUIRED grpc++)
-
 # Generated Proto sources
 foreach(_target
         bigtable masterBackend)
