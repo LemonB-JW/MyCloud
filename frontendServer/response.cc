@@ -36,6 +36,8 @@ Response::Response(Request req) {
 
         } else if (url == "/drive_items") {
             get_drive_list_handler();
+        } else if (url == "/mail_item") {
+            get_mail_content_handler();
         }
 
         else {
@@ -49,6 +51,9 @@ Response::Response(Request req) {
     this->status_code = STATUS_OK;
 }
 
+/*
+ * fetch designated inbox mail list by user
+ * */
 void Response::get_inbox_list_handler() {
     MailClient mailClient = setup_mail_client();
     std::vector<MailItem> mail_list = mailClient.requestMailList(user);
@@ -72,16 +77,24 @@ void Response::get_inbox_list_handler() {
     std::cout << items.dump(4) << std::endl;
 }
 
+/*
+ * fetch designated mail content by mail_id and user
+ * */
 void Response::get_mail_content_handler() {
     MailClient mailClient = setup_mail_client();
 
     std::string mail_id = "12345";
     std::string mailContent = mailClient.requestMail(user, mail_id);
 
-    this->headers[CONTENT_TYPE] = 
+    json item = {
+            {"mail_content", mailContent}
+    };
 
+    this->headers[CONTENT_TYPE] = TYPE_JSON;
+    this->body = item.dump();
+    this->headers[CONTENT_LEN] = std::to_string(this->body.length());
 
-
+    std::cout << item.dump(4) << std::endl;
 }
 
 
