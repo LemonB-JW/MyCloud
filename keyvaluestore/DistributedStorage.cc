@@ -164,8 +164,8 @@ void DistributedStorage::updatePrimary(int primary_id){
 // }
 
 std::string DistributedStorage::localPut(std::string created_time, int size, std::string path_name, std::string file_type, std::string file_from, std::string row, std::string data){
-	string file_id = table.put(created_time, size, path_name, file_type, file_from, row, data);
-	cout<<"self id is "<<server_index<<endl;
+	std::string file_id = table.put(created_time, size, path_name, file_type, file_from, row, data);
+	std::cout<<"self id is "<< server_index << "file id is " << file_id << std::endl;
 	return file_id;
 }
 

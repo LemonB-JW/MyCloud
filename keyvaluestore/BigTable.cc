@@ -46,6 +46,7 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 	cout<<"in big table put, parsed file name is "<<file_name<<endl;
 	if (table.count(row) == 0 || table[row].count(col) == 0 ) {
 		res = col;
+		cout << "col is " << col << endl;
 		string* data_pointer = new string(data);
 		TableCell* new_cell = new TableCell(data_pointer);
 		table[row][col] = new_cell;
@@ -67,7 +68,7 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 		}
 		
 	}
-	return res;
+	return col;
 }
 
 

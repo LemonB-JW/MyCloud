@@ -506,7 +506,7 @@ class TableServiceImpl final : public Bigtable::Service {
     // forward request to primary and wait for ok and order from primary
     // only primary node gets to generate file_id, then pass it to other worker nodes.
     // std::cout<<"enter put bigtable!"<<" is primary "<<storage->is_primary<<std::endl;
-    std::string file_id;
+    std::string file_id = "";
     if(!storage->is_primary){
         // forward to primary node, call primary node grpc server_put()
         std::string primary_full_ip = storage->primary_addr->ip + ":" + std::to_string(storage->primary_addr->port);
@@ -517,10 +517,12 @@ class TableServiceImpl final : public Bigtable::Service {
         while(inner_rpc_reply == "RPC failed"){
           inner_rpc_reply = primary_node.put(request->created_time(), request->size(), request->path_name(), request->file_type(), request->file_from(), request->row(), request->data());
         }
+        file_id = inner_rpc_reply;
     }else{
        //apply row lock
         storage->table.lock_row(request->row()); 
         file_id = storage->localPut(request->created_time(), request->size(), request->path_name(), request->file_type(), request->file_from(), request->row(), request->data());
+        std::cout << "File ID 1 " << file_id << std::endl;
         for(int i = 0; i < storage->all_sub_addr.size(); i++){
           std::string curr_sub_addr = storage->all_sub_addr.at(i).ip + ":" + std::to_string(storage->all_sub_addr.at(i).port);
           TableClient worker_node(grpc::CreateChannel(curr_sub_addr, grpc::InsecureChannelCredentials()));
@@ -536,6 +538,7 @@ class TableServiceImpl final : public Bigtable::Service {
     }
    
     reply->set_file_id(file_id);
+    std::cout << "File ID 2 " << reply->file_id() << std::endl;
     return Status::OK;
   }
 
