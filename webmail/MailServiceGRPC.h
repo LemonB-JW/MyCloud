@@ -41,7 +41,7 @@ class MailServiceGRPC final : public Mail::Service {
     Status PutMail(ServerContext* context, const PutMailRequest* request,
     PutMailReply* reply) override;
 
-    void constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date);
+    void constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date, std::string id);
 
     std::string getServerAddress(std::string username);
 

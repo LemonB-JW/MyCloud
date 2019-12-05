@@ -18,7 +18,7 @@
     std::vector<FileMetaData> emailList = tableClient.listEmails(request->user());
 
     for (int i = 0; i < emailList.size(); i++) {
-      constructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time);
+      constructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time, emailList[i].file_id);
     }
 
     return Status::OK;
@@ -64,10 +64,11 @@
 
 
   // helper function to reconstruct email from BigTable's GRPC reply
-  void MailServiceGRPC::constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date) {
+  void MailServiceGRPC::constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date, std::string id) {
     emailReply->set_from(from);
     emailReply->set_subject(subject);
     emailReply->set_date(date);
+    emailReply->set_id(id);
   }
 
 

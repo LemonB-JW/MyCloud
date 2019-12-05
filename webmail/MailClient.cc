@@ -103,7 +103,7 @@ std::vector<MailItem> MailClient::ListMailFromReply(const mail::GetMailListReply
     // std::cout << "Subject: " << email.subject() << std::endl;
     // std::cout << "Date: " << email.date() << std::endl;
 
-    MailItem item(email.from(), email.subject(), email.date());
+    MailItem item(email.from(), email.subject(), email.date(), email.id());
     emails.push_back(item);
 
   }

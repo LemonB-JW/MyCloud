@@ -27,6 +27,7 @@ message Email {
   string from = 1;
   string subject = 2;
   string date = 3;
+  string id = 4;
 }
 
 message GetMailRequest {

@@ -181,6 +181,7 @@ const ::google::protobuf::uint32 TableStruct_mail_2eproto::offsets[] PROTOBUF_SE
   PROTOBUF_FIELD_OFFSET(::mail::Email, from_),
   PROTOBUF_FIELD_OFFSET(::mail::Email, subject_),
   PROTOBUF_FIELD_OFFSET(::mail::Email, date_),
+  PROTOBUF_FIELD_OFFSET(::mail::Email, id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::mail::GetMailRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -216,10 +217,10 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 0, -1, sizeof(::mail::GetMailListRequest)},
   { 6, -1, sizeof(::mail::GetMailListReply)},
   { 12, -1, sizeof(::mail::Email)},
-  { 20, -1, sizeof(::mail::GetMailRequest)},
-  { 27, -1, sizeof(::mail::GetMailReply)},
-  { 33, -1, sizeof(::mail::PutMailRequest)},
-  { 44, -1, sizeof(::mail::PutMailReply)},
+  { 21, -1, sizeof(::mail::GetMailRequest)},
+  { 28, -1, sizeof(::mail::GetMailReply)},
+  { 34, -1, sizeof(::mail::PutMailRequest)},
+  { 45, -1, sizeof(::mail::PutMailReply)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -241,25 +242,26 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 const char descriptor_table_protodef_mail_2eproto[] =
   "\n\nmail.proto\022\004mail\"\"\n\022GetMailListRequest"
   "\022\014\n\004user\030\001 \001(\t\"-\n\020GetMailListReply\022\031\n\004it"
-  "em\030\001 \003(\0132\013.mail.Email\"4\n\005Email\022\014\n\004from\030\001"
-  " \001(\t\022\017\n\007subject\030\002 \001(\t\022\014\n\004date\030\003 \001(\t\"0\n\016G"
-  "etMailRequest\022\014\n\004user\030\001 \001(\t\022\020\n\010email_id\030"
-  "\002 \001(\t\"\037\n\014GetMailReply\022\017\n\007content\030\001 \001(\t\"x"
-  "\n\016PutMailRequest\022\020\n\010receiver\030\001 \001(\t\022\024\n\014cr"
-  "eated_time\030\002 \001(\t\022\017\n\007subject\030\003 \001(\t\022\016\n\006sen"
-  "der\030\004 \001(\t\022\017\n\007content\030\005 \001(\t\022\014\n\004size\030\006 \001(\005"
-  "\" \n\014PutMailReply\022\020\n\010email_id\030\001 \001(\t2\267\001\n\004M"
-  "ail\022A\n\013GetMailList\022\030.mail.GetMailListReq"
-  "uest\032\026.mail.GetMailListReply\"\000\0225\n\007GetMai"
-  "l\022\024.mail.GetMailRequest\032\022.mail.GetMailRe"
-  "ply\"\000\0225\n\007PutMail\022\024.mail.PutMailRequest\032\022"
-  ".mail.PutMailReply\"\000B+\n\025io.grpc.examples"
-  ".mailB\tMailProtoP\001\242\002\004MAILb\006proto3"
+  "em\030\001 \003(\0132\013.mail.Email\"@\n\005Email\022\014\n\004from\030\001"
+  " \001(\t\022\017\n\007subject\030\002 \001(\t\022\014\n\004date\030\003 \001(\t\022\n\n\002i"
+  "d\030\004 \001(\t\"0\n\016GetMailRequest\022\014\n\004user\030\001 \001(\t\022"
+  "\020\n\010email_id\030\002 \001(\t\"\037\n\014GetMailReply\022\017\n\007con"
+  "tent\030\001 \001(\t\"x\n\016PutMailRequest\022\020\n\010receiver"
+  "\030\001 \001(\t\022\024\n\014created_time\030\002 \001(\t\022\017\n\007subject\030"
+  "\003 \001(\t\022\016\n\006sender\030\004 \001(\t\022\017\n\007content\030\005 \001(\t\022\014"
+  "\n\004size\030\006 \001(\005\" \n\014PutMailReply\022\020\n\010email_id"
+  "\030\001 \001(\t2\267\001\n\004Mail\022A\n\013GetMailList\022\030.mail.Ge"
+  "tMailListRequest\032\026.mail.GetMailListReply"
+  "\"\000\0225\n\007GetMail\022\024.mail.GetMailRequest\032\022.ma"
+  "il.GetMailReply\"\000\0225\n\007PutMail\022\024.mail.PutM"
+  "ailRequest\032\022.mail.PutMailReply\"\000B+\n\025io.g"
+  "rpc.examples.mailB\tMailProtoP\001\242\002\004MAILb\006p"
+  "roto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_mail_2eproto = {
   false, InitDefaults_mail_2eproto, 
   descriptor_table_protodef_mail_2eproto,
-  "mail.proto", &assign_descriptors_table_mail_2eproto, 633,
+  "mail.proto", &assign_descriptors_table_mail_2eproto, 645,
 };
 
 void AddDescriptors_mail_2eproto() {
@@ -862,6 +864,7 @@ class Email::HasBitSetters {
 const int Email::kFromFieldNumber;
 const int Email::kSubjectFieldNumber;
 const int Email::kDateFieldNumber;
+const int Email::kIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Email::Email()
@@ -885,6 +888,10 @@ Email::Email(const Email& from)
   if (from.date().size() > 0) {
     date_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.date_);
   }
+  id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.id().size() > 0) {
+    id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.id_);
+  }
   // @@protoc_insertion_point(copy_constructor:mail.Email)
 }
 
@@ -894,6 +901,7 @@ void Email::SharedCtor() {
   from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   subject_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   date_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 Email::~Email() {
@@ -905,6 +913,7 @@ void Email::SharedDtor() {
   from_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   subject_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   date_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void Email::SetCachedSize(int size) const {
@@ -925,6 +934,7 @@ void Email::Clear() {
   from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   subject_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   date_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -980,6 +990,22 @@ const char* Email::_InternalParse(const char* begin, const char* end, void* obje
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("mail.Email.date");
         object = msg->mutable_date();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string id = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("mail.Email.id");
+        object = msg->mutable_id();
         if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
           parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
           goto string_till_end;
@@ -1068,6 +1094,21 @@ bool Email::MergePartialFromCodedStream(
         break;
       }
 
+      // string id = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_id()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->id().data(), static_cast<int>(this->id().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "mail.Email.id"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1125,6 +1166,16 @@ void Email::SerializeWithCachedSizes(
       3, this->date(), output);
   }
 
+  // string id = 4;
+  if (this->id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->id().data(), static_cast<int>(this->id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.Email.id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->id(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -1171,6 +1222,17 @@ void Email::SerializeWithCachedSizes(
         3, this->date(), target);
   }
 
+  // string id = 4;
+  if (this->id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->id().data(), static_cast<int>(this->id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.Email.id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->id(), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -1213,6 +1275,13 @@ size_t Email::ByteSizeLong() const {
         this->date());
   }
 
+  // string id = 4;
+  if (this->id().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->id());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -1252,6 +1321,10 @@ void Email::MergeFrom(const Email& from) {
 
     date_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.date_);
   }
+  if (from.id().size() > 0) {
+
+    id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.id_);
+  }
 }
 
 void Email::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1284,6 +1357,8 @@ void Email::InternalSwap(Email* other) {
   subject_.Swap(&other->subject_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   date_.Swap(&other->date_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  id_.Swap(&other->id_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }
 

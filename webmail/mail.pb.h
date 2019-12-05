@@ -461,6 +461,20 @@ class Email final :
   ::std::string* release_date();
   void set_allocated_date(::std::string* date);
 
+  // string id = 4;
+  void clear_id();
+  static const int kIdFieldNumber = 4;
+  const ::std::string& id() const;
+  void set_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_id(::std::string&& value);
+  #endif
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  ::std::string* mutable_id();
+  ::std::string* release_id();
+  void set_allocated_id(::std::string* id);
+
   // @@protoc_insertion_point(class_scope:mail.Email)
  private:
   class HasBitSetters;
@@ -469,6 +483,7 @@ class Email final :
   ::google::protobuf::internal::ArenaStringPtr from_;
   ::google::protobuf::internal::ArenaStringPtr subject_;
   ::google::protobuf::internal::ArenaStringPtr date_;
+  ::google::protobuf::internal::ArenaStringPtr id_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mail_2eproto;
 };
@@ -1293,6 +1308,59 @@ inline void Email::set_allocated_date(::std::string* date) {
   }
   date_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), date);
   // @@protoc_insertion_point(field_set_allocated:mail.Email.date)
+}
+
+// string id = 4;
+inline void Email::clear_id() {
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Email::id() const {
+  // @@protoc_insertion_point(field_get:mail.Email.id)
+  return id_.GetNoArena();
+}
+inline void Email::set_id(const ::std::string& value) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mail.Email.id)
+}
+#if LANG_CXX11
+inline void Email::set_id(::std::string&& value) {
+  
+  id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mail.Email.id)
+}
+#endif
+inline void Email::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mail.Email.id)
+}
+inline void Email::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mail.Email.id)
+}
+inline ::std::string* Email::mutable_id() {
+  
+  // @@protoc_insertion_point(field_mutable:mail.Email.id)
+  return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* Email::release_id() {
+  // @@protoc_insertion_point(field_release:mail.Email.id)
+  
+  return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Email::set_allocated_id(::std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:mail.Email.id)
 }
 
 // -------------------------------------------------------------------
