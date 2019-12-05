@@ -18,9 +18,12 @@
 #include "response.h"
 #include "utils/constants.h"
 #include "utils/utils.h"
+
 #include <json.hpp>
 
 using json = nlohmann::json;
+
+std::string user = "Jill";
 
 Response::Response(Request req) {
 
@@ -47,15 +50,18 @@ Response::Response(Request req) {
 }
 
 void Response::get_inbox_list_handler() {
-    int num_of_items = 3;
+    MailClient mailClient = setup_mail_client();
+    std::vector<MailItem> mail_list = mailClient.requestMailList(user);
+
     json items;
-    for (int i = 0; i < num_of_items; i++) {
-        std::string item_name = "item" + std::to_string(i);
+    for (int i = 0; i < mail_list.size(); i++) {
+        MailItem mail = mail_list[i];
+        std::string item_name = mail.email_id + mail.from;
         json item = {
-                {"item_id", std::to_string(i)},
-                {"from", "Xuan"},
-                {"title", "Project Report - T08"},
-                {"date", "2019 11 20"}
+                {"item_id", mail.email_id},
+                {"from", mail.from},
+                {"title", mail.subject},
+                {"date", mail.date}
         };
         items[item_name] = item;
     }
@@ -65,6 +71,20 @@ void Response::get_inbox_list_handler() {
 
     std::cout << items.dump(4) << std::endl;
 }
+
+void Response::get_mail_content_handler() {
+    MailClient mailClient = setup_mail_client();
+
+    std::string mail_id = "12345";
+    std::string mailContent = mailClient.requestMail(user, mail_id);
+
+    this->headers[CONTENT_TYPE] = 
+
+
+
+}
+
+
 
 void Response::get_drive_list_handler() {
 
@@ -101,16 +121,25 @@ void Response::get_html_handler(std::string &url) {
     this->headers[CONTENT_LEN] = std::to_string(content.length());
 }
 
+//
+//void Response::get_server_list(std::string username) {
+//    MasterClient masterClient(
+//            grpc::CreateChannel(
+//            "127.0.0.1:8001",
+//            grpc::InsecureChannelCredentials()
+//    )
+//    );
+//
+//    std::string user = "Alice";
+//    std::vector<std::string> response = masterClient.getServerList(user);
+//    std::cout << "size: " << response.size() << "Servers: " << response[0] << std::endl;
+//}
 
-void Response::get_server_list(std::string username) {
-    MasterClient masterClient(
-            grpc::CreateChannel(
-            "127.0.0.1:8001",
-            grpc::InsecureChannelCredentials()
-    )
-    );
-
-    std::string user = "Alice";
-    std::vector<std::string> response = masterClient.getServerList(user);
-    std::cout << "size: " << response.size() << "Servers: " << response[0] << std::endl;
+MailClient Response::setup_mail_client()
+{
+    MailClient client(grpc::CreateChannel(
+            "127.0.0.1:4000",
+            grpc::InsecureChannelCredentials())
+            );
+    return client;
 }

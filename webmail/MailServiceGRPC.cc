@@ -21,7 +21,11 @@
 //      constructMailReply(reply->add_item(), emailList[i].file_from, emailList[i].file_name, emailList[i].created_time, emailList[i].file_id);
 //    }
 
-    constructMailReply(reply->add_item(), "Jill", "Hello", "12/04/2019", "12345");
+  constructMailReply(reply->add_item(), "Jill1", "Hello", "12/04/2019", "12345");
+  constructMailReply(reply->add_item(), "Jill2", "Hello", "12/04/2019", "12346");
+  constructMailReply(reply->add_item(), "Jill3", "Hello", "12/04/2019", "12347");
+  constructMailReply(reply->add_item(), "Jill4", "Hello", "12/04/2019", "12348");
+  constructMailReply(reply->add_item(), "Jill5", "Hello", "12/04/2019", "12349");
     return Status::OK;
   }
 

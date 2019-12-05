@@ -10,6 +10,8 @@
 #include <unordered_map>
 #include <json.hpp>
 #include "../grpc/MasterClient.h"
+#include "../webmail/MailClient.h"
+#include "mail.grpc.pb.h"
 
 #include "request.h"
 
@@ -37,9 +39,13 @@ public:
 public:
     void parse_req_string(Request &req, std::string req_str);
     void get_inbox_list_handler();
+    void get_mail_content_handler();
     void get_drive_list_handler();
     void get_html_handler(std::string &url);
     void get_server_list(std::string username);
+
+private:
+    MailClient setup_mail_client();
 
 
 

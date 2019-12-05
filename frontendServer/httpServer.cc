@@ -110,17 +110,7 @@ int main(int argc, char *argv[])
 
     bind(listen_fd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     listen(listen_fd, 100);
-
-    MailClient greeter(grpc::CreateChannel(
-       "127.0.0.1:4000", grpc::InsecureChannelCredentials()));
-    std::string user("Jill");
-    std::string id("0");
-    std::string mailReply = greeter.requestMail(user, id);
-    std::cout << "Reply received: " << mailReply << std::endl;
-
-    std::vector<MailItem> mailListReply = greeter.requestMailList(user);
-    std::cout << "MailList received: " << mailListReply[0].subject << std::endl;
-
+    
     while (true)
     {
         struct sockaddr_in clientaddr;

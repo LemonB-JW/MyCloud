@@ -12,7 +12,7 @@
 #ifdef BAZEL_BUILD
 #include "../keyvaluestore/bigtable.grpc.pb.h"
 #else
-#include "../keyvaluestore/bigtable.grpc.pb.h"
+#include "bigtable.grpc.pb.h"
 #endif
 
 
