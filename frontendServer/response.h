@@ -9,6 +9,7 @@
 #include <string>
 #include <unordered_map>
 #include <json.hpp>
+#include "../grpc/MasterClient.h"
 
 #include "request.h"
 
@@ -38,9 +39,11 @@ public:
     void get_inbox_list_handler();
     void get_drive_list_handler();
     void get_html_handler(std::string &url);
+    void get_server_list(std::string username);
 
 
-    /* write JSON object to HTTP response */
+
+        /* write JSON object to HTTP response */
 //    void write_json_to_response(Response &res, json json_obj);
 
 };

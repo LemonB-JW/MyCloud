@@ -67,6 +67,11 @@ void Response::get_inbox_list_handler() {
 }
 
 void Response::get_drive_list_handler() {
+
+    //TODO: fetch drive list from backend
+
+
+
     int num_of_items = 3;
     json items;
     for (int i = 0; i < num_of_items; i++) {
@@ -96,3 +101,16 @@ void Response::get_html_handler(std::string &url) {
     this->headers[CONTENT_LEN] = std::to_string(content.length());
 }
 
+
+void Response::get_server_list(std::string username) {
+    MasterClient masterClient(
+            grpc::CreateChannel(
+            "127.0.0.1:8001",
+            grpc::InsecureChannelCredentials()
+    )
+    );
+
+    std::string user = "Alice";
+    std::vector<std::string> response = masterClient.getServerList(user);
+    std::cout << "size: " << response.size() << "Servers: " << response[0] << std::endl;
+}
