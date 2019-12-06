@@ -55,6 +55,36 @@
                 </ul>
             </div>
             <div class="card-body col-10 p-4">
+
+                <div class="content">
+                    <button class="btn btn-md btn-danger px-2"> Go Back </button>
+                    <hr>
+                    <div> <b>Google Forms</b> forms-receipts-noreply@google.com </div>
+                    <div>
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                        This is the mail content.
+                    </div>
+                </div>
+
                 <table class="table table-condensed table-hover">
                     <thead>
                     <tr class="item">
@@ -68,6 +98,10 @@
                     </tbody>
                 </table>
 
+                <br>
+                <br>
+                <br>
+                <br>
 
             </div>
         </div>
@@ -82,6 +116,8 @@
 
 <script>
     window.onload = (event) => {
+        $('table').show();
+        $('.content').hide();
         var url = "/inbox_items";
         var req = JSON.stringify({});
         $.get(url, function(items) {
@@ -115,9 +151,20 @@
         //         });
     };
 
+    $(document).on('click', 'tbody > tr', function(event) {
+        alert($(this).attr('id'));
+        $('table').hide();
+        $('.content').show();
+    });
+
+    $(document).on('click', 'button', function() {
+        $('table').show();
+        $('.content').hide();
+    });
+
     function addItem(item, id) {
         $('tbody').append(
-            '<tr> <td><input type="checkbox"></td> <td>' +
+            '<tr id="' + item.item_id + '"> <td><input type="checkbox"></td> <td>' +
             item.from + '</td> <td>' +
             item.title + '</td> <td>' +
             item.date + '</td> </tr>');
