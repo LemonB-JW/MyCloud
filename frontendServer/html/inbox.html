@@ -151,10 +151,14 @@
         //         });
     };
 
-    $(document).on('click', 'tbody > tr', function(event) {
-        alert($(this).attr('id'));
-        $('table').hide();
-        $('.content').show();
+    $(document).on('click', 'tbody > tr > td', function(event) {
+        if ($(this).find('input').length) {
+        }
+        else {
+            alert($(this).parent().attr('id'));
+            $('table').hide();
+            $('.content').show();
+        }
     });
 
     $(document).on('click', 'button', function() {
