@@ -33,11 +33,11 @@ Response::Response(Request req) {
     if (req.method == "GET") {
         if (url == "/inbox_items") {
             get_inbox_list_handler();
-        } else if (url.find("/drive") == 0) {
-            int pos = url.find("/drive");
-            pos = url.find("/", pos + 1);
-            std::string path = url.substr(pos + 1, url.length() - pos);  //TODO: sanity check
-            get_drive_list_handler(path);
+//        } else if (url.find("/drive") == 0) {
+//            int pos = url.find("/drive");
+//            pos = url.find("/", pos + 1);
+//            std::string path = url.substr(pos + 1, url.length() - pos);  //TODO: sanity check
+//            get_drive_list_handler(path);
         } else if (url == "/mail_item") {
             get_mail_content_handler();
         }
@@ -103,7 +103,7 @@ void Response::get_mail_content_handler() {
 
 void Response::get_drive_list_handler(std::string &path) {
 //    TableClient tableClient = setup_table_client();
-//    //TODO: fetch drive list from backend
+////    //TODO: fetch drive list from backend
 //    std::vector<FileMetaData> files_data = tableClient.list_all_files(user, path);
 
     int num_of_items = 3;
@@ -172,11 +172,11 @@ MailClient Response::setup_mail_client()
 }
 
 
-//
-//TableClient Response::setup_table_client() {
-//    BigtableClient client(grpc::CreateChannel(
-//            "127.0.0.1:4000",
-//            grpc::InsecureChannelCredentials())
-//    );
-//    return client;
-//}
+
+TableClient Response::setup_table_client() {
+    TableClient client(grpc::CreateChannel(
+            "127.0.0.1:5003",
+            grpc::InsecureChannelCredentials())
+    );
+    return client;
+}

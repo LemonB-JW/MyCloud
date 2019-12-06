@@ -1,6 +1,6 @@
 # Generated Proto sources
 foreach(_target
-        mail masterFrontend)
+        mail masterFrontend bigtable)
     get_filename_component(hw_proto "protos/${_target}.proto" ABSOLUTE)
     get_filename_component(hw_proto_path "${hw_proto}" PATH)
     set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/${_target}.pb.cc")
@@ -32,7 +32,7 @@ foreach(_target
             utils/utils.cc
             ../webmail/MailClient.cc
             ../webmail/MasterClient.cc
-#            ../webmail/TableClient.cc
+            TableClient.cc
             ${all_hw_proto_srcs}
             ${all_hw_grpc_srcs})
     target_link_libraries(${_target} ${Protobuf_LIBRARIES})

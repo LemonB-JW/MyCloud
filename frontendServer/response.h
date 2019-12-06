@@ -11,7 +11,7 @@
 #include <json.hpp>
 #include "../grpc/MasterClient.h"
 #include "../webmail/MailClient.h"
-//#include "../webmail/TableClient.h"
+#include "TableClient.h"
 #include "mail.grpc.pb.h"
 
 #include "request.h"
@@ -57,7 +57,7 @@ public:
 
 private:
     MailClient setup_mail_client();
-//    TableClient setup_table_client();
+    TableClient setup_table_client();
 
 
 

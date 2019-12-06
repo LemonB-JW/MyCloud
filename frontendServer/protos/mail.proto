@@ -12,6 +12,7 @@ service Mail {
   rpc GetMailList (GetMailListRequest) returns (GetMailListReply) {}
   rpc GetMail (GetMailRequest) returns (GetMailReply) {}
   rpc PutMail (PutMailRequest) returns (PutMailReply) {}
+  rpc DeleteMail (DeleteMailRequest) returns (DeleteMailReply) {}
 
 }
 
@@ -50,4 +51,14 @@ message PutMailRequest {
 
 message PutMailReply {
   string email_id = 1;
+}
+
+message DeleteMailRequest {
+  string user = 1;
+  string id = 2;
+  string subject = 3;
+}
+
+message DeleteMailReply {
+  string res = 1;
 }
