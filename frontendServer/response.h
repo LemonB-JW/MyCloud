@@ -41,7 +41,17 @@ public:
     void parse_req_string(Request &req, std::string req_str);
     void get_inbox_list_handler();
     void get_mail_content_handler();
+    void send_mail_handler();
+
     void get_drive_list_handler(std::string &path);
+    void download_drive_file_handler();
+    void upload_drive_file_handler();
+    void create_drive_folder_handler(std::string name);
+    void move_drive_file_handler(std::string oldpath, std::string newpath, std::string type);
+    void rename_drive_file_handler(std::string oldname, std::string newname, std::string type);
+    void delete_drive_file_handler(std::string path, std::string type);
+
+
     void get_html_handler(std::string &url);
     void get_server_list(std::string username);
 
