@@ -20,6 +20,8 @@ using mail::GetMailRequest;
 using mail::GetMailReply;
 using mail::PutMailRequest;
 using mail::PutMailReply;
+using mail::DeleteMailRequest;
+using mail::DeleteMailReply;
 using mail::Mail;
 using mail::Email;
 
@@ -36,6 +38,8 @@ public:
 
 	std::string sendMail(const std::string& receiver, const std::string& created_time, const std::string& subject, 
     const int& size, const std::string& sender, const std::string& content);
+
+    std::string deleteMail(const std::string& user, const std::string& email_id, const std::string& subject);
 
     std::vector<MailItem> ListMailFromReply(const mail::GetMailListReply& mail_reply);
 

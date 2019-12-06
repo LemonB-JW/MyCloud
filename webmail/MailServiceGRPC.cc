@@ -7,9 +7,9 @@
     GetMailListReply* reply) {
 
 
-    std::string serverAddress = getServerAddress(request->user());
+    // std::string serverAddress = getServerAddress(request->user());
 
-    // std::string serverAddress = "127.0.0.1:5001";
+    std::string serverAddress = "127.0.0.1:5002";
 
 
     TableClient tableClient(grpc::CreateChannel(
@@ -29,9 +29,9 @@
     GetMailReply* reply) {
 
 
-    std::string serverAddress = getServerAddress(request->user());
+    // std::string serverAddress = getServerAddress(request->user());
 
-    // std::string serverAddress = "127.0.0.1:5001";
+    std::string serverAddress = "127.0.0.1:5002";
 
     TableClient tableClient(grpc::CreateChannel(
       serverAddress, grpc::InsecureChannelCredentials()));
@@ -46,9 +46,9 @@
   Status MailServiceGRPC::PutMail(ServerContext* context, const PutMailRequest* request,
     PutMailReply* reply) {
 
-    std::string serverAddress = getServerAddress(request->receiver());
+    // std::string serverAddress = getServerAddress(request->receiver());
 
-    // std::string serverAddress = "127.0.0.1:5001";
+    std::string serverAddress = "127.0.0.1:5002";
 
     TableClient tableClient(grpc::CreateChannel(
       serverAddress, grpc::InsecureChannelCredentials()));
@@ -59,6 +59,27 @@
     reply->set_email_id(id);
 
     return Status::OK;
+  }
+
+  Status MailServiceGRPC::DeleteMail(ServerContext* context, const DeleteMailRequest* request,
+    DeleteMailReply* reply) {
+
+    // std::string serverAddress = getServerAddress(request->receiver());
+
+    std::string serverAddress = "127.0.0.1:5002";
+
+    TableClient tableClient(grpc::CreateChannel(
+      serverAddress, grpc::InsecureChannelCredentials()));
+
+    //deleteEmail(std::string row, std::string col, std::string file_type, std::string path_name);
+
+    std::string res = tableClient.deleteEmail(request->user(), request->id(), "email", request->subject());
+
+    reply->set_res(res);
+
+    return Status::OK;
+
+
   }
 
 
@@ -75,7 +96,7 @@
   // helper function to return an IP address of a live backend server
   std::string MailServiceGRPC::getServerAddress(std::string username) {
      MasterClient masterClient(grpc::CreateChannel(
-      "127.0.0.1:8001", grpc::InsecureChannelCredentials()));
+      "127.0.0.1:10001", grpc::InsecureChannelCredentials()));
 
      std::vector<std::string> validServers = masterClient.getServerList(username);
 

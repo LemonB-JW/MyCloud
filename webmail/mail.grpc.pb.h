@@ -58,6 +58,13 @@ class Mail final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mail::PutMailReply>> PrepareAsyncPutMail(::grpc::ClientContext* context, const ::mail::PutMailRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mail::PutMailReply>>(PrepareAsyncPutMailRaw(context, request, cq));
     }
+    virtual ::grpc::Status DeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::mail::DeleteMailReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mail::DeleteMailReply>> AsyncDeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mail::DeleteMailReply>>(AsyncDeleteMailRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mail::DeleteMailReply>> PrepareAsyncDeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::mail::DeleteMailReply>>(PrepareAsyncDeleteMailRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -67,6 +74,8 @@ class Mail final {
       virtual void GetMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::GetMailReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void PutMail(::grpc::ClientContext* context, const ::mail::PutMailRequest* request, ::mail::PutMailReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void PutMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::PutMailReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::DeleteMailReply* response, std::function<void(::grpc::Status)>) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -76,6 +85,8 @@ class Mail final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mail::GetMailReply>* PrepareAsyncGetMailRaw(::grpc::ClientContext* context, const ::mail::GetMailRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mail::PutMailReply>* AsyncPutMailRaw(::grpc::ClientContext* context, const ::mail::PutMailRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::mail::PutMailReply>* PrepareAsyncPutMailRaw(::grpc::ClientContext* context, const ::mail::PutMailRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mail::DeleteMailReply>* AsyncDeleteMailRaw(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::mail::DeleteMailReply>* PrepareAsyncDeleteMailRaw(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -101,6 +112,13 @@ class Mail final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mail::PutMailReply>> PrepareAsyncPutMail(::grpc::ClientContext* context, const ::mail::PutMailRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mail::PutMailReply>>(PrepareAsyncPutMailRaw(context, request, cq));
     }
+    ::grpc::Status DeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::mail::DeleteMailReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>> AsyncDeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>>(AsyncDeleteMailRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>> PrepareAsyncDeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>>(PrepareAsyncDeleteMailRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
@@ -110,6 +128,8 @@ class Mail final {
       void GetMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::GetMailReply* response, std::function<void(::grpc::Status)>) override;
       void PutMail(::grpc::ClientContext* context, const ::mail::PutMailRequest* request, ::mail::PutMailReply* response, std::function<void(::grpc::Status)>) override;
       void PutMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::PutMailReply* response, std::function<void(::grpc::Status)>) override;
+      void DeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response, std::function<void(::grpc::Status)>) override;
+      void DeleteMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::DeleteMailReply* response, std::function<void(::grpc::Status)>) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -127,9 +147,12 @@ class Mail final {
     ::grpc::ClientAsyncResponseReader< ::mail::GetMailReply>* PrepareAsyncGetMailRaw(::grpc::ClientContext* context, const ::mail::GetMailRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mail::PutMailReply>* AsyncPutMailRaw(::grpc::ClientContext* context, const ::mail::PutMailRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::mail::PutMailReply>* PrepareAsyncPutMailRaw(::grpc::ClientContext* context, const ::mail::PutMailRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>* AsyncDeleteMailRaw(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>* PrepareAsyncDeleteMailRaw(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GetMailList_;
     const ::grpc::internal::RpcMethod rpcmethod_GetMail_;
     const ::grpc::internal::RpcMethod rpcmethod_PutMail_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteMail_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -140,6 +163,7 @@ class Mail final {
     virtual ::grpc::Status GetMailList(::grpc::ServerContext* context, const ::mail::GetMailListRequest* request, ::mail::GetMailListReply* response);
     virtual ::grpc::Status GetMail(::grpc::ServerContext* context, const ::mail::GetMailRequest* request, ::mail::GetMailReply* response);
     virtual ::grpc::Status PutMail(::grpc::ServerContext* context, const ::mail::PutMailRequest* request, ::mail::PutMailReply* response);
+    virtual ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_GetMailList : public BaseClass {
@@ -201,7 +225,27 @@ class Mail final {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetMailList<WithAsyncMethod_GetMail<WithAsyncMethod_PutMail<Service > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteMail : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_DeleteMail() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_DeleteMail() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteMail(::grpc::ServerContext* context, ::mail::DeleteMailRequest* request, ::grpc::ServerAsyncResponseWriter< ::mail::DeleteMailReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_GetMailList<WithAsyncMethod_GetMail<WithAsyncMethod_PutMail<WithAsyncMethod_DeleteMail<Service > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_GetMailList : public BaseClass {
    private:
@@ -277,7 +321,32 @@ class Mail final {
     }
     virtual void PutMail(::grpc::ServerContext* context, const ::mail::PutMailRequest* request, ::mail::PutMailReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
-  typedef ExperimentalWithCallbackMethod_GetMailList<ExperimentalWithCallbackMethod_GetMail<ExperimentalWithCallbackMethod_PutMail<Service > > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_DeleteMail : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_DeleteMail() {
+      ::grpc::Service::experimental().MarkMethodCallback(3,
+        new ::grpc::internal::CallbackUnaryHandler< ::mail::DeleteMailRequest, ::mail::DeleteMailReply>(
+          [this](::grpc::ServerContext* context,
+                 const ::mail::DeleteMailRequest* request,
+                 ::mail::DeleteMailReply* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->DeleteMail(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithCallbackMethod_DeleteMail() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_GetMailList<ExperimentalWithCallbackMethod_GetMail<ExperimentalWithCallbackMethod_PutMail<ExperimentalWithCallbackMethod_DeleteMail<Service > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetMailList : public BaseClass {
    private:
@@ -325,6 +394,23 @@ class Mail final {
     }
     // disable synchronous version of this method
     ::grpc::Status PutMail(::grpc::ServerContext* context, const ::mail::PutMailRequest* request, ::mail::PutMailReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DeleteMail : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_DeleteMail() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_DeleteMail() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -387,6 +473,26 @@ class Mail final {
     }
     void RequestPutMail(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteMail : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_DeleteMail() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_DeleteMail() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteMail(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -465,6 +571,31 @@ class Mail final {
     virtual void PutMail(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_DeleteMail : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_DeleteMail() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(3,
+        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->DeleteMail(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_DeleteMail() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void DeleteMail(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_GetMailList : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -524,9 +655,29 @@ class Mail final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedPutMail(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mail::PutMailRequest,::mail::PutMailReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_GetMailList<WithStreamedUnaryMethod_GetMail<WithStreamedUnaryMethod_PutMail<Service > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteMail : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_DeleteMail() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler< ::mail::DeleteMailRequest, ::mail::DeleteMailReply>(std::bind(&WithStreamedUnaryMethod_DeleteMail<BaseClass>::StreamedDeleteMail, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_DeleteMail() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteMail(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::mail::DeleteMailRequest,::mail::DeleteMailReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_GetMailList<WithStreamedUnaryMethod_GetMail<WithStreamedUnaryMethod_PutMail<WithStreamedUnaryMethod_DeleteMail<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GetMailList<WithStreamedUnaryMethod_GetMail<WithStreamedUnaryMethod_PutMail<Service > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GetMailList<WithStreamedUnaryMethod_GetMail<WithStreamedUnaryMethod_PutMail<WithStreamedUnaryMethod_DeleteMail<Service > > > > StreamedService;
 };
 
 }  // namespace mail

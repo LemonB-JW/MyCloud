@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 
 
 	// MasterClient masterClient(grpc::CreateChannel(
-	// 	"127.0.0.1:8001", grpc::InsecureChannelCredentials()));
+	// 	"127.0.0.1:10001", grpc::InsecureChannelCredentials()));
 
 	// std::string username("Jill");
 
@@ -45,14 +45,16 @@ int main(int argc, char** argv) {
 	// std::cout << "Valid server address is " << serverList[0] << std::endl;
 
 
-	// MailClient mailClient(grpc::CreateChannel(
-	// 	"127.0.0.1:4000", grpc::InsecureChannelCredentials()));
-	// std::string username("Jill");
-	// std::vector<MailItem> emails = mailClient.requestMailList(username);
-	// std::string content = mailClient.requestMail(username, reply);
+	MailClient mailClient(grpc::CreateChannel(
+		"127.0.0.1:4000", grpc::InsecureChannelCredentials()));
+	std::string username("Jill");
+	std::vector<MailItem> emails = mailClient.requestMailList(username);
+	std::string content = mailClient.requestMail(username, reply);
+	std::string res = mailClient.deleteMail(username, reply, file_name);
 
-	// std::cout << "MailClient received: " << emails.size() << std::endl;
-	// std::cout << "Mail content received: " << content << std::endl;
+	std::cout << "MailClient received: " << emails.size() << std::endl;
+	std::cout << "Mail content received: " << content << std::endl;
+	std::cout << "Mail deleted : " << res << std::endl;
 
 	return 0;
 

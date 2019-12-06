@@ -93,6 +93,37 @@ std::string MailClient::sendMail(const std::string& receiver, const std::string&
 
 }
 
+
+std::string MailClient::deleteMail(const std::string& user, const std::string& email_id, const std::string& subject) {
+
+  DeleteMailRequest request;
+  request.set_user(user);
+  request.set_id(email_id);
+  request.set_subject(subject);
+
+
+    // Container for the data we expect from the server.
+  DeleteMailReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+  ClientContext context;
+
+    // The actual RPC.
+  Status status = stub_->DeleteMail(&context, request, &reply);
+
+    // Act upon its status.
+  if (status.ok()) {
+    return reply.res();
+  } else {
+    std::cout << status.error_code() << ": " << status.error_message() << std::endl;
+
+    return "Unable to delete the email!";
+  }
+}
+
+
+
 std::vector<MailItem> MailClient::ListMailFromReply(const mail::GetMailListReply& mail_reply) {
   std::vector<MailItem> emails;
 

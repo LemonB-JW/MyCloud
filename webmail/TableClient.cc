@@ -139,6 +139,41 @@ std::vector<FileMetaData> TableClient::ListEmailsFromReply(const bigtable::GetEm
   return email_list;
 }
 
+std::string TableClient::deleteEmail(std::string row, std::string col, std::string file_type, std::string path_name){
+    DelRequest request;
+    request.set_path_name(path_name);
+    request.set_file_type(file_type); 
+    request.set_row(row);
+    request.set_col(col);
+   
+
+
+    // Container for the data we expect from the server.
+    DelReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->table_delete(&context, request, &reply);
+
+   // Act upon its status.
+    if (status.ok()) {
+      std::string res = "";
+      if(reply.is_successful()){
+        res = "true";
+      }else{
+        res = "false";
+      }     
+      return res;
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message()
+                << std::endl;
+      return "RPC failed";
+    }
+  }
+
 
 // int main(int argc, char** argv) {
 //   TableClient greeter(grpc::CreateChannel(

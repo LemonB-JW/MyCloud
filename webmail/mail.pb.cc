@@ -46,6 +46,14 @@ class PutMailReplyDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<PutMailReply> _instance;
 } _PutMailReply_default_instance_;
+class DeleteMailRequestDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<DeleteMailRequest> _instance;
+} _DeleteMailRequest_default_instance_;
+class DeleteMailReplyDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<DeleteMailReply> _instance;
+} _DeleteMailReply_default_instance_;
 }  // namespace mail
 static void InitDefaultsGetMailListRequest_mail_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -146,6 +154,34 @@ static void InitDefaultsPutMailReply_mail_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_PutMailReply_mail_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsPutMailReply_mail_2eproto}, {}};
 
+static void InitDefaultsDeleteMailRequest_mail_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::mail::_DeleteMailRequest_default_instance_;
+    new (ptr) ::mail::DeleteMailRequest();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::mail::DeleteMailRequest::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_DeleteMailRequest_mail_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsDeleteMailRequest_mail_2eproto}, {}};
+
+static void InitDefaultsDeleteMailReply_mail_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::mail::_DeleteMailReply_default_instance_;
+    new (ptr) ::mail::DeleteMailReply();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::mail::DeleteMailReply::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_DeleteMailReply_mail_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsDeleteMailReply_mail_2eproto}, {}};
+
 void InitDefaults_mail_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_GetMailListRequest_mail_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GetMailListReply_mail_2eproto.base);
@@ -154,9 +190,11 @@ void InitDefaults_mail_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_GetMailReply_mail_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_PutMailRequest_mail_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_PutMailReply_mail_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_DeleteMailRequest_mail_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_DeleteMailReply_mail_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_mail_2eproto[7];
+::google::protobuf::Metadata file_level_metadata_mail_2eproto[9];
 constexpr ::google::protobuf::EnumDescriptor const** file_level_enum_descriptors_mail_2eproto = nullptr;
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_mail_2eproto = nullptr;
 
@@ -212,6 +250,20 @@ const ::google::protobuf::uint32 TableStruct_mail_2eproto::offsets[] PROTOBUF_SE
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::mail::PutMailReply, email_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::mail::DeleteMailRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::mail::DeleteMailRequest, user_),
+  PROTOBUF_FIELD_OFFSET(::mail::DeleteMailRequest, id_),
+  PROTOBUF_FIELD_OFFSET(::mail::DeleteMailRequest, subject_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::mail::DeleteMailReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::mail::DeleteMailReply, res_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::mail::GetMailListRequest)},
@@ -221,6 +273,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 28, -1, sizeof(::mail::GetMailReply)},
   { 34, -1, sizeof(::mail::PutMailRequest)},
   { 45, -1, sizeof(::mail::PutMailReply)},
+  { 51, -1, sizeof(::mail::DeleteMailRequest)},
+  { 59, -1, sizeof(::mail::DeleteMailReply)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -231,12 +285,14 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::mail::_GetMailReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::mail::_PutMailRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::mail::_PutMailReply_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::mail::_DeleteMailRequest_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::mail::_DeleteMailReply_default_instance_),
 };
 
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_mail_2eproto = {
   {}, AddDescriptors_mail_2eproto, "mail.proto", schemas,
   file_default_instances, TableStruct_mail_2eproto::offsets,
-  file_level_metadata_mail_2eproto, 7, file_level_enum_descriptors_mail_2eproto, file_level_service_descriptors_mail_2eproto,
+  file_level_metadata_mail_2eproto, 9, file_level_enum_descriptors_mail_2eproto, file_level_service_descriptors_mail_2eproto,
 };
 
 const char descriptor_table_protodef_mail_2eproto[] =
@@ -250,18 +306,22 @@ const char descriptor_table_protodef_mail_2eproto[] =
   "\030\001 \001(\t\022\024\n\014created_time\030\002 \001(\t\022\017\n\007subject\030"
   "\003 \001(\t\022\016\n\006sender\030\004 \001(\t\022\017\n\007content\030\005 \001(\t\022\014"
   "\n\004size\030\006 \001(\005\" \n\014PutMailReply\022\020\n\010email_id"
-  "\030\001 \001(\t2\267\001\n\004Mail\022A\n\013GetMailList\022\030.mail.Ge"
-  "tMailListRequest\032\026.mail.GetMailListReply"
-  "\"\000\0225\n\007GetMail\022\024.mail.GetMailRequest\032\022.ma"
-  "il.GetMailReply\"\000\0225\n\007PutMail\022\024.mail.PutM"
-  "ailRequest\032\022.mail.PutMailReply\"\000B+\n\025io.g"
+  "\030\001 \001(\t\">\n\021DeleteMailRequest\022\014\n\004user\030\001 \001("
+  "\t\022\n\n\002id\030\002 \001(\t\022\017\n\007subject\030\003 \001(\t\"\036\n\017Delete"
+  "MailReply\022\013\n\003res\030\001 \001(\t2\367\001\n\004Mail\022A\n\013GetMa"
+  "ilList\022\030.mail.GetMailListRequest\032\026.mail."
+  "GetMailListReply\"\000\0225\n\007GetMail\022\024.mail.Get"
+  "MailRequest\032\022.mail.GetMailReply\"\000\0225\n\007Put"
+  "Mail\022\024.mail.PutMailRequest\032\022.mail.PutMai"
+  "lReply\"\000\022>\n\nDeleteMail\022\027.mail.DeleteMail"
+  "Request\032\025.mail.DeleteMailReply\"\000B+\n\025io.g"
   "rpc.examples.mailB\tMailProtoP\001\242\002\004MAILb\006p"
   "roto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_mail_2eproto = {
   false, InitDefaults_mail_2eproto, 
   descriptor_table_protodef_mail_2eproto,
-  "mail.proto", &assign_descriptors_table_mail_2eproto, 645,
+  "mail.proto", &assign_descriptors_table_mail_2eproto, 805,
 };
 
 void AddDescriptors_mail_2eproto() {
@@ -2966,6 +3026,746 @@ void PutMailReply::InternalSwap(PutMailReply* other) {
 }
 
 
+// ===================================================================
+
+void DeleteMailRequest::InitAsDefaultInstance() {
+}
+class DeleteMailRequest::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int DeleteMailRequest::kUserFieldNumber;
+const int DeleteMailRequest::kIdFieldNumber;
+const int DeleteMailRequest::kSubjectFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+DeleteMailRequest::DeleteMailRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:mail.DeleteMailRequest)
+}
+DeleteMailRequest::DeleteMailRequest(const DeleteMailRequest& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  user_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.user().size() > 0) {
+    user_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.user_);
+  }
+  id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.id().size() > 0) {
+    id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.id_);
+  }
+  subject_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.subject().size() > 0) {
+    subject_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.subject_);
+  }
+  // @@protoc_insertion_point(copy_constructor:mail.DeleteMailRequest)
+}
+
+void DeleteMailRequest::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_DeleteMailRequest_mail_2eproto.base);
+  user_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  subject_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+DeleteMailRequest::~DeleteMailRequest() {
+  // @@protoc_insertion_point(destructor:mail.DeleteMailRequest)
+  SharedDtor();
+}
+
+void DeleteMailRequest::SharedDtor() {
+  user_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  subject_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void DeleteMailRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const DeleteMailRequest& DeleteMailRequest::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_DeleteMailRequest_mail_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void DeleteMailRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:mail.DeleteMailRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  subject_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* DeleteMailRequest::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<DeleteMailRequest*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // string user = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("mail.DeleteMailRequest.user");
+        object = msg->mutable_user();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string id = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("mail.DeleteMailRequest.id");
+        object = msg->mutable_id();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      // string subject = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("mail.DeleteMailRequest.subject");
+        object = msg->mutable_subject();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+string_till_end:
+  static_cast<::std::string*>(object)->clear();
+  static_cast<::std::string*>(object)->reserve(size);
+  goto len_delim_till_end;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool DeleteMailRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:mail.DeleteMailRequest)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string user = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->user().data(), static_cast<int>(this->user().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "mail.DeleteMailRequest.user"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string id = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_id()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->id().data(), static_cast<int>(this->id().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "mail.DeleteMailRequest.id"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string subject = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_subject()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->subject().data(), static_cast<int>(this->subject().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "mail.DeleteMailRequest.subject"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:mail.DeleteMailRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:mail.DeleteMailRequest)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void DeleteMailRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:mail.DeleteMailRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string user = 1;
+  if (this->user().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->user().data(), static_cast<int>(this->user().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailRequest.user");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->user(), output);
+  }
+
+  // string id = 2;
+  if (this->id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->id().data(), static_cast<int>(this->id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailRequest.id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->id(), output);
+  }
+
+  // string subject = 3;
+  if (this->subject().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->subject().data(), static_cast<int>(this->subject().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailRequest.subject");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->subject(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:mail.DeleteMailRequest)
+}
+
+::google::protobuf::uint8* DeleteMailRequest::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:mail.DeleteMailRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string user = 1;
+  if (this->user().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->user().data(), static_cast<int>(this->user().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailRequest.user");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->user(), target);
+  }
+
+  // string id = 2;
+  if (this->id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->id().data(), static_cast<int>(this->id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailRequest.id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->id(), target);
+  }
+
+  // string subject = 3;
+  if (this->subject().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->subject().data(), static_cast<int>(this->subject().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailRequest.subject");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->subject(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:mail.DeleteMailRequest)
+  return target;
+}
+
+size_t DeleteMailRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mail.DeleteMailRequest)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string user = 1;
+  if (this->user().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->user());
+  }
+
+  // string id = 2;
+  if (this->id().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->id());
+  }
+
+  // string subject = 3;
+  if (this->subject().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->subject());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeleteMailRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:mail.DeleteMailRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const DeleteMailRequest* source =
+      ::google::protobuf::DynamicCastToGenerated<DeleteMailRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mail.DeleteMailRequest)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:mail.DeleteMailRequest)
+    MergeFrom(*source);
+  }
+}
+
+void DeleteMailRequest::MergeFrom(const DeleteMailRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mail.DeleteMailRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.user().size() > 0) {
+
+    user_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.user_);
+  }
+  if (from.id().size() > 0) {
+
+    id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.id_);
+  }
+  if (from.subject().size() > 0) {
+
+    subject_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.subject_);
+  }
+}
+
+void DeleteMailRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:mail.DeleteMailRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void DeleteMailRequest::CopyFrom(const DeleteMailRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mail.DeleteMailRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeleteMailRequest::IsInitialized() const {
+  return true;
+}
+
+void DeleteMailRequest::Swap(DeleteMailRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void DeleteMailRequest::InternalSwap(DeleteMailRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  user_.Swap(&other->user_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  id_.Swap(&other->id_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  subject_.Swap(&other->subject_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::google::protobuf::Metadata DeleteMailRequest::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_mail_2eproto);
+  return ::file_level_metadata_mail_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void DeleteMailReply::InitAsDefaultInstance() {
+}
+class DeleteMailReply::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int DeleteMailReply::kResFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+DeleteMailReply::DeleteMailReply()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:mail.DeleteMailReply)
+}
+DeleteMailReply::DeleteMailReply(const DeleteMailReply& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  res_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.res().size() > 0) {
+    res_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.res_);
+  }
+  // @@protoc_insertion_point(copy_constructor:mail.DeleteMailReply)
+}
+
+void DeleteMailReply::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_DeleteMailReply_mail_2eproto.base);
+  res_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+DeleteMailReply::~DeleteMailReply() {
+  // @@protoc_insertion_point(destructor:mail.DeleteMailReply)
+  SharedDtor();
+}
+
+void DeleteMailReply::SharedDtor() {
+  res_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void DeleteMailReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const DeleteMailReply& DeleteMailReply::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_DeleteMailReply_mail_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void DeleteMailReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:mail.DeleteMailReply)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  res_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* DeleteMailReply::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<DeleteMailReply*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // string res = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("mail.DeleteMailReply.res");
+        object = msg->mutable_res();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+string_till_end:
+  static_cast<::std::string*>(object)->clear();
+  static_cast<::std::string*>(object)->reserve(size);
+  goto len_delim_till_end;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool DeleteMailReply::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:mail.DeleteMailReply)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string res = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_res()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->res().data(), static_cast<int>(this->res().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "mail.DeleteMailReply.res"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:mail.DeleteMailReply)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:mail.DeleteMailReply)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void DeleteMailReply::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:mail.DeleteMailReply)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string res = 1;
+  if (this->res().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->res().data(), static_cast<int>(this->res().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailReply.res");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->res(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:mail.DeleteMailReply)
+}
+
+::google::protobuf::uint8* DeleteMailReply::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:mail.DeleteMailReply)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string res = 1;
+  if (this->res().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->res().data(), static_cast<int>(this->res().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "mail.DeleteMailReply.res");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->res(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:mail.DeleteMailReply)
+  return target;
+}
+
+size_t DeleteMailReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mail.DeleteMailReply)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string res = 1;
+  if (this->res().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->res());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeleteMailReply::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:mail.DeleteMailReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  const DeleteMailReply* source =
+      ::google::protobuf::DynamicCastToGenerated<DeleteMailReply>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mail.DeleteMailReply)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:mail.DeleteMailReply)
+    MergeFrom(*source);
+  }
+}
+
+void DeleteMailReply::MergeFrom(const DeleteMailReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mail.DeleteMailReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.res().size() > 0) {
+
+    res_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.res_);
+  }
+}
+
+void DeleteMailReply::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:mail.DeleteMailReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void DeleteMailReply::CopyFrom(const DeleteMailReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mail.DeleteMailReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeleteMailReply::IsInitialized() const {
+  return true;
+}
+
+void DeleteMailReply::Swap(DeleteMailReply* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void DeleteMailReply::InternalSwap(DeleteMailReply* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  res_.Swap(&other->res_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::google::protobuf::Metadata DeleteMailReply::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_mail_2eproto);
+  return ::file_level_metadata_mail_2eproto[kIndexInFileMessages];
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mail
 namespace google {
@@ -2990,6 +3790,12 @@ template<> PROTOBUF_NOINLINE ::mail::PutMailRequest* Arena::CreateMaybeMessage< 
 }
 template<> PROTOBUF_NOINLINE ::mail::PutMailReply* Arena::CreateMaybeMessage< ::mail::PutMailReply >(Arena* arena) {
   return Arena::CreateInternal< ::mail::PutMailReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::mail::DeleteMailRequest* Arena::CreateMaybeMessage< ::mail::DeleteMailRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::mail::DeleteMailRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::mail::DeleteMailReply* Arena::CreateMaybeMessage< ::mail::DeleteMailReply >(Arena* arena) {
+  return Arena::CreateInternal< ::mail::DeleteMailReply >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

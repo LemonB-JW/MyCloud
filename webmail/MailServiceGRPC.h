@@ -27,6 +27,8 @@ using mail::GetMailRequest;
 using mail::GetMailReply;
 using mail::PutMailRequest;
 using mail::PutMailReply;
+using mail::DeleteMailRequest;
+using mail::DeleteMailReply;
 using mail::Mail;
 using mail::Email;
 
@@ -40,6 +42,10 @@ class MailServiceGRPC final : public Mail::Service {
 
     Status PutMail(ServerContext* context, const PutMailRequest* request,
     PutMailReply* reply) override;
+
+    Status DeleteMail(ServerContext* context, const DeleteMailRequest* request,
+    DeleteMailReply* reply) override;
+
 
     void constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date, std::string id);
 

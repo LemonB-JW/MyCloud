@@ -22,6 +22,7 @@ static const char* Mail_method_names[] = {
   "/mail.Mail/GetMailList",
   "/mail.Mail/GetMail",
   "/mail.Mail/PutMail",
+  "/mail.Mail/DeleteMail",
 };
 
 std::unique_ptr< Mail::Stub> Mail::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -34,6 +35,7 @@ Mail::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_GetMailList_(Mail_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetMail_(Mail_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_PutMail_(Mail_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteMail_(Mail_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Mail::Stub::GetMailList(::grpc::ClientContext* context, const ::mail::GetMailListRequest& request, ::mail::GetMailListReply* response) {
@@ -96,6 +98,26 @@ void Mail::Stub::experimental_async::PutMail(::grpc::ClientContext* context, con
   return ::grpc::internal::ClientAsyncResponseReaderFactory< ::mail::PutMailReply>::Create(channel_.get(), cq, rpcmethod_PutMail_, context, request, false);
 }
 
+::grpc::Status Mail::Stub::DeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::mail::DeleteMailReply* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DeleteMail_, context, request, response);
+}
+
+void Mail::Stub::experimental_async::DeleteMail(::grpc::ClientContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_DeleteMail_, context, request, response, std::move(f));
+}
+
+void Mail::Stub::experimental_async::DeleteMail(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::mail::DeleteMailReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_DeleteMail_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>* Mail::Stub::AsyncDeleteMailRaw(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::mail::DeleteMailReply>::Create(channel_.get(), cq, rpcmethod_DeleteMail_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::mail::DeleteMailReply>* Mail::Stub::PrepareAsyncDeleteMailRaw(::grpc::ClientContext* context, const ::mail::DeleteMailRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::mail::DeleteMailReply>::Create(channel_.get(), cq, rpcmethod_DeleteMail_, context, request, false);
+}
+
 Mail::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Mail_method_names[0],
@@ -112,6 +134,11 @@ Mail::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Mail::Service, ::mail::PutMailRequest, ::mail::PutMailReply>(
           std::mem_fn(&Mail::Service::PutMail), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Mail_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Mail::Service, ::mail::DeleteMailRequest, ::mail::DeleteMailReply>(
+          std::mem_fn(&Mail::Service::DeleteMail), this)));
 }
 
 Mail::Service::~Service() {
@@ -132,6 +159,13 @@ Mail::Service::~Service() {
 }
 
 ::grpc::Status Mail::Service::PutMail(::grpc::ServerContext* context, const ::mail::PutMailRequest* request, ::mail::PutMailReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Mail::Service::DeleteMail(::grpc::ServerContext* context, const ::mail::DeleteMailRequest* request, ::mail::DeleteMailReply* response) {
   (void) context;
   (void) request;
   (void) response;

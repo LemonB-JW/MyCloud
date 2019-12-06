@@ -37,6 +37,8 @@ using bigtable::MoveFifoReply;
 using bigtable::Bigtable;
 using bigtable::LocalPutWithIDRequest;
 using bigtable::LocalPutWithIDReply;
+using bigtable::DelRequest;
+using bigtable::DelReply;
 
 
 class TableClient {
@@ -54,6 +56,8 @@ public:
     std::string getEmail(std::string user, std::string fileID);
 
     std::vector<FileMetaData> listEmails(std::string user);
+
+    std::string deleteEmail(std::string row, std::string col, std::string file_type, std::string path_name);
 
     std::vector<FileMetaData> ListEmailsFromReply(const bigtable::GetEmailListReply& email_list_reply);
 

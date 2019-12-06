@@ -41,7 +41,7 @@ struct TableStruct_mail_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[7]
+  static const ::google::protobuf::internal::ParseTable schema[9]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -49,6 +49,12 @@ struct TableStruct_mail_2eproto {
 };
 void AddDescriptors_mail_2eproto();
 namespace mail {
+class DeleteMailReply;
+class DeleteMailReplyDefaultTypeInternal;
+extern DeleteMailReplyDefaultTypeInternal _DeleteMailReply_default_instance_;
+class DeleteMailRequest;
+class DeleteMailRequestDefaultTypeInternal;
+extern DeleteMailRequestDefaultTypeInternal _DeleteMailRequest_default_instance_;
 class Email;
 class EmailDefaultTypeInternal;
 extern EmailDefaultTypeInternal _Email_default_instance_;
@@ -73,6 +79,8 @@ extern PutMailRequestDefaultTypeInternal _PutMailRequest_default_instance_;
 }  // namespace mail
 namespace google {
 namespace protobuf {
+template<> ::mail::DeleteMailReply* Arena::CreateMaybeMessage<::mail::DeleteMailReply>(Arena*);
+template<> ::mail::DeleteMailRequest* Arena::CreateMaybeMessage<::mail::DeleteMailRequest>(Arena*);
 template<> ::mail::Email* Arena::CreateMaybeMessage<::mail::Email>(Arena*);
 template<> ::mail::GetMailListReply* Arena::CreateMaybeMessage<::mail::GetMailListReply>(Arena*);
 template<> ::mail::GetMailListRequest* Arena::CreateMaybeMessage<::mail::GetMailListRequest>(Arena*);
@@ -1049,6 +1057,276 @@ class PutMailReply final :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mail_2eproto;
 };
+// -------------------------------------------------------------------
+
+class DeleteMailRequest final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:mail.DeleteMailRequest) */ {
+ public:
+  DeleteMailRequest();
+  virtual ~DeleteMailRequest();
+
+  DeleteMailRequest(const DeleteMailRequest& from);
+
+  inline DeleteMailRequest& operator=(const DeleteMailRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  DeleteMailRequest(DeleteMailRequest&& from) noexcept
+    : DeleteMailRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteMailRequest& operator=(DeleteMailRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const DeleteMailRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const DeleteMailRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteMailRequest*>(
+               &_DeleteMailRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  void Swap(DeleteMailRequest* other);
+  friend void swap(DeleteMailRequest& a, DeleteMailRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteMailRequest* New() const final {
+    return CreateMaybeMessage<DeleteMailRequest>(nullptr);
+  }
+
+  DeleteMailRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteMailRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const DeleteMailRequest& from);
+  void MergeFrom(const DeleteMailRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteMailRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string user = 1;
+  void clear_user();
+  static const int kUserFieldNumber = 1;
+  const ::std::string& user() const;
+  void set_user(const ::std::string& value);
+  #if LANG_CXX11
+  void set_user(::std::string&& value);
+  #endif
+  void set_user(const char* value);
+  void set_user(const char* value, size_t size);
+  ::std::string* mutable_user();
+  ::std::string* release_user();
+  void set_allocated_user(::std::string* user);
+
+  // string id = 2;
+  void clear_id();
+  static const int kIdFieldNumber = 2;
+  const ::std::string& id() const;
+  void set_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_id(::std::string&& value);
+  #endif
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  ::std::string* mutable_id();
+  ::std::string* release_id();
+  void set_allocated_id(::std::string* id);
+
+  // string subject = 3;
+  void clear_subject();
+  static const int kSubjectFieldNumber = 3;
+  const ::std::string& subject() const;
+  void set_subject(const ::std::string& value);
+  #if LANG_CXX11
+  void set_subject(::std::string&& value);
+  #endif
+  void set_subject(const char* value);
+  void set_subject(const char* value, size_t size);
+  ::std::string* mutable_subject();
+  ::std::string* release_subject();
+  void set_allocated_subject(::std::string* subject);
+
+  // @@protoc_insertion_point(class_scope:mail.DeleteMailRequest)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr user_;
+  ::google::protobuf::internal::ArenaStringPtr id_;
+  ::google::protobuf::internal::ArenaStringPtr subject_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_mail_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteMailReply final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:mail.DeleteMailReply) */ {
+ public:
+  DeleteMailReply();
+  virtual ~DeleteMailReply();
+
+  DeleteMailReply(const DeleteMailReply& from);
+
+  inline DeleteMailReply& operator=(const DeleteMailReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  DeleteMailReply(DeleteMailReply&& from) noexcept
+    : DeleteMailReply() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteMailReply& operator=(DeleteMailReply&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const DeleteMailReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const DeleteMailReply* internal_default_instance() {
+    return reinterpret_cast<const DeleteMailReply*>(
+               &_DeleteMailReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  void Swap(DeleteMailReply* other);
+  friend void swap(DeleteMailReply& a, DeleteMailReply& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteMailReply* New() const final {
+    return CreateMaybeMessage<DeleteMailReply>(nullptr);
+  }
+
+  DeleteMailReply* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteMailReply>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const DeleteMailReply& from);
+  void MergeFrom(const DeleteMailReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteMailReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string res = 1;
+  void clear_res();
+  static const int kResFieldNumber = 1;
+  const ::std::string& res() const;
+  void set_res(const ::std::string& value);
+  #if LANG_CXX11
+  void set_res(::std::string&& value);
+  #endif
+  void set_res(const char* value);
+  void set_res(const char* value, size_t size);
+  ::std::string* mutable_res();
+  ::std::string* release_res();
+  void set_allocated_res(::std::string* res);
+
+  // @@protoc_insertion_point(class_scope:mail.DeleteMailReply)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr res_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_mail_2eproto;
+};
 // ===================================================================
 
 
@@ -1870,9 +2148,233 @@ inline void PutMailReply::set_allocated_email_id(::std::string* email_id) {
   // @@protoc_insertion_point(field_set_allocated:mail.PutMailReply.email_id)
 }
 
+// -------------------------------------------------------------------
+
+// DeleteMailRequest
+
+// string user = 1;
+inline void DeleteMailRequest::clear_user() {
+  user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& DeleteMailRequest::user() const {
+  // @@protoc_insertion_point(field_get:mail.DeleteMailRequest.user)
+  return user_.GetNoArena();
+}
+inline void DeleteMailRequest::set_user(const ::std::string& value) {
+  
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mail.DeleteMailRequest.user)
+}
+#if LANG_CXX11
+inline void DeleteMailRequest::set_user(::std::string&& value) {
+  
+  user_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mail.DeleteMailRequest.user)
+}
+#endif
+inline void DeleteMailRequest::set_user(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mail.DeleteMailRequest.user)
+}
+inline void DeleteMailRequest::set_user(const char* value, size_t size) {
+  
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mail.DeleteMailRequest.user)
+}
+inline ::std::string* DeleteMailRequest::mutable_user() {
+  
+  // @@protoc_insertion_point(field_mutable:mail.DeleteMailRequest.user)
+  return user_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* DeleteMailRequest::release_user() {
+  // @@protoc_insertion_point(field_release:mail.DeleteMailRequest.user)
+  
+  return user_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void DeleteMailRequest::set_allocated_user(::std::string* user) {
+  if (user != nullptr) {
+    
+  } else {
+    
+  }
+  user_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), user);
+  // @@protoc_insertion_point(field_set_allocated:mail.DeleteMailRequest.user)
+}
+
+// string id = 2;
+inline void DeleteMailRequest::clear_id() {
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& DeleteMailRequest::id() const {
+  // @@protoc_insertion_point(field_get:mail.DeleteMailRequest.id)
+  return id_.GetNoArena();
+}
+inline void DeleteMailRequest::set_id(const ::std::string& value) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mail.DeleteMailRequest.id)
+}
+#if LANG_CXX11
+inline void DeleteMailRequest::set_id(::std::string&& value) {
+  
+  id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mail.DeleteMailRequest.id)
+}
+#endif
+inline void DeleteMailRequest::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mail.DeleteMailRequest.id)
+}
+inline void DeleteMailRequest::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mail.DeleteMailRequest.id)
+}
+inline ::std::string* DeleteMailRequest::mutable_id() {
+  
+  // @@protoc_insertion_point(field_mutable:mail.DeleteMailRequest.id)
+  return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* DeleteMailRequest::release_id() {
+  // @@protoc_insertion_point(field_release:mail.DeleteMailRequest.id)
+  
+  return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void DeleteMailRequest::set_allocated_id(::std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:mail.DeleteMailRequest.id)
+}
+
+// string subject = 3;
+inline void DeleteMailRequest::clear_subject() {
+  subject_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& DeleteMailRequest::subject() const {
+  // @@protoc_insertion_point(field_get:mail.DeleteMailRequest.subject)
+  return subject_.GetNoArena();
+}
+inline void DeleteMailRequest::set_subject(const ::std::string& value) {
+  
+  subject_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mail.DeleteMailRequest.subject)
+}
+#if LANG_CXX11
+inline void DeleteMailRequest::set_subject(::std::string&& value) {
+  
+  subject_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mail.DeleteMailRequest.subject)
+}
+#endif
+inline void DeleteMailRequest::set_subject(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  subject_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mail.DeleteMailRequest.subject)
+}
+inline void DeleteMailRequest::set_subject(const char* value, size_t size) {
+  
+  subject_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mail.DeleteMailRequest.subject)
+}
+inline ::std::string* DeleteMailRequest::mutable_subject() {
+  
+  // @@protoc_insertion_point(field_mutable:mail.DeleteMailRequest.subject)
+  return subject_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* DeleteMailRequest::release_subject() {
+  // @@protoc_insertion_point(field_release:mail.DeleteMailRequest.subject)
+  
+  return subject_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void DeleteMailRequest::set_allocated_subject(::std::string* subject) {
+  if (subject != nullptr) {
+    
+  } else {
+    
+  }
+  subject_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), subject);
+  // @@protoc_insertion_point(field_set_allocated:mail.DeleteMailRequest.subject)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteMailReply
+
+// string res = 1;
+inline void DeleteMailReply::clear_res() {
+  res_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& DeleteMailReply::res() const {
+  // @@protoc_insertion_point(field_get:mail.DeleteMailReply.res)
+  return res_.GetNoArena();
+}
+inline void DeleteMailReply::set_res(const ::std::string& value) {
+  
+  res_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mail.DeleteMailReply.res)
+}
+#if LANG_CXX11
+inline void DeleteMailReply::set_res(::std::string&& value) {
+  
+  res_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:mail.DeleteMailReply.res)
+}
+#endif
+inline void DeleteMailReply::set_res(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  res_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mail.DeleteMailReply.res)
+}
+inline void DeleteMailReply::set_res(const char* value, size_t size) {
+  
+  res_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:mail.DeleteMailReply.res)
+}
+inline ::std::string* DeleteMailReply::mutable_res() {
+  
+  // @@protoc_insertion_point(field_mutable:mail.DeleteMailReply.res)
+  return res_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* DeleteMailReply::release_res() {
+  // @@protoc_insertion_point(field_release:mail.DeleteMailReply.res)
+  
+  return res_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void DeleteMailReply::set_allocated_res(::std::string* res) {
+  if (res != nullptr) {
+    
+  } else {
+    
+  }
+  res_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), res);
+  // @@protoc_insertion_point(field_set_allocated:mail.DeleteMailReply.res)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
