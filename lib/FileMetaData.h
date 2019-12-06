@@ -7,21 +7,20 @@
 #include <unistd.h>
 #include <string.h>
 #include <vector>
-using namespace std;
 
 class FileMetaData
 {
 public:
-	string created_time;
+	std::string created_time;
 	int size; // num of bytes of that file
-	string file_name;
-	string file_type; // 3 types: "email", "folder", "file", if it's a folder, its content should be NULL
-	string file_from;
-	string file_id; // created_time + file_name
+	std::string file_name;
+	std::string file_type; // 3 types: "email", "folder", "file", if it's a folder, its content should be NULL
+	std::string file_from;
+	std::string file_id; // created_time + file_name
 	// vector<char>* content;
 
 public:
-	FileMetaData(string created_time, int size, string file_name, string file_type, string file_from, string file_id){ //, const char* content_bytes
+	FileMetaData(std::string created_time, int size, std::string file_name, std::string file_type, std::string file_from, std::string file_id){ //, const char* content_bytes
 		this->created_time = created_time;
 		this->size = size;
 		this->file_name = file_name;
@@ -41,7 +40,7 @@ public:
 	};
 
 	/* Convert file meta data to string*/
- 	static string metaDataToString(const FileMetaData* file_data);
+ 	static std::string metaDataToString(const FileMetaData* file_data);
  	// /* Convert file content to string */
  	// string contentToString(const FileData* file_data); 	
 

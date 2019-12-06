@@ -9,7 +9,6 @@
 #include <string>
 #include <unordered_map>
 #include <json.hpp>
-#include "../grpc/MasterClient.h"
 #include "../webmail/MailClient.h"
 #include "TableClient.h"
 #include "mail.grpc.pb.h"

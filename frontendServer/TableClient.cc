@@ -156,8 +156,8 @@ std::vector<FileMetaData> TableClient::ListFileFromReply(const bigtable::GetFile
     for (int i = 0; i < file_list_reply.metadata_size(); i++) {
         const bigtable::fileMetaData& mdata = file_list_reply.metadata(i);
 
-        cout << "File ID: " << mdata.file_id() << endl;
-        cout << "  Name: " << mdata.file_name() << endl;
+        std::cout << "File ID: " << mdata.file_id() << std::endl;
+        std::cout << "  Name: " << mdata.file_name() << std::endl;
         FileMetaData file_info(mdata.created_time(), mdata.size(), mdata.file_name(), mdata.file_type(), mdata.file_from(), mdata.file_id());
         file_list.push_back(file_info);
 

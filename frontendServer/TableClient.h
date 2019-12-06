@@ -53,7 +53,7 @@ public:
 //    std::string cput(std::string new_created_time, int new_size, std::string path_name, std::string file_type, std::string row, std::string col,
 //                     std::string old_data, std::string new_data);
 
-    std::vector<FileMetaData> list_all_files(string row, string path_name);
+    std::vector<FileMetaData> list_all_files(std::string row, std::string path_name);
 
     std::vector<FileMetaData> ListFileFromReply(const bigtable::GetFileListReply& file_list_reply);
 
