@@ -58,7 +58,7 @@ public:
     std::vector<FileMetaData> ListFileFromReply(const bigtable::GetFileListReply& file_list_reply);
 
 //
-//    std::string rename_file_folder(std::string row, std::string file_type, std::string path_name, std::string new_file_name);
+    std::string rename_file_folder(std::string row, std::string file_type, std::string path_name, std::string new_file_name);
 //
 //    std::string move_file_folder(std::string row, std::string file_type, std::string path_name, std::string new_path);
 

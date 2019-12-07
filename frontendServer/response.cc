@@ -40,8 +40,8 @@ Response::Response(const Request& req) {
             get_html_handler(url);
         }
     } else if (req.method == "POST") {
-        std::cout << "method : " << req.method << std::endl;
-        std::cout << "Json: " << req.body.dump() << std::endl;
+//        std::cout << "method : " << req.method << std::endl;
+//        std::cout << "Json: " << req.body.dump() << std::endl;
         if (url.find("/drive_items") == 0) {
             int pos = url.find("/drive_items");
             pos = url.find("/", pos + 1);
@@ -49,6 +49,14 @@ Response::Response(const Request& req) {
             std::cout << "drive path: " << path << std::endl;
 
             get_drive_list_handler(path);
+        } else if (url.find("/drive/modify") == 0) {
+            std::string fullpath = req.body["path"];
+            std::string new_name = req.body["new_name"];
+            std::string type = req.body["type"];
+            drive_rename_handler(fullpath, new_name, type);
+        } else if (url.find("/drive/upload") == 0) {
+            upload_drive_file_handler();
+
         }
 
     }
@@ -180,6 +188,26 @@ void Response::get_html_handler(std::string &url) {
 //    std::vector<std::string> response = masterClient.getServerList(user);
 //    std::cout << "size: " << response.size() << "Servers: " << response[0] << std::endl;
 //}
+
+
+//TODO: confirm newname or new full path
+bool Response::drive_rename_handler(std::string fullpath, std::string newname, std::string type) {
+    TableClient tableClient = setup_table_client();
+    std::string status = tableClient.rename_file_folder(user, type, fullpath, newname);
+
+    if (status == "true") {
+        return true;
+    }
+    return false;
+}
+
+void Response::upload_drive_file_handler(std::string file_name, std::string user, std::string file_content) {
+    TableClient tableClient = setup_table_client();
+    std::string status = tableClient.put(created_time, file_content.length(), file_name, "file", NULL, user, file_content);
+
+}
+
+
 
 MailClient Response::setup_mail_client()
 {

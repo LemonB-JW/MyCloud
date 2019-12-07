@@ -44,10 +44,10 @@ public:
 
     void get_drive_list_handler(std::string &path);
     void download_drive_file_handler();
-    void upload_drive_file_handler();
+    void upload_drive_file_handler(std::string file_name, std::string user, std::string file_content);
     void create_drive_folder_handler(std::string name);
     void move_drive_file_handler(std::string oldpath, std::string newpath, std::string type);
-    void rename_drive_file_handler(std::string oldname, std::string newname, std::string type);
+    bool drive_rename_handler(std::string fullpath, std::string newname, std::string type);
     void delete_drive_file_handler(std::string path, std::string type);
 
 

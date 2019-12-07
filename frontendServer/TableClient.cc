@@ -220,6 +220,40 @@ std::string TableClient::deleteEmail(std::string row, std::string col, std::stri
     }
 }
 
+std::string TableClient::rename_file_folder(std::string row, std::string file_type, std::string path_name, std::string new_file_name){
+    RenameFifoRequest request;
+    request.set_path_name(path_name);
+    request.set_file_type(file_type);
+    request.set_row(row);
+    request.set_new_file_name(new_file_name);
+
+
+
+    // Container for the data we expect from the server.
+    RenameFifoReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->rename_file_folder(&context, request, &reply);
+
+    // Act upon its status.
+    if (status.ok()) {
+        std::string res = "";
+        if(reply.is_successful()){
+            res = "true";
+        }else{
+            res = "false";
+        }
+        return res;
+    } else {
+        std::cout << status.error_code() << ": " << status.error_message()
+                  << std::endl;
+        return "RPC failed";
+    }
+}
 
 
 
