@@ -26,7 +26,7 @@
 int pflag = 0;
 int aflag = 0;
 int vflag = 0;
-std::set<string> mailboxes;
+std::set<std::string> mailboxes;
 
 
 pthread_t tid[1000];
@@ -72,7 +72,7 @@ void send_response(int fd, const char* response) {
 
 
 
-void write_data(int fd, char* buffer, set<string>& recipients, char* sender, bool& inmessage, char* text) {
+void write_data(int fd, char* buffer, std::set<std::string>& recipients, char* sender, bool& inmessage, char* text) {
 
 	if (strstr(buffer, "\r\n") != NULL) {
 		// continue to read email text
@@ -149,7 +149,7 @@ void* handle_local_request(void *thread_data) {
 	bool inmessage = false;
 	char sender[100] = "";
 	char text[5000] = "";
-	set<string> recipients;
+	std::set<std::string> recipients;
 
 	int state = 0;
 
