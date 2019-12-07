@@ -34,7 +34,7 @@ public:
     std::string body;
 
 public:
-    Response(Request req);
+    Response(const Request& req);
 
 public:
     void parse_req_string(Request &req, std::string req_str);

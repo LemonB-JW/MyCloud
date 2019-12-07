@@ -25,7 +25,7 @@ using json = nlohmann::json;
 
 std::string user = "Jill";
 
-Response::Response(Request req) {
+Response::Response(const Request& req) {
 
     std::string url = req.req_uri;
     std::string content;
@@ -46,7 +46,10 @@ Response::Response(Request req) {
         else {
             get_html_handler(url);
         }
-    } else if (req.method == "POST") {
+    } else if (req.method == "POST"){
+
+        std::cout << "method : " << req.method << std::endl;
+        std::cout << "Json: " << req.body.dump() << std::endl << req.body["name"] << std::endl;
 
     }
 
