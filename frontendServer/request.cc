@@ -24,16 +24,11 @@ Request::Request(int fd) {
 
     read(fd, buf, MAX_REQUEST_LENGTH);
     std::string request = std::string(buf);
-    std::cout << "--------------------------------------------------------" << std::endl;
-
-    std::cout << request<< std::endl;
+//    std::cout << request<< std::endl;
     parse_req_string(*this, request);
-
+    std::cout << this->method << std::endl;
     this->cookie = headers["Cookie"];
-    //    for (auto key_val : headers) {
-//        std::cout << "key: //" << key_val.first << "//" << " val: //" << key_val.second << "//" << std::endl;
-//
-//    }
+
     if (buf != NULL) {
         free(buf);
     }
@@ -51,7 +46,8 @@ void Request::parse_req_string(Request &req, std::string req_str) {
         std::string data = copy.substr(data_start, data_end - data_start + 1);
         auto json_data = json::parse(data);
         req.body = json_data;
-        std::cout << "Json: " << req.body.dump() << std::endl;
+
+        req_str = req_str.substr(0, data_start);
     }
 
     size_t pos, prior_pos;
