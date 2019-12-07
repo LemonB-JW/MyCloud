@@ -24,6 +24,9 @@ Request::Request(int fd) {
 
     read(fd, buf, MAX_REQUEST_LENGTH);
     std::string request = std::string(buf);
+    std::cout << "--------------------------------------------------------" << std::endl;
+
+    std::cout << request<< std::endl;
     parse_req_string(*this, request);
 
     this->cookie = headers["Cookie"];
@@ -38,6 +41,19 @@ Request::Request(int fd) {
 
 /* parse incoming request string into structured request object */
 void Request::parse_req_string(Request &req, std::string req_str) {
+
+    // parse json data in post request if any
+    std::string copy = req_str;
+    int data_start = copy.rfind("{");
+    int data_end = copy.rfind("}");
+
+    if (data_start >= 0) {
+        std::string data = copy.substr(data_start, data_end - data_start + 1);
+        auto json_data = json::parse(data);
+        req.body = json_data;
+        std::cout << "Json: " << req.body.dump() << std::endl;
+    }
+
     size_t pos, prior_pos;
 
     // 1. parse start line: method, url, http version

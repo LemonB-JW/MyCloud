@@ -8,6 +8,9 @@
 #include <string.h>
 #include <string>
 #include <unordered_map>
+#include <json.hpp>
+
+using json = nlohmann::json;
 
 class Request {
 public:
@@ -16,7 +19,7 @@ public:
     std::string version;   // HTTP/1.1
     std::string cookie;
     std::unordered_map<std::string, std::string> headers;
-    std::string body;
+    json body;
 //        bool valid;
     int content_length;
 
