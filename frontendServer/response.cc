@@ -202,6 +202,8 @@ bool Response::drive_rename_handler(std::string fullpath, std::string newname, s
 }
 
 void Response::upload_drive_file_handler(std::string file_name, std::string user, std::string file_content) {
+    std::string created_time = currentDateTime();
+
     TableClient tableClient = setup_table_client();
     std::string status = tableClient.put(created_time, file_content.length(), file_name, "file", NULL, user, file_content);
 
