@@ -33,15 +33,16 @@ Response::Response(Request req) {
     if (req.method == "GET") {
         if (url == "/inbox_items") {
             get_inbox_list_handler();
-//        } else if (url.find("/drive") == 0) {
-//            int pos = url.find("/drive");
-//            pos = url.find("/", pos + 1);
-//            std::string path = url.substr(pos + 1, url.length() - pos);  //TODO: sanity check
-//            get_drive_list_handler(path);
+        } else if (url.find("/drive_items") == 0) {
+            int pos = url.find("/drive_items");
+            pos = url.find("/", pos + 1);
+            std::string path = url.substr(pos + 1, url.length() - pos);  //TODO: sanity check
+//            std::cout << "drive path: " << path << std::endl;
+
+            get_drive_list_handler(path);
         } else if (url == "/mail_item") {
             get_mail_content_handler();
         }
-
         else {
             get_html_handler(url);
         }
@@ -75,8 +76,6 @@ void Response::get_inbox_list_handler() {
     this->headers[CONTENT_TYPE] = TYPE_JSON;
     this->body = items.dump();
     this->headers[CONTENT_LEN] = std::to_string(this->body.length());
-
-    std::cout << items.dump(4) << std::endl;
 }
 
 /*
@@ -102,9 +101,25 @@ void Response::get_mail_content_handler() {
 
 
 void Response::get_drive_list_handler(std::string &path) {
-//    TableClient tableClient = setup_table_client();
-////    //TODO: fetch drive list from backend
-//    std::vector<FileMetaData> files_data = tableClient.list_all_files(user, path);
+    TableClient tableClient = setup_table_client();
+    std::vector<FileMetaData> files_data = tableClient.list_all_files(user, path);
+
+    std::cout << "size: " << files_data.size() << std::endl;
+
+    //TODO: fetch drive list from backend
+//    json items;
+//    for (int i = 0; i < files_data.size(); i++) {
+//        FileMetaData file = files_data[i];
+//        std::string item_name = file.file_id + file.created_time;
+//        json item = {
+//                {"file_id", file.file_id},
+//                {"file_type", file.file_type},  // "folder" or "email" or "file"
+//                {"name", file.file_name},
+//                {"owner", file.file_from},
+//                {"created_time", file.created_time}
+//        };
+//        items[item_name] = item;
+//    }
 
     int num_of_items = 3;
     json items;
@@ -112,10 +127,10 @@ void Response::get_drive_list_handler(std::string &path) {
         std::string item_name = "item" + std::to_string(i);
         json item = {
                 {"file_id", std::to_string(10)},
-                {"is_folder", false},
+                {"file_type", "file"},
                 {"name", "foo.txt"},
                 {"owner", "Janice"},
-                {"modify_date", "2019 11 21"}
+                {"created_time", "2019 11 21"}
         };
         items[item_name] = item;
     }
@@ -123,7 +138,7 @@ void Response::get_drive_list_handler(std::string &path) {
     std::string item_name = "item" + std::to_string(10);
     json item = {
             {"file_id", std::to_string(10)},
-            {"is_folder", false},
+            {"is_folder", "folder"},
             {"name", "foo.txt"},
             {"owner", "Janice"},
             {"modify_date", "2019 11 21"}
@@ -134,10 +149,11 @@ void Response::get_drive_list_handler(std::string &path) {
     this->headers[CONTENT_TYPE] = TYPE_JSON;
     this->body = items.dump();
     this->headers[CONTENT_LEN] = std::to_string(this->body.length());
-
-    std::cout << items.dump(4) << std::endl;
 }
 
+/*
+ * load html pages initially
+ * */
 void Response::get_html_handler(std::string &url) {
     // add html file into response body
     std::string filename = "html" + url + ".html";
