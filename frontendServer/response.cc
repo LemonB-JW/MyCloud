@@ -33,23 +33,23 @@ Response::Response(const Request& req) {
     if (req.method == "GET") {
         if (url == "/inbox_items") {
             get_inbox_list_handler();
-        } else if (url.find("/drive_items") == 0) {
-            int pos = url.find("/drive_items");
-            pos = url.find("/", pos + 1);
-            std::string path = url.substr(pos + 1, url.length() - pos);  //TODO: sanity check
-//            std::cout << "drive path: " << path << std::endl;
-
-            get_drive_list_handler(path);
         } else if (url == "/mail_item") {
             get_mail_content_handler();
         }
         else {
             get_html_handler(url);
         }
-    } else if (req.method == "POST"){
-
+    } else if (req.method == "POST") {
         std::cout << "method : " << req.method << std::endl;
-        std::cout << "Json: " << req.body.dump() << std::endl << req.body["name"] << std::endl;
+        std::cout << "Json: " << req.body.dump() << std::endl;
+        if (url.find("/drive_items") == 0) {
+            int pos = url.find("/drive_items");
+            pos = url.find("/", pos + 1);
+            std::string path = url.substr(pos + 1, url.length() - pos);  //TODO: sanity check
+            std::cout << "drive path: " << path << std::endl;
+
+            get_drive_list_handler(path);
+        }
 
     }
 

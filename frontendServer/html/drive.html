@@ -95,25 +95,30 @@
         $('table').show();
         $('.content').hide();
         var url = "/drive_items";
-        $.get(url, function(items) {
-          console.log(url);
-          var req = JSON.stringify(items);
-          alert(req);
-          $('tbody').empty();
-          // var id = 0;
-          // for (var key in items) {
-          //   addItem(items[key], id++);
-          // }
-        });
+        // $.get(url, function (items) {
+        //   console.log(url);
+        //   var req = JSON.stringify(items);
+        //   alert(req);
+        //   $('tbody').empty();
+        //   // var id = 0;
+        //   // for (var key in items) {
+        //   //   addItem(items[key], id++);
+        //   // }
+        // });
 
-        var data = JSON.stringify({"name": "xuan", "path": "LILILI"});
+        var data = JSON.stringify({"user": "xuan", "path": "lilili"});
         $.ajax({
           type: "POST",
           url: url,
           data: data,
           dataType: 'json'
+        }).done(function (response) {
+          console.log(url);
+          var req = JSON.stringify(response);
+          alert(req);
+          $('tbody').empty();
         });
-      };
+      }
     </script>
 
   </body>

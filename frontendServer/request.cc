@@ -26,7 +26,6 @@ Request::Request(int fd) {
     std::string request = std::string(buf);
 //    std::cout << request<< std::endl;
     parse_req_string(*this, request);
-    std::cout << this->method << std::endl;
     this->cookie = headers["Cookie"];
 
     if (buf != NULL) {
@@ -44,6 +43,7 @@ void Request::parse_req_string(Request &req, std::string req_str) {
 
     if (data_start >= 0) {
         std::string data = copy.substr(data_start, data_end - data_start + 1);
+        std::cout << "json data: " << data << std::endl;
         auto json_data = json::parse(data);
         req.body = json_data;
 
