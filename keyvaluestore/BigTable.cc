@@ -39,8 +39,14 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 			return res;
 		}
 	}
+	string col = "";
 	cout<<"finish searching the node"<<endl;
-	string col = Utility::generateFileID(path_name);
+	if(file_type != "password" && file_type != "sid"){
+		col = Utility::generateFileID(path_name);
+	}else{
+		col = file_type;
+	}
+	
 	// cout<<"row is "<<row<<" generated file id is "<<col<<endl;
 	string file_name = Utility::parseFileName(path_name);
 	cout<<"in big table put, parsed file name is "<<file_name<<endl;
@@ -58,7 +64,7 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 			// path_name for email as the file_name:
 	 		FileMetaData* file_metadata = new FileMetaData(created_time, size, path_name, file_type, file_from, col);
 			all_user_emails[row]->push_back(file_metadata);
-		}else{
+		}else if (file_type == "file" || file_type == "folder"){
 			if(all_user_files.count(row) == 0){
 				all_user_files[row] = new MetaTree();
 			}
@@ -67,6 +73,8 @@ string BigTable::put(string created_time, int size, string path_name, string fil
 			all_user_files[row]->insertNode(path_name, file_metadata);
 		}
 		
+	}else if(table[row].count(col) != 0){
+		table[row][col]->contents = new string(data);
 	}
 	return col;
 }
@@ -92,7 +100,7 @@ string BigTable::put_with_fileid(string created_time, int size, string path_name
 			// path_name for email as the file_name:
 	 		FileMetaData* file_metadata = new FileMetaData(created_time, size, path_name, file_type, file_from, col);
 			all_user_emails[row]->push_back(file_metadata);
-		}else{
+		}else if (file_type == "file" || file_type == "folder"){
 			if(all_user_files.count(row) == 0){
 				all_user_files[row] = new MetaTree();
 			}
@@ -166,7 +174,7 @@ bool BigTable::table_delete(string row, string col, string file_type, string pat
 					all_user_emails[row]->erase(all_user_emails[row]->begin() + i - 1);
 				}
 			}
-		}else{
+		}else if (file_type == "file" || file_type == "folder"){
 			//it's a file or folder:
 			all_user_files[row]->deleteNode(path_name, true);
 		}
