@@ -88,5 +88,33 @@
       </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+      window.onload = (event) => {
+        $('table').show();
+        $('.content').hide();
+        var url = "/drive_items";
+        $.get(url, function(items) {
+          console.log(url);
+          var req = JSON.stringify(items);
+          alert(req);
+          $('tbody').empty();
+          // var id = 0;
+          // for (var key in items) {
+          //   addItem(items[key], id++);
+          // }
+        });
+
+        var data = JSON.stringify({"name": "xuan", "path": "LILILI"});
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          dataType: 'json'
+        });
+      };
+    </script>
+
   </body>
 </html>

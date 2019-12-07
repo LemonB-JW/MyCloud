@@ -119,7 +119,6 @@
         $('table').show();
         $('.content').hide();
         var url = "/inbox_items";
-        var req = JSON.stringify({});
         $.get(url, function(items) {
             $('tbody').empty();
             var id = 0;
