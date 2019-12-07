@@ -55,8 +55,7 @@ Response::Response(const Request& req) {
             std::string type = req.body["type"];
             drive_rename_handler(fullpath, new_name, type);
         } else if (url.find("/drive/upload") == 0) {
-            upload_drive_file_handler();
-
+//            upload_drive_file_handler();
         }
 
     }

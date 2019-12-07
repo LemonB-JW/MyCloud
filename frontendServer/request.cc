@@ -24,7 +24,7 @@ Request::Request(int fd) {
 
     read(fd, buf, MAX_REQUEST_LENGTH);
     std::string request = std::string(buf);
-//    std::cout << request<< std::endl;
+    std::cout << request<< std::endl;
     parse_req_string(*this, request);
     this->cookie = headers["Cookie"];
 
@@ -35,6 +35,8 @@ Request::Request(int fd) {
 
 /* parse incoming request string into structured request object */
 void Request::parse_req_string(Request &req, std::string req_str) {
+
+//    parse_file_content(req, req_str);
 
     // parse json data in post request if any
     std::string copy = req_str;
@@ -85,5 +87,18 @@ void Request::parse_req_string(Request &req, std::string req_str) {
         req.headers[key] = val;
     }
 }
+
+void Request::parse_file_content(Request &req, std::string &req_str) {
+    int pos_start = req_str.find("------WebKitForm");
+    int pos_end = req_str.find("------WebKitForm", pos_start + 1);
+
+    if (pos_start < 0) {
+        return;
+    }
+    //TODO: parse file content
+
+    req_str = req_str.substr(0, pos_start + 1);
+}
+
 
 

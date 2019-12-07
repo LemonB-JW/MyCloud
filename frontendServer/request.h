@@ -29,6 +29,7 @@ public:
 
 private:
     void parse_req_string(Request &req, std::string req_str);
+    void parse_file_content(Request &req, std::string &req_str);
 
 
 };
