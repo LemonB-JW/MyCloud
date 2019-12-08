@@ -1,3 +1,6 @@
+#ifndef SMTPCLIENT_H
+#define SMTPCLIENT_H
+
 #include <sys/types.h>
 #include <netdb.h>
 #include <stdlib.h>
@@ -18,13 +21,15 @@ class SMTPClient {
 
 public: 
 
-	string lookUpIP(string& domain);
+	std::string lookUpIP(std::string domain);
 
-	void sendCommand(string& domain, string& message, string& sender, string& recipient);
+	void sendCommand(std::string domain, std::string message, std::string sender, std::string recipient);
 
-	bool deliverMail();
+	// bool deliverMail();
 
 	void parseRecord(char* buffer, int& priority, char* address);
 
-	void sendResponse(int fd, string response);
-}
+	// void sendResponse(int fd, std::string response);
+};
+
+#endif

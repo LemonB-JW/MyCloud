@@ -57,14 +57,29 @@
 
     std::string serverAddress = "127.0.0.1:5002";
 
-    TableClient tableClient(grpc::CreateChannel(
-      serverAddress, grpc::InsecureChannelCredentials()));
+    std::string receiver_addr = request->receiver();
+    size_t pos = receiver_addr.find("@");
+    std::string username = receiver_addr.substr(0, pos);
+    std::string domain = receiver_addr.substr(pos + 1);
 
-    std::string id = tableClient.put(request->created_time(), request->size(), request->subject(), 
-      "email", request->sender(), request->receiver(), request->content());
+    std::cout << "Domain is " << domain << std::endl;
 
-    reply->set_email_id(id);
+    if (domain.compare("localhost") != 0) {
+      SMTPClient smtpClient; 
+      std::string ip = smtpClient.lookUpIP(domain);
+      smtpClient.sendCommand(ip, "Hello", "Jill", "Janice");
+      reply->set_email_id("remote");
+    }
+    else {
+      TableClient tableClient(grpc::CreateChannel(
+        serverAddress, grpc::InsecureChannelCredentials()));
 
+      std::string id = tableClient.put(request->created_time(), request->size(), request->subject(), 
+        "email", request->sender(), request->receiver(), request->content());
+
+      reply->set_email_id(id);
+    }
+    
     return Status::OK;
   }
 

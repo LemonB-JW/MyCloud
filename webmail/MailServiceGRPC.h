@@ -7,6 +7,7 @@
 #include "TableClient.h"
 #include "MasterClient.h"
 #include "../lib/FileMetaData.h"
+#include "SMTPClient.h"
 
 
 #include <grpcpp/grpcpp.h>
@@ -45,7 +46,6 @@ class MailServiceGRPC final : public Mail::Service {
 
     Status DeleteMail(ServerContext* context, const DeleteMailRequest* request,
     DeleteMailReply* reply) override;
-
 
     void constructMailReply(mail::Email* emailReply, std::string from, std::string subject, std::string date, std::string id);
 

@@ -44,8 +44,8 @@ mail_client: mail.pb.o mail.grpc.pb.o MailClient.o
 client_test: mail.pb.o mail.grpc.pb.o MailClient.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc MailClientTest.cc
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-mail_server: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc SMTPServer.cc
-	$(CXX) $^ $(LDFLAGS) -lpthread -g -o $@
+mail_server: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc SMTPClient.cc SMTPServer.cc
+	$(CXX) $^ $(LDFLAGS) -lresolv -lpthread -g -o $@
 
 grpc_test: mail.pb.o mail.grpc.pb.o MailServiceGRPC.cc MailServiceGRPCTest.cc bigtable.pb.o bigtable.grpc.pb.o TableClient.cc masterFrontend.pb.o masterFrontend.grpc.pb.o MasterClient.cc
 	$(CXX) $^ $(LDFLAGS) -o $@

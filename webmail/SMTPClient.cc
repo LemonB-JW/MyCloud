@@ -1,4 +1,7 @@
-string SMTPClient::lookUpIP(string domain) {
+#include "SMTPClient.h"
+
+
+std::string SMTPClient::lookUpIP(std::string domain) {
 	unsigned char nsbuf[N];
 	char dispbuf[N];
 	char address[N];
@@ -28,7 +31,7 @@ string SMTPClient::lookUpIP(string domain) {
 			ns_parserr(&msg, ns_s_an, i, &rr);
 			ns_sprintrr(&msg, &rr, NULL, NULL, dispbuf, sizeof(dispbuf));
 			printf ("\t%s\n", dispbuf);
-			parse_record(dispbuf, priority, address);
+			parseRecord(dispbuf, priority, address);
 		}
 		std::cout << priority << "\t" << address << std::endl;
 
@@ -48,8 +51,8 @@ string SMTPClient::lookUpIP(string domain) {
 	ip_addr = *(struct in_addr *)(hp->h_addr);
 	printf("%s: %s\n",address ,inet_ntoa(ip_addr));
 
-	string IP_address = inet_ntoa(ip_addr);
-	string host_ip = IP_address + ":25";
+	std::string IP_address = inet_ntoa(ip_addr);
+	std::string host_ip = IP_address + ":25";
 
 	return host_ip;
 }
@@ -67,27 +70,25 @@ void SMTPClient::parseRecord(char* buffer, int& priority, char* address) {
 	}
 }
 
-void SMTPClient::sendResponse(int fd, string response) {
-	if (vflag == 1) {
-		fprintf(stderr, "[%d] S: %s", fd, response.c_str());
-	}
+// void SMTPClient::sendResponse(int fd, std::string response) {
+// 	if (vflag == 1) {
+// 		fprintf(stderr, "[%d] S: %s", fd, response.c_str());
+// 	}
 
-	write(fd, response.c_str(), strlen(response.c_str()));
-}
+// 	write(fd, response.c_str(), strlen(response.c_str()));
+// }
 
 
-void SMTPClient::sendCommand(string& domain, string& message, string& sender, string& recipient) {
+void SMTPClient::sendCommand(std::string domain, std::string message, std::string sender, std::string recipient) {
+
+	std::cout << "IP address is " << domain << std::endl;
 
 	// create a new socket
-	int sockfd = socket(PF_INET, SOCK_STREAM, 0);
+	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0) {
 		fprintf(stderr, "Cannot open socket (%s)\n", strerror(errno));
 		exit(1);
 	}
-
-    // set port for reuse
-	const int REUSE = 1;
-	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &REUSE, sizeof(REUSE));
 
 
 	// parse address and connect to server
@@ -95,16 +96,25 @@ void SMTPClient::sendCommand(string& domain, string& message, string& sender, st
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 
+	char ip_addr[100] = "";
+	strcpy(ip_addr, domain.c_str());
 
 	// parse smtp server address
-	char* ip = strtok(domain.c_str(),":");
-	inet_pton(AF_INET, ip , &servaddr.sin_addr);
-	char* port = strtok(NULL,":");
-	servaddr.sin_port = htons(atoi(port));
+	char* ip = strtok(ip_addr,":");
+	servaddr.sin_addr.s_addr = inet_addr(ip); 
 
-	// source address
-	struct sockaddr_in src;
-	socklen_t src_size = sizeof(src);
+	char* port = strtok(NULL,":");
+	servaddr.sin_port = htons(25);
+
+	std::cout << "ip address is " << std::string(ip) << "port is " << std::string(port) << std::endl;
+
+	if (connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr))<0) {
+		std::cout << "inside" << std::endl;
+    	fprintf(stderr, "Cannot connect (%s)", strerror(errno));
+	}
+	else {
+        printf("connected to the server..\n"); 
+	}
 
 
 	
